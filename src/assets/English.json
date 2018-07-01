@@ -1,0 +1,13 @@
+{
+  "eng": "English",
+  "chn": "中文",
+  "werewolf": "Werewolf",
+  "welcomeToGame": "Welecome to Werewolf",
+  "gameSetup": "Game setup",
+  "addToHomeScreen": "Feel free to add this site to your home screen so you can play offline",
+  "startGame": "Start Game",
+  "help": "Help",
+  "setupSubtitle": "Configure the roles in this game",
+  "numOfWerewolf": "Enter the number of werewolves",
+  "numOfVillager": "Enter the number of villagers"
+}

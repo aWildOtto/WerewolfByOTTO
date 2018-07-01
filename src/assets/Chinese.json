@@ -1,0 +1,13 @@
+{
+  "eng": "English",
+  "chn": "中文",
+  "werewolf": "狼人杀",
+  "welcomeToGame": "欢迎使用狼人杀法官助手",
+  "gameSetup": "游戏设置",
+  "addToHomeScreen": "把本站加到桌面即可离线杀",
+  "startGame": "开一局",
+  "help": "帮助",
+  "setupSubtitle": "设置本局可玩角色",
+  "numOfWerewolf": "狼人数量",
+  "numOfVillager": "普通村民数量"
+}

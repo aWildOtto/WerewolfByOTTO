@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output} from '@angular/core';
+import { LanguageService } from '../../services/language.service';
 
 @Component({
   selector: 'app-welcome-page',
@@ -6,14 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./welcome-page.component.scss']
 })
 export class WelcomePageComponent implements OnInit {
-
-  startGame(){
-
+  @Output() 
+  startGame = new EventEmitter<string>();
+  start(){
+    this.startGame.emit('started');
   }
   showHelp(){
-    
+
   }
-  constructor() { }
+  constructor(private languageService: LanguageService) { }
 
   ngOnInit() {
   }

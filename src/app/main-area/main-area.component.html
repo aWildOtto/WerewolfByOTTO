@@ -1,6 +1,6 @@
 <div [ngSwitch]="showPage">
   <ng-template ngSwitchDefault="welcome">
-    <app-welcome-page></app-welcome-page>
+    <app-welcome-page (startGame)="startGame($event)"></app-welcome-page>
   </ng-template>
 
   <ng-template ngSwitchCase="gameSetup">
@@ -10,4 +10,10 @@
   <ng-template ngSwitchCase="playerList">
     <app-game-setup></app-game-setup>
   </ng-template>
+</div>
+<div>
+  <mat-button-toggle-group name="language" value="{{ls.language}}" (change)="changeLanguage($event)">
+    <mat-button-toggle value="English">{{ls.s["eng"]}}</mat-button-toggle>
+    <mat-button-toggle value="Chinese">{{ls.s["chn"]}}</mat-button-toggle>
+  </mat-button-toggle-group>
 </div>

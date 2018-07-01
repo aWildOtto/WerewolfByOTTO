@@ -1,12 +1,12 @@
 <mat-card>
   <mat-card-title>
-    Welecome to Werewolf
+    {{languageService.s["welcomeToGame"]}}
   </mat-card-title>
   <mat-card-subtitle>
-    Feel free to add this site to your home screen so you can play offline
+    {{languageService.s["addToHomeScreen"]}}
   </mat-card-subtitle>
   <mat-card-actions>
-    <button mat-button (click)="startGame()">Start Game</button>
-    <button mat-button (click)="showHelp()">Help</button>
+    <button mat-button (click)="start()">{{languageService.s["startGame"]}}</button>
+    <button mat-button (click)="showHelp()">{{languageService.s["help"]}}</button>
   </mat-card-actions>
 </mat-card>
