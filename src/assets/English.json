@@ -9,5 +9,9 @@
   "help": "Help",
   "setupSubtitle": "Configure the roles in this game",
   "numOfWerewolf": "Enter the number of werewolves",
-  "numOfVillager": "Enter the number of villagers"
+  "numOfVillager": "Enter the number of villagers",
+  "seer": "Seer",
+  "witch": "Witch",
+  "advancedRoles" :"Advanced Roles",
+  "basicRoles": "Basic Roles"
 }

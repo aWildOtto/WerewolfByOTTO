@@ -9,3 +9,7 @@ body{
     -moz-osx-font-smoothing: grayscale;
     background-color: #fafafa;
 }
+
+.std-margin {
+  margin-right: 15px;
+}

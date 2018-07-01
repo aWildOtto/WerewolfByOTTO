@@ -9,5 +9,9 @@
   "help": "帮助",
   "setupSubtitle": "设置本局可玩角色",
   "numOfWerewolf": "狼人数量",
-  "numOfVillager": "普通村民数量"
+  "numOfVillager": "普通村民数量",
+  "seer": "预言家",
+  "witch": "女巫",
+  "advancedRoles": "高级角色",
+  "basicRoles": "基础角色"
 }

@@ -5,6 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start:prod": "ng build --prod && lite-server --baseDir dist",
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
@@ -22,10 +23,12 @@
     "@angular/material": "^6.3.1",
     "@angular/platform-browser": "6.0.7",
     "@angular/platform-browser-dynamic": "6.0.7",
+    "@angular/pwa": "^0.6.8",
     "@angular/router": "6.0.7",
     "core-js": "^2.4.1",
     "rxjs": "^6.2.1",
-    "zone.js": "^0.8.26"
+    "zone.js": "^0.8.26",
+    "@angular/service-worker": "6.0.7"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.6.8",
@@ -43,6 +46,7 @@
     "karma-coverage-istanbul-reporter": "^1.2.1",
     "karma-jasmine": "~1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
+    "lite-server": "^2.4.0",
     "protractor": "~5.1.2",
     "ts-node": "~4.1.0",
     "tslint": "~5.9.1",

@@ -15,7 +15,7 @@ export class WelcomePageComponent implements OnInit {
   showHelp(){
 
   }
-  constructor(private languageService: LanguageService) { }
+  constructor(public languageService: LanguageService) { }
 
   ngOnInit() {
   }

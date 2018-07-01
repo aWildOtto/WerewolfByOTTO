@@ -8,7 +8,7 @@ import { LanguageService } from '../../services/language.service';
 })
 export class NavBarComponent implements OnInit {
 
-  constructor(private ls: LanguageService) { }
+  constructor(public ls: LanguageService) { }
 
   ngOnInit() {
   }

@@ -9,6 +9,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatInputModule } from '@angular/material/input';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 //Our own stuff
 import { AppComponent } from './app.component';
@@ -18,6 +19,8 @@ import { GameSetupComponent } from './game-setup/game-setup.component';
 import { WelcomePageComponent } from './welcome-page/welcome-page.component';
 import { PlayerListComponent } from './player-list/player-list.component';
 import { LanguageService } from '../services/language.service';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -38,7 +41,9 @@ import { LanguageService } from '../services/language.service';
     MatDividerModule,
     MatListModule,
     MatButtonToggleModule,
-    MatInputModule
+    MatInputModule,
+    MatExpansionModule,
+    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
   ],
   exports: [
     MatButtonModule, 

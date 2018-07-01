@@ -14,14 +14,13 @@ export class MainAreaComponent implements OnInit {
   // Possible values:
   // gameSetup
   startGame(event){
-    console.log(event);
     this.showPage = "gameSetup";
   }
   changeLanguage(event){
     this.ls.language = event.value;
     this.ls.loadLanguage();
   }
-  constructor(private ls: LanguageService) { }
+  constructor(public ls: LanguageService) { }
 
   ngOnInit() {
   }
