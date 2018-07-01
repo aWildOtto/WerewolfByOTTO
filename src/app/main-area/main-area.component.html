@@ -1,0 +1,13 @@
+<div [ngSwitch]="showPage">
+  <ng-template ngSwitchDefault="welcome">
+    <app-welcome-page></app-welcome-page>
+  </ng-template>
+
+  <ng-template ngSwitchCase="gameSetup">
+    <app-game-setup></app-game-setup>
+  </ng-template>
+
+  <ng-template ngSwitchCase="playerList">
+    <app-game-setup></app-game-setup>
+  </ng-template>
+</div>
