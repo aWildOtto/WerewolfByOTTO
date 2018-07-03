@@ -7,10 +7,9 @@ import { LanguageService } from '../../services/language.service';
   styleUrls: ['./welcome-page.component.scss']
 })
 export class WelcomePageComponent implements OnInit {
-  @Output() 
-  startGame = new EventEmitter<string>();
+  @Output() startGame = new EventEmitter<string>();
   start(){
-    this.startGame.emit('started');
+    this.startGame.emit('gameSetup');
   }
   showHelp(){
 

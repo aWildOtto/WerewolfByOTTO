@@ -1,14 +1,18 @@
 <div [ngSwitch]="showPage">
   <ng-template ngSwitchDefault="welcome">
-    <app-welcome-page (startGame)="startGame($event)"></app-welcome-page>
+    <app-welcome-page (startGame)="switchPage($event)"></app-welcome-page>
   </ng-template>
 
   <ng-template ngSwitchCase="gameSetup">
-    <app-game-setup></app-game-setup>
+    <app-game-setup (roleReveal)="switchPage($event)"></app-game-setup>
   </ng-template>
 
   <ng-template ngSwitchCase="playerList">
     <app-game-setup></app-game-setup>
+  </ng-template>
+
+  <ng-template ngSwitchCase="roleReveal">
+    <app-role-reveal (startGame)="switchPage($event)"></app-role-reveal>
   </ng-template>
 </div>
 <div>

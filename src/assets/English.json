@@ -13,5 +13,10 @@
   "seer": "Seer",
   "witch": "Witch",
   "advancedRoles" :"Advanced Roles",
-  "basicRoles": "Basic Roles"
+  "basicRoles": "Basic Roles",
+  "hunter": "Hunter",
+  "guardian": "Guardian",
+  "littleGirl": "Little girl",
+  "totalPlayer": "Total Number of players:"
+  
 }

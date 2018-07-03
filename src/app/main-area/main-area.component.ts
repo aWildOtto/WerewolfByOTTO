@@ -9,14 +9,22 @@ import { LanguageService } from '../../services/language.service';
 })
 export class MainAreaComponent implements OnInit {
   // language: string;
-  
+
   showPage: string;
   // Possible values:
-  // gameSetup
-  startGame(event){
-    this.showPage = "gameSetup";
+  // - gameSetup
+  // - welcome
+  // - roleReveal
+  switchPage(event) {
+    console.log(event);
+    this.showPage = event;
   }
-  changeLanguage(event){
+  roleReveal(event) {
+    console.log(event);
+    this.showPage = "gameSetup";
+
+  }
+  changeLanguage(event) {
     this.ls.language = event.value;
     this.ls.loadLanguage();
   }

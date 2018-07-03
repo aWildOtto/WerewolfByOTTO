@@ -5,6 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule, MatCheckboxModule } from '@angular/material';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
+import { FormsModule } from "@angular/forms";
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -21,6 +22,7 @@ import { PlayerListComponent } from './player-list/player-list.component';
 import { LanguageService } from '../services/language.service';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { RoleRevealComponent } from './role-reveal/role-reveal.component';
 
 @NgModule({
   declarations: [
@@ -30,8 +32,10 @@ import { environment } from '../environments/environment';
     GameSetupComponent,
     WelcomePageComponent,
     PlayerListComponent,
+    RoleRevealComponent,
   ],
   imports: [
+    FormsModule,
     BrowserModule,
     BrowserAnimationsModule,
     MatButtonModule, 
