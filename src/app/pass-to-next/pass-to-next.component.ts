@@ -11,7 +11,6 @@ export class PassToNextComponent implements OnInit {
 
   passTo: string; 
   toRoleReveal(event){
-    console.log(event);
     this.roleReveal.emit("roleReveal");
   }
   constructor(private gs: GameService) {
