@@ -3,12 +3,15 @@
     Role
   </mat-card-title>
   <div *ngIf="displayRole; else nameInput">
-    <mat-card-subtitle>
-      Please tap to confirm
-    </mat-card-subtitle>
-    <mat-card-content>
-      {{name}}. Your role is {{roleToDisplay}}. GLHF
-    </mat-card-content>
+    <div (click)="next()">
+
+      <mat-card-subtitle>
+        Please tap to confirm
+      </mat-card-subtitle>
+      <mat-card-content>
+        {{name}}. Your role is {{roleToDisplay}}. GLHF
+      </mat-card-content>
+    </div>
 
   </div>
 

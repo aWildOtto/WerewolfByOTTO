@@ -8,11 +8,11 @@
   </ng-template>
 
   <ng-template ngSwitchCase="playerList">
-    <app-game-setup></app-game-setup>
+    <app-player-list></app-player-list>
   </ng-template>
 
   <ng-template ngSwitchCase="roleReveal">
-    <app-role-reveal></app-role-reveal>
+    <app-role-reveal (toNext)="switchPage($event)"></app-role-reveal>
   </ng-template>
 
   <ng-template ngSwitchCase="passToNext">
