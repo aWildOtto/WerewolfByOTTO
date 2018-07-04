@@ -4,7 +4,7 @@
   </ng-template>
 
   <ng-template ngSwitchCase="gameSetup">
-    <app-game-setup (roleReveal)="switchPage($event)"></app-game-setup>
+    <app-game-setup (passToNext)="switchPage($event)"></app-game-setup>
   </ng-template>
 
   <ng-template ngSwitchCase="playerList">
@@ -12,7 +12,11 @@
   </ng-template>
 
   <ng-template ngSwitchCase="roleReveal">
-    <app-role-reveal (startGame)="switchPage($event)"></app-role-reveal>
+    <app-role-reveal></app-role-reveal>
+  </ng-template>
+
+  <ng-template ngSwitchCase="passToNext">
+    <app-pass-to-next (roleReveal)="switchPage($event)"></app-pass-to-next>
   </ng-template>
 </div>
 <div>

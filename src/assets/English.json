@@ -17,6 +17,7 @@
   "hunter": "Hunter",
   "guardian": "Guardian",
   "littleGirl": "Little girl",
-  "totalPlayer": "Total Number of players:"
-  
+  "totalPlayer": "Total Number of players:",
+  "InputYourName": "Please enter your name",
+  "showRole": "Show me my role"
 }

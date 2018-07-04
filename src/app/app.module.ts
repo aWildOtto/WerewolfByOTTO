@@ -23,6 +23,7 @@ import { LanguageService } from '../services/language.service';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { RoleRevealComponent } from './role-reveal/role-reveal.component';
+import { PassToNextComponent } from './pass-to-next/pass-to-next.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { RoleRevealComponent } from './role-reveal/role-reveal.component';
     WelcomePageComponent,
     PlayerListComponent,
     RoleRevealComponent,
+    PassToNextComponent,
   ],
   imports: [
     FormsModule,

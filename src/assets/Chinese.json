@@ -16,5 +16,8 @@
   "basicRoles": "基础角色",
   "hunter": "猎人",
   "guardian": "守卫",
-  "littleGirl": "小女孩"
+  "littleGirl": "小女孩",
+  "totalPlayer": "玩家总数:",
+  "InputYourName": "请输入您的名字",
+  "showRole": "显示角色"
 }

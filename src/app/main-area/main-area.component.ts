@@ -14,15 +14,11 @@ export class MainAreaComponent implements OnInit {
   // Possible values:
   // - gameSetup
   // - welcome
+  // - passToNext
   // - roleReveal
   switchPage(event) {
     console.log(event);
     this.showPage = event;
-  }
-  roleReveal(event) {
-    console.log(event);
-    this.showPage = "gameSetup";
-
   }
   changeLanguage(event) {
     this.ls.language = event.value;

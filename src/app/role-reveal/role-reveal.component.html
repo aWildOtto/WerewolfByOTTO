@@ -1,5 +1,23 @@
 <mat-card>
   <mat-card-title>
-    Your role is
+    Role
   </mat-card-title>
+  <div *ngIf="displayRole; else nameInput">
+    <mat-card-subtitle>
+      Please tap to confirm
+    </mat-card-subtitle>
+    <mat-card-content>
+      {{name}}. Your role is {{roleToDisplay}}. GLHF
+    </mat-card-content>
+
+  </div>
+
+  <ng-template #nameInput>
+    <mat-form-field>
+      <input matInput [(ngModel)]="name" type="text" placeholder="{{ls.s['InputYourName']}}">
+    </mat-form-field>
+    <div>
+      <button mat-raised-button (click)="showRole()">{{ls.s['showRole']}}</button>
+    </div>
+  </ng-template>
 </mat-card>
