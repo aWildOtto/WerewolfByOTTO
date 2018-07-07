@@ -1,5 +1,11 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
     <span>{{ls.s["werewolf"]}}</span>
+    <span class="fill-space"></span>
+    <button mat-button matTooltip="refresh" (click)="refresh()">{{ls.s["refresh"]}}</button>
+    <button mat-button>{{ls.s["reset"]}}</button>
+    <button mat-icon-button matTooltip="fresh" (click)="refresh()">
+      <mat-icon>autorenew</mat-icon>
+    </button>
   </mat-toolbar-row>
 </mat-toolbar>

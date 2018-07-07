@@ -8,6 +8,9 @@ import { LanguageService } from '../../services/language.service';
 })
 export class NavBarComponent implements OnInit {
 
+  refresh() {
+    window.location.reload();
+  }
   constructor(public ls: LanguageService) { }
 
   ngOnInit() {

@@ -2,7 +2,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule, MatCheckboxModule } from '@angular/material';
+import { MatButtonModule, MatCheckboxModule, MatIconModule } from '@angular/material';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
 import { FormsModule } from "@angular/forms";
@@ -11,6 +11,8 @@ import { MatListModule } from '@angular/material/list';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatInputModule } from '@angular/material/input';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatTooltipModule } from '@angular/material/tooltip';
+
 
 //Our own stuff
 import { AppComponent } from './app.component';
@@ -40,7 +42,8 @@ import { PassToNextComponent } from './pass-to-next/pass-to-next.component';
     FormsModule,
     BrowserModule,
     BrowserAnimationsModule,
-    MatButtonModule, 
+    MatButtonModule,
+    MatIconModule,
     MatCheckboxModule,
     MatToolbarModule,
     MatCardModule,
@@ -49,10 +52,11 @@ import { PassToNextComponent } from './pass-to-next/pass-to-next.component';
     MatButtonToggleModule,
     MatInputModule,
     MatExpansionModule,
+    MatTooltipModule,
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
   ],
   exports: [
-    MatButtonModule, 
+    MatButtonModule,
     MatCheckboxModule
   ],
   providers: [

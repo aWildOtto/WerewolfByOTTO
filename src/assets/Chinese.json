@@ -19,5 +19,7 @@
   "littleGirl": "小女孩",
   "totalPlayer": "玩家总数:",
   "InputYourName": "请输入您的名字",
-  "showRole": "显示角色"
+  "showRole": "显示角色",
+  "refresh": "网页刷新",
+  "reset": "重置"
 }
