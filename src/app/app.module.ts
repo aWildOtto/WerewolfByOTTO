@@ -24,6 +24,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { RoleRevealComponent } from './role-reveal/role-reveal.component';
 import { PassToNextComponent } from './pass-to-next/pass-to-next.component';
+import { GameService } from '../services/game.service';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { PassToNextComponent } from './pass-to-next/pass-to-next.component';
     MatCheckboxModule
   ],
   providers: [
-    LanguageService
+    LanguageService,
+    GameService
   ],
   bootstrap: [AppComponent]
 })
