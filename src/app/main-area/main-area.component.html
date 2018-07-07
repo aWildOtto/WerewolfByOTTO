@@ -1,4 +1,4 @@
-<div [ngSwitch]="showPage">
+<div class="content-area" [ngSwitch]="showPage">
   <ng-template ngSwitchDefault="welcome">
     <app-welcome-page (startGame)="switchPage($event)"></app-welcome-page>
   </ng-template>
