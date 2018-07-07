@@ -12,12 +12,14 @@
   "numOfVillager": "Enter the number of villagers",
   "seer": "Seer",
   "witch": "Witch",
-  "advancedRoles" :"Advanced Roles",
+  "advancedRoles": "Advanced Roles",
   "basicRoles": "Basic Roles",
   "hunter": "Hunter",
   "guardian": "Guardian",
   "littleGirl": "Little girl",
   "totalPlayer": "Total Number of players:",
   "InputYourName": "Please enter your name",
-  "showRole": "Show me my role"
+  "showRole": "Show me my role",
+  "refresh": "Refresh",
+  "reset": "Reset"
 }
