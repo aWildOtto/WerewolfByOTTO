@@ -13,7 +13,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
-
 //Our own stuff
 import { AppComponent } from './app.component';
 import { MainAreaComponent } from './main-area/main-area.component';

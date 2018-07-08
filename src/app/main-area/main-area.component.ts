@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { LanguageService } from '../../services/language.service';
+import { GameService } from '../../services/game.service';
 
 
 @Component({
@@ -16,15 +17,29 @@ export class MainAreaComponent implements OnInit {
   // - welcome
   // - passToNext
   // - roleReveal
+  // - playerList
   switchPage(event) {
     console.log(event);
     this.showPage = event;
+    this.gs.updatePage(event);
   }
   changeLanguage(event) {
     this.ls.language = event.value;
     this.ls.loadLanguage();
   }
-  constructor(public ls: LanguageService) { }
+  constructor(
+    public ls: LanguageService,
+    public gs: GameService
+  ) {
+    this.showPage = this.gs.getGameData().currentPage;
+  }
+
+  resetGameData(event){
+    this.gs.reset();
+    this.ls.reset();
+    this.showPage = this.gs.getGameData().currentPage;
+    console.log(this.gs.getGameData());
+  }
 
   ngOnInit() {
   }

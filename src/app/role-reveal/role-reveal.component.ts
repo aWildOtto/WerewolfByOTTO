@@ -16,23 +16,24 @@ export class RoleRevealComponent implements OnInit {
     public ls: LanguageService, 
     private gs: GameService
   ) {
-    if (this.gs.gameData.players[this.gs.gameData.currentIndex]) {
+    if (this.gs.getGameData().players[this.gs.getGameData().currentIndex]) {
       this.displayRole = true;
     } 
-    this.roleToDisplay = this.gs.gameData.roles[this.gs.gameData.currentIndex]; 
+    this.name = this.gs.getGameData().players[this.gs.getGameData().currentIndex]; 
+    this.roleToDisplay = this.gs.getGameData().roles[this.gs.getGameData().currentIndex]; 
   }
 
   showRole(){
     this.displayRole = true;
-    this.gs.gameData.players.push(name);
+    this.gs.addPlayer(this.name);
   }
 
   ngOnInit() {
   }
 
   next() {
-    this.gs.gameData.currentIndex += 1;
-    if (this.gs.gameData.currentIndex >= this.gs.gameData.roles.length) {
+    this.gs.getGameData().currentIndex += 1;
+    if (this.gs.getGameData().currentIndex >= this.gs.getGameData().roles.length) {
       this.toNext.emit("playerList");
     } else {
       this.toNext.emit("passToNext");

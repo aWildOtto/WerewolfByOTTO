@@ -8,11 +8,18 @@ export class LanguageService {
   public language:string = "English";
   public s;//string object
   constructor() {
-    
+    if(localStorage.getItem('lang')){
+      this.language = localStorage.getItem('lang');
+    }
     this.loadLanguage();
     
   }
   loadLanguage(){
     this.s = require('../assets/' + this.language + '.json');
+    localStorage.setItem('lang', this.language);
+  }
+  reset(){
+    this.language = 'English';
+    this.loadLanguage();
   }
 }

@@ -11,10 +11,10 @@ export class GameSetupComponent implements OnInit {
   @Output() passToNext = new EventEmitter<string>();
 
   public numPlayer: number = 0;
-  private numWerewolf: number = 0;
-  private numVillager: number = 0;
-  private seer: boolean = true;
-  private guardian: boolean = true;
+  public numWerewolf: number = 0;
+  public numVillager: number = 0;
+  public seer: boolean = true;
+  public guardian: boolean = true;
   
   sumPlayer(){
     this.numPlayer = this.numWerewolf + this.numVillager;

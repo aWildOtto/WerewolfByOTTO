@@ -14,8 +14,8 @@ export class PassToNextComponent implements OnInit {
     this.roleReveal.emit("roleReveal");
   }
   constructor(private gs: GameService) {
-    if(this.gs.gameData.players[this.gs.gameData.currentIndex]){
-      this.passTo = this.gs.gameData.players[this.gs.gameData.currentIndex]; 
+    if(this.gs.getGameData().players[this.gs.getGameData().currentIndex]){
+      this.passTo = this.gs.getGameData().players[this.gs.getGameData().currentIndex]; 
     } else {
       this.passTo = "the next player";
     }
