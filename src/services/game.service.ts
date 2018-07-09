@@ -11,6 +11,7 @@ export class GameService {
 
   constructor(
   ) { 
+    this.initGameData();
     if(localStorage.getItem('gameData')){
       this.gameData = JSON.parse(localStorage.getItem('gameData'));
     }
@@ -19,6 +20,21 @@ export class GameService {
 
   getGameData(){
     return this.gameData;
+  }
+
+  private initGameData(){
+    this.gameData = {
+      players:[],
+      roles:[],
+      currentIndex:0,
+      currentPage:"welcome",
+      currentNight: 0
+    }
+    this.updateGameData();
+  }
+
+  private updateGameData(){
+    localStorage.setItem('gameData', JSON.stringify(this.gameData));
   }
 
   createGameData(players: string[], roles: string[], currentIndex, currentPage: string){
@@ -30,10 +46,6 @@ export class GameService {
       currentNight: 0
     }
     this.updateGameData();
-  }
-
-  private updateGameData(){
-    localStorage.setItem('gameData', JSON.stringify(this.gameData));
   }
 
   reset(){
