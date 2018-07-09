@@ -8,12 +8,19 @@ import { Observable } from 'rxjs';
 
 export class GameService {
   private gameData: GameData;
+  private defaultGameData: GameData = {
+    players: [],
+    roles: [],
+    currentIndex: 0,
+    currentPage: "welcome",
+    currentNight: 0
+  };
 
-  constructor(
-  ) { 
-    this.initGameData();
+  constructor() {
     if(localStorage.getItem('gameData')){
       this.gameData = JSON.parse(localStorage.getItem('gameData'));
+    } else{
+      this.initGameData();
     }
     console.log(this.gameData);
   }
@@ -23,13 +30,7 @@ export class GameService {
   }
 
   private initGameData(){
-    this.gameData = {
-      players:[],
-      roles:[],
-      currentIndex:0,
-      currentPage:"welcome",
-      currentNight: 0
-    }
+    this.gameData = this.defaultGameData;
     this.updateGameData();
   }
 
@@ -49,15 +50,10 @@ export class GameService {
   }
 
   reset(){
-    this.gameData = {
-      players:[],
-      roles:[],
-      currentIndex: 0,
-      currentPage: "welcome",
-      currentNight:0
-    }
+    this.gameData = this.defaultGameData;
     this.updateGameData();
   }
+
   addPlayer(name: string){
     this.gameData.players.push(name);
     this.updateGameData();
