@@ -10,10 +10,7 @@ import { Villager } from '../model/villager';
 })
 export class GameService {
   private gameData: GameData;
-  private roleData: RoleData = {
-    werewolves: [],
-    villagers: []
-  };
+  private roleData: RoleData;
 
   getGameData(){
     return this.gameData;
@@ -87,6 +84,9 @@ export class GameService {
 
   addRoleData(name: string, role: string){
     if(role === "werewolf"){
+      if(!this.roleData.werewolves){
+        this.roleData.werewolves = []; 
+      }
       let werewolfData: Werewolf = {
         name,
         Killed: []
@@ -94,6 +94,9 @@ export class GameService {
       this.roleData.werewolves.push(werewolfData);
     }
     if(role === "villager"){
+      if(!this.roleData.villagers){
+        this.roleData.villagers = [];
+      }
       let villagerData: Villager = {
         name
       }
