@@ -6,16 +6,8 @@ import { RoleService } from './role.service';
 @Injectable({
   providedIn: 'root'
 })
-
 export class GameService {
   private gameData: GameData;
-  private defaultGameData: GameData = {
-    players: [],
-    roles: [],
-    currentIndex: 0,
-    currentPage: "welcome",
-    currentNight: 0
-  };
 
   constructor(
     private rs: RoleService
@@ -33,7 +25,13 @@ export class GameService {
   }
 
   private initGameData(){
-    this.gameData = this.defaultGameData;
+    this.gameData = {
+      players:[],
+      roles:[],
+      currentIndex:0,
+      currentPage:"welcome",
+      currentNight:0
+    };
     this.updateGameData();
   }
 
@@ -53,8 +51,7 @@ export class GameService {
   }
 
   reset(){
-    this.gameData = this.defaultGameData;
-    this.updateGameData();
+    this.initGameData();
   }
 
   restart(){
