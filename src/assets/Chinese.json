@@ -1,7 +1,8 @@
 {
   "eng": "English",
   "chn": "中文",
-  "werewolf": "狼人杀",
+  "werewolfGame": "狼人杀",
+  "werewolf": "狼人",
   "welcomeToGame": "欢迎使用狼人杀法官助手",
   "gameSetup": "游戏设置",
   "addToHomeScreen": "把本站加到桌面即可离线杀",
@@ -10,6 +11,7 @@
   "setupSubtitle": "设置本局可玩角色",
   "numOfWerewolf": "狼人数量",
   "numOfVillager": "普通村民数量",
+  "villeger": "普通村民",
   "seer": "预言家",
   "witch": "女巫",
   "advancedRoles": "高级角色",
@@ -21,5 +23,13 @@
   "InputYourName": "请输入您的名字",
   "showRole": "显示角色",
   "refresh": "网页刷新",
-  "reset": "重置"
+  "reset": "重置",
+  "disabled": "暂时不给用",
+  "comingSoon": "还在做，敬请期待",
+  "finishConfig": "完成设置",
+  "role": "角色",
+  "tapToConfirm": "轻触确认",
+  "yourRoleIs": "你的角色是",
+  "passToNext": "请将手机传给",
+  "nextPlayer": "下一位玩家"
 }

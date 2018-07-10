@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { GameData } from '../model/gameData';
 import { Observable } from 'rxjs';
+import { RoleService } from './role.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,9 @@ export class GameService {
     currentNight: 0
   };
 
-  constructor() {
+  constructor(
+    private rs: RoleService
+  ) {
     if(localStorage.getItem('gameData')){
       this.gameData = JSON.parse(localStorage.getItem('gameData'));
     } else{
@@ -54,10 +57,20 @@ export class GameService {
     this.updateGameData();
   }
 
-  addPlayer(name: string){
-    this.gameData.players.push(name);
-    this.updateGameData();
+  restart(){
+    this.gameData.currentIndex = 0;
+    this.gameData.currentNight = 0;
+    this.gameData.currentPage = "gameSetup";
+    this.gameData.roles = [];
   }
+
+  addPlayer(name: string, role: string){
+    this.gameData.players.push(name);
+    this.gameData.currentIndex ++;
+    this.updateGameData();
+    this.rs.addRoleData(name, role);
+  }
+
   updatePage(page){
     this.gameData.currentPage = page;
     this.updateGameData();

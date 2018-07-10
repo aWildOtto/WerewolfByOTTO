@@ -42,7 +42,7 @@
             {{ls.s['advancedRoles']}}
           </mat-panel-title>
           <mat-panel-description>
-            For more fun
+            {{ls.s['comingSoon']}}
           </mat-panel-description>
         </mat-expansion-panel-header>
         <mat-list>
@@ -60,6 +60,6 @@
     {{ls.s['totalPlayer']}} {{numPlayer}}
   </mat-card-footer>
   <mat-card-actions>
-    <button color="primary" (click)="finishConfig()" mat-raised-button>Finish</button>
+    <button color="primary" (click)="finishConfig()" mat-raised-button>{{ls.s['finishConfig']}}</button>
   </mat-card-actions>
 </mat-card>

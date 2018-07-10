@@ -1,7 +1,10 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-    <span>{{ls.s["werewolf"]}}</span>
+    <span>{{ls.s["werewolfGame"]}}</span>
     <span class="fill-space"></span>
+    <div *ngIf="devMode">
+      <button mat-button (click)="showEverything()">ShowMeEverything</button>
+    </div>
     <button mat-icon-button matTooltip="{{ls.s['refresh']}}" (click)="refresh()">
       <mat-icon>autorenew</mat-icon>
     </button>

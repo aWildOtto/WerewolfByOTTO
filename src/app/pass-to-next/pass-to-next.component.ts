@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { GameService } from '../../services/game.service';
+import { LanguageService } from '../../services/language.service';
 
 @Component({
   selector: 'app-pass-to-next',
@@ -13,11 +14,14 @@ export class PassToNextComponent implements OnInit {
   toRoleReveal(event){
     this.roleReveal.emit("roleReveal");
   }
-  constructor(private gs: GameService) {
+  constructor(
+    private gs: GameService,
+    public ls: LanguageService
+  ) {
     if(this.gs.getGameData().players[this.gs.getGameData().currentIndex]){
       this.passTo = this.gs.getGameData().players[this.gs.getGameData().currentIndex]; 
     } else {
-      this.passTo = "the next player";
+      this.passTo = ls.s['nextPlayer'];
     }
     
   }

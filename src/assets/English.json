@@ -1,6 +1,7 @@
 {
   "eng": "English",
   "chn": "中文",
+  "werewolfGame": "Werewolf",
   "werewolf": "Werewolf",
   "welcomeToGame": "Welecome to Werewolf",
   "gameSetup": "Game setup",
@@ -8,8 +9,9 @@
   "startGame": "Start Game",
   "help": "Help",
   "setupSubtitle": "Configure the roles in this game",
-  "numOfWerewolf": "Enter the number of werewolves",
-  "numOfVillager": "Enter the number of villagers",
+  "numOfWerewolf": "Number of werewolves",
+  "numOfVillager": "Number of villagers",
+  "villeger": "Villager",
   "seer": "Seer",
   "witch": "Witch",
   "advancedRoles": "Advanced Roles",
@@ -21,5 +23,14 @@
   "InputYourName": "Please enter your name",
   "showRole": "Show me my role",
   "refresh": "Refresh",
-  "reset": "Reset"
+  "reset": "Reset",
+  "disabled": "Disabled",
+  "comingSoon": "Under development. Coming soon",
+  "finishConfig": "Finish",
+  "role": "Role",
+  "tapToConfirm": "Please tap to confirm",
+  "yourRoleIs": "Your role is",
+  "passToNext": "Please pass the device to",
+  "nextPlayer": "the next player",
+  "restartGame": "Restart"
 }

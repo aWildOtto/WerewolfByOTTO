@@ -41,6 +41,11 @@ export class MainAreaComponent implements OnInit {
     console.log(this.gs.getGameData());
   }
 
+  restartGame(event){
+    this.gs.restart();
+    this.showPage = this.gs.getGameData().currentPage;
+  }
+
   ngOnInit() {
   }
 

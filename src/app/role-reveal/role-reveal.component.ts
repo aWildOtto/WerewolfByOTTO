@@ -16,6 +16,9 @@ export class RoleRevealComponent implements OnInit {
     public ls: LanguageService, 
     private gs: GameService
   ) {
+    if(this.gs.getGameData().currentIndex > this.gs.getGameData().roles.length){
+      this.toNext.emit("playerList");
+    }
     if (this.gs.getGameData().players[this.gs.getGameData().currentIndex]) {
       this.displayRole = true;
     } 
@@ -25,14 +28,13 @@ export class RoleRevealComponent implements OnInit {
 
   showRole(){
     this.displayRole = true;
-    this.gs.addPlayer(this.name);
+    this.gs.addPlayer(this.name, this.roleToDisplay);
   }
 
   ngOnInit() {
   }
 
   next() {
-    this.gs.getGameData().currentIndex += 1;
     if (this.gs.getGameData().currentIndex >= this.gs.getGameData().roles.length) {
       this.toNext.emit("playerList");
     } else {

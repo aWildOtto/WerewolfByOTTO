@@ -1,15 +1,15 @@
 <mat-card>
   <mat-card-title>
-    Role
+    {{ls.s["role"]}}
   </mat-card-title>
   <div *ngIf="displayRole; else nameInput">
     <div (click)="next()">
 
       <mat-card-subtitle>
-        Please tap to confirm
+        {{ls.s["tapToConfirm"]}}
       </mat-card-subtitle>
       <mat-card-content>
-        {{name}}. Your role is {{roleToDisplay}}. GLHF
+        {{name}}. {{ls.s["yourRoleIs"]}} {{ls.s[roleToDisplay]}}. GLHF
       </mat-card-content>
     </div>
 
