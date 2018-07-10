@@ -11,7 +11,7 @@
   "setupSubtitle": "Configure the roles in this game",
   "numOfWerewolf": "Number of werewolves",
   "numOfVillager": "Number of villagers",
-  "villeger": "Villager",
+  "villager": "Villager",
   "seer": "Seer",
   "witch": "Witch",
   "advancedRoles": "Advanced Roles",
@@ -32,5 +32,6 @@
   "yourRoleIs": "Your role is",
   "passToNext": "Please pass the device to",
   "nextPlayer": "the next player",
-  "restartGame": "Restart"
+  "restartGame": "Restart",
+  "hi":"Hi"
 }

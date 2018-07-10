@@ -2,25 +2,34 @@
   <mat-card-title>
     {{ls.s["role"]}}
   </mat-card-title>
-  <div *ngIf="displayRole; else nameInput">
-    <div (click)="next()">
+  <div [ngSwitch]="showAction">
+    <ng-template ngSwitchCase="confirmRole">
+      <div (click)="next()">
+        <mat-card-subtitle>
+          {{ls.s["tapToConfirm"]}}
+        </mat-card-subtitle>
+        <mat-card-content>
+          {{name}}. {{ls.s["yourRoleIs"]}} {{ls.s[roleToDisplay]}}. GLHF
+        </mat-card-content>
+      </div>
+    </ng-template>
 
-      <mat-card-subtitle>
-        {{ls.s["tapToConfirm"]}}
-      </mat-card-subtitle>
+    <ng-template ngSwitchCase="nameInput">
+      <mat-form-field>
+        <input matInput [(ngModel)]="name" type="text" placeholder="{{ls.s['InputYourName']}}">
+      </mat-form-field>
+      <mat-card-actions>
+        <button mat-raised-button (click)="showRole()">{{ls.s['showRole']}}</button>
+      </mat-card-actions>
+    </ng-template>
+
+    <ng-template ngSwitchCase="greeting">
       <mat-card-content>
-        {{name}}. {{ls.s["yourRoleIs"]}} {{ls.s[roleToDisplay]}}. GLHF
+        {{ls.s["hi"]}} {{name}}
       </mat-card-content>
-    </div>
-
+      <mat-card-actions>
+        <button mat-raised-button (click)="showRole()">{{ls.s['showRole']}}</button>
+      </mat-card-actions>
+    </ng-template>
   </div>
-
-  <ng-template #nameInput>
-    <mat-form-field>
-      <input matInput [(ngModel)]="name" type="text" placeholder="{{ls.s['InputYourName']}}">
-    </mat-form-field>
-    <div>
-      <button mat-raised-button (click)="showRole()">{{ls.s['showRole']}}</button>
-    </div>
-  </ng-template>
 </mat-card>

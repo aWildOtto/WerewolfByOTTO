@@ -11,7 +11,7 @@
   "setupSubtitle": "设置本局可玩角色",
   "numOfWerewolf": "狼人数量",
   "numOfVillager": "普通村民数量",
-  "villeger": "普通村民",
+  "villager": "普通村民",
   "seer": "预言家",
   "witch": "女巫",
   "advancedRoles": "高级角色",
@@ -31,5 +31,7 @@
   "tapToConfirm": "轻触确认",
   "yourRoleIs": "你的角色是",
   "passToNext": "请将手机传给",
-  "nextPlayer": "下一位玩家"
+  "nextPlayer": "下一位玩家",
+  "restartGame": "重开一局",
+  "hi": "你好"
 }

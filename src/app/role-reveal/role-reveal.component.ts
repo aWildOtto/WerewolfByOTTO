@@ -9,7 +9,7 @@ import { GameService } from '../../services/game.service';
 })
 export class RoleRevealComponent implements OnInit {
   @Output() toNext = new EventEmitter<string> ();
-  displayRole: boolean = false;
+  showAction: string = "nameInput";
   roleToDisplay: string;
   name: string;
   constructor(
@@ -20,15 +20,18 @@ export class RoleRevealComponent implements OnInit {
       this.toNext.emit("playerList");
     }
     if (this.gs.getGameData().players[this.gs.getGameData().currentIndex]) {
-      this.displayRole = true;
+      this.showAction = "greeting";
     } 
     this.name = this.gs.getGameData().players[this.gs.getGameData().currentIndex]; 
     this.roleToDisplay = this.gs.getGameData().roles[this.gs.getGameData().currentIndex]; 
   }
 
   showRole(){
-    this.displayRole = true;
-    this.gs.addPlayer(this.name, this.roleToDisplay);
+    if(this.showAction != "greeting"){
+      this.gs.addPlayer(this.name, this.roleToDisplay);
+    }
+    this.gs.getGameData().currentIndex ++;
+    this.showAction = "confirmRole";
   }
 
   ngOnInit() {

@@ -50,7 +50,7 @@ export class GameSetupComponent implements OnInit {
     this.guardian ? roleArr.push("guardian"): null;
     roleArr = this.shuffle(roleArr);
     this.gs.createGameData(
-      [],
+      this.gs.getGameData().players,
       roleArr,
       0,
       "passToNext"
