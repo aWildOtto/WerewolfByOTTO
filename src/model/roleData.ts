@@ -7,7 +7,7 @@ export interface RoleData {
         name: string,
         poison: string,//empty if unused, or player name -> used on 
         potion: string,//empty if unused, or player name -> used on 
-        killedBy: string//empty if alive, or player name
+        killedBy: string//empty if alive, or death cause
     },
     seer?: {
         name: string,

@@ -49,11 +49,8 @@ export class GameSetupComponent implements OnInit {
     this.seer ? roleArr.push("seer"): null;
     this.guardian ? roleArr.push("guardian"): null;
     roleArr = this.shuffle(roleArr);
-    this.gs.createGameData(
-      this.gs.getGameData().players,
-      roleArr,
-      0,
-      "passToNext"
+    this.gs.updateGameData(
+      null,roleArr,null,null,null
     );
     this.passToNext.emit('passToNext');
   }

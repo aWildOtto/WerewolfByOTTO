@@ -26,7 +26,6 @@ import { environment } from '../environments/environment';
 import { RoleRevealComponent } from './role-reveal/role-reveal.component';
 import { PassToNextComponent } from './pass-to-next/pass-to-next.component';
 import { GameService } from '../services/game.service';
-import { RoleService } from '../services/role.service';
 
 @NgModule({
   declarations: [
@@ -62,8 +61,7 @@ import { RoleService } from '../services/role.service';
   ],
   providers: [
     LanguageService,
-    GameService,
-    RoleService
+    GameService
   ],
   bootstrap: [AppComponent]
 })

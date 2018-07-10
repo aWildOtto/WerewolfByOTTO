@@ -24,6 +24,7 @@ export class NavBarComponent implements OnInit {
 
   showEverything(){
     console.log(this.gs.getGameData());
+    console.log(this.gs.getRoleData());
   }
 
   ngOnInit() {

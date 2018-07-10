@@ -1,17 +1,27 @@
 import { Injectable } from '@angular/core';
 import { GameData } from '../model/gameData';
 import { Observable } from 'rxjs';
-import { RoleService } from './role.service';
+import { RoleData } from '../model/roleData';
+import { Werewolf } from '../model/werewolf';
+import { Villager } from '../model/villager';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GameService {
   private gameData: GameData;
+  private roleData: RoleData = {
+    werewolves: [],
+    villagers: []
+  };
 
-  constructor(
-    private rs: RoleService
-  ) {
+  getGameData(){
+    return this.gameData;
+  }
+  getRoleData(){
+    return this.roleData;
+  }
+  constructor() {
     if(sessionStorage.getItem('gameData')){
       this.gameData = JSON.parse(sessionStorage.getItem('gameData'));
     } else{
@@ -20,9 +30,6 @@ export class GameService {
     console.log(this.gameData);
   }
 
-  getGameData(){
-    return this.gameData;
-  }
 
   private initGameData(){
     this.gameData = {
@@ -32,22 +39,31 @@ export class GameService {
       currentPage:"welcome",
       currentNight:0
     };
-    this.updateGameData();
+    this.saveGameData();
   }
 
-  private updateGameData(){
+  private saveGameData(){
     sessionStorage.setItem('gameData', JSON.stringify(this.gameData));
   }
+  private saveRoleData(){
+    sessionStorage.setItem('roleData', JSON.stringify(this.roleData));
+  }
 
-  createGameData(players: string[], roles: string[], currentIndex, currentPage: string){
+  updateGameData(
+    players?: string[], 
+    roles?: string[],
+    currentIndex?: number, 
+    currentPage?: string,
+    currentNight?: number
+  ){
     this.gameData = {
-      players,
-      roles,
-      currentIndex,
-      currentPage,
-      currentNight: 0
+      players: players ? players : this.gameData.players,
+      roles: roles ? roles : this.gameData.roles,
+      currentIndex: currentIndex ? currentIndex : this.gameData.currentIndex,
+      currentPage: currentPage ? currentPage : this.gameData.currentPage,
+      currentNight: currentNight ? currentNight : this.gameData.currentNight
     }
-    this.updateGameData();
+    this.saveGameData();
   }
 
   reset(){
@@ -64,12 +80,59 @@ export class GameService {
   addPlayer(name: string, role: string){
     this.gameData.players.push(name);
     this.gameData.currentIndex ++;
-    this.updateGameData();
-    this.rs.addRoleData(name, role);
+    this.saveGameData();
+    this.addRoleData(name, role);
+    this.saveRoleData();
+  }
+
+  addRoleData(name: string, role: string){
+    if(role === "werewolf"){
+      let werewolfData: Werewolf = {
+        name,
+        Killed: []
+      }
+      this.roleData.werewolves.push(werewolfData);
+    }
+    if(role === "villager"){
+      let villagerData: Villager = {
+        name
+      }
+      this.roleData.villagers.push(villagerData);
+    }
+    switch(role){
+      case "witch":
+        this.roleData[role] = {
+          name,
+          poison: "",
+          potion: "",
+          killedBy: ""
+        }
+        break;
+      case "seer":
+        this.roleData[role] = {
+          name,
+          killedBy: ""
+        }
+        break;
+      case "hunter":
+        this.roleData[role] = {
+          name,
+          retaliated: "",
+          killedBy: ""
+        }
+        break;
+      case "guardian":
+        this.roleData[role] = {
+          name,
+          protecting: "",
+          killedBy: ""
+        }
+        break;
+    }
   }
 
   updatePage(page){
     this.gameData.currentPage = page;
-    this.updateGameData();
+    this.saveGameData();
   }
 }
