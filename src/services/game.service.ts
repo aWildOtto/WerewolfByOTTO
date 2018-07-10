@@ -12,8 +12,8 @@ export class GameService {
   constructor(
     private rs: RoleService
   ) {
-    if(localStorage.getItem('gameData')){
-      this.gameData = JSON.parse(localStorage.getItem('gameData'));
+    if(sessionStorage.getItem('gameData')){
+      this.gameData = JSON.parse(sessionStorage.getItem('gameData'));
     } else{
       this.initGameData();
     }
@@ -36,7 +36,7 @@ export class GameService {
   }
 
   private updateGameData(){
-    localStorage.setItem('gameData', JSON.stringify(this.gameData));
+    sessionStorage.setItem('gameData', JSON.stringify(this.gameData));
   }
 
   createGameData(players: string[], roles: string[], currentIndex, currentPage: string){
