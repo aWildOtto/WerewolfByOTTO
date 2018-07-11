@@ -35,10 +35,6 @@ export class RoleRevealComponent implements OnInit {
   }
 
   next() {
-    if (this.gs.getGameData().currentIndex >= this.gs.getGameData().roles.length) {
-      this.toNext.emit("playerList");
-    } else {
       this.toNext.emit("passToNext");
-    }
   }
 }

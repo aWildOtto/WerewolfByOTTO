@@ -33,5 +33,6 @@
   "passToNext": "Please pass the device to",
   "nextPlayer": "the next player",
   "restartGame": "Restart",
-  "hi":"Hi"
+  "hi":"Hi",
+  "passBackToMod": "Please give the device back to The Moderator"
 }

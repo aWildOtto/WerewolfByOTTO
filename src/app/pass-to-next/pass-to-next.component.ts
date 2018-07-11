@@ -12,7 +12,11 @@ export class PassToNextComponent implements OnInit {
 
   passTo: string; 
   toRoleReveal(event){
-    this.roleReveal.emit("roleReveal");
+    if (this.gs.getGameData().currentIndex < this.gs.getGameData().roles.length){
+      this.roleReveal.emit("roleReveal");
+    } else {
+      this.roleReveal.emit("playerList");
+    }
   }
   constructor(
     private gs: GameService,
@@ -20,8 +24,10 @@ export class PassToNextComponent implements OnInit {
   ) {
     if(this.gs.getGameData().players[this.gs.getGameData().currentIndex]){
       this.passTo = this.gs.getGameData().players[this.gs.getGameData().currentIndex]; 
-    } else {
-      this.passTo = ls.s['nextPlayer'];
+    } else if (this.gs.getGameData().currentIndex < this.gs.getGameData().roles.length){
+      this.passTo = ls.s["passToNext"] +" "+ ls.s['nextPlayer'];
+    } else{
+      this.passTo = ls.s['passBackToMod'];
     }
     
   }

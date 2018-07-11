@@ -77,7 +77,7 @@ export class GameService {
   }
 
   addPlayer(name: string, role: string){
-    if(!this.gameData.players.includes(name)){
+    if(this.gameData.players.length < this.gameData.roles.length){
       this.gameData.players.push(name);
     }
     this.gameData.currentIndex ++;
