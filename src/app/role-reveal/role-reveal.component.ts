@@ -27,10 +27,7 @@ export class RoleRevealComponent implements OnInit {
   }
 
   showRole(){
-    if(this.showAction != "greeting"){
-      this.gs.addPlayer(this.name, this.roleToDisplay);
-    }
-    this.gs.getGameData().currentIndex ++;
+    this.gs.addPlayer(this.name, this.roleToDisplay);
     this.showAction = "confirmRole";
   }
 

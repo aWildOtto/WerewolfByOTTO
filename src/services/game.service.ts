@@ -65,6 +65,7 @@ export class GameService {
 
   reset(){
     this.initGameData();
+    this.roleData = {};
   }
 
   restart(){
@@ -72,17 +73,23 @@ export class GameService {
     this.gameData.currentNight = 0;
     this.gameData.currentPage = "gameSetup";
     this.gameData.roles = [];
+    this.roleData = {};
   }
 
   addPlayer(name: string, role: string){
-    this.gameData.players.push(name);
+    if(!this.gameData.players.includes(name)){
+      this.gameData.players.push(name);
+    }
     this.gameData.currentIndex ++;
-    this.saveGameData();
     this.addRoleData(name, role);
+    this.saveGameData();
     this.saveRoleData();
   }
 
   addRoleData(name: string, role: string){
+    if(!this.roleData){
+      this.roleData = {};
+    }
     if(role === "werewolf"){
       if(!this.roleData.werewolves){
         this.roleData.werewolves = []; 
