@@ -24,6 +24,9 @@ export class GameService {
     } else{
       this.initGameData();
     }
+    if(sessionStorage.getItem('roleData')){
+      this.roleData = JSON.parse(sessionStorage.getItem('roleData'));
+    }
     console.log(this.gameData);
   }
 
