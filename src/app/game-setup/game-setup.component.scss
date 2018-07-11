@@ -24,5 +24,9 @@ mat-list-item {
   margin-top: 28px
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  display: none;
+}
 
 

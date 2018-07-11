@@ -1,6 +1,15 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { LanguageService } from '../../services/language.service';
 import { GameService } from '../../services/game.service';
+import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
+
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 
 @Component({
   selector: 'app-game-setup',
@@ -8,51 +17,62 @@ import { GameService } from '../../services/game.service';
   styleUrls: ['./game-setup.component.scss']
 })
 export class GameSetupComponent implements OnInit {
+  emailFormControl = new FormControl('', [
+    Validators.required,
+    Validators.email,
+  ]);
 
   @Output() passToNext = new EventEmitter<string>();
 
   public numPlayer: number = 0;
-  private numWerewolf: number = 0;
-  private numVillager: number = 0;
+  private numWerewolf: number = 1;
+  private numVillager: number = 1;
   private seer: boolean = true;
   private guardian: boolean = true;
 
-  addWerewolf() {
-    if (Number.isInteger(this.numWerewolf)) {
-      this.numWerewolf++;
-    } else {
-      alert("please input a number for werewolf");
+  checkWerewolfInput() {
+    if (this.numWerewolf === null || this.numWerewolf <= 0) {
+      this.numWerewolf = 1;
     }
   }
 
+  checkVillagerInput() {
+    if (this.numVillager === null || this.numVillager <= 0) {
+      this.numVillager = 1;
+    }
+  }
+
+  addWerewolf() {
+    this.numWerewolf++;
+  }
+
   minusWerewolf() {
-    if (Number.isInteger(this.numWerewolf) && this.numWerewolf > 0) {
+    if (this.numWerewolf > 1) {
       this.numWerewolf--;
     } else {
-      alert("please input a positive number for werewolf");
+      this.numWerewolf = 1;
     }
   }
 
   addVillager() {
-    if (Number.isInteger(this.numVillager)) {
-      this.numVillager++;
-    } else {
-      alert("please input a number for villager");
-    }
+    this.numVillager++;
   }
 
   minusVillager() {
-    if (Number.isInteger(this.numVillager) && this.numVillager > 0) {
+    if (this.numVillager > 1) {
       this.numVillager--;
     } else {
-      alert("please input a positive number for villager");
+      this.numVillager = 1;
     }
   }
 
   sumPlayer() {
+    this.checkVillagerInput();
+    this.checkWerewolfInput();
     this.numPlayer = this.numWerewolf + this.numVillager;
     this.seer ? this.numPlayer += 1 : null;
     this.guardian ? this.numPlayer += 1 : null;
+    console.log(this.numPlayer);
   }
   constructor(
     public ls: LanguageService,
@@ -83,7 +103,7 @@ export class GameSetupComponent implements OnInit {
     this.guardian ? roleArr.push("guardian") : null;
     roleArr = this.shuffle(roleArr);
     this.gs.updateGameData(
-      null,roleArr,null,null,null
+      null, roleArr, null, null, null
     );
     this.passToNext.emit('passToNext');
   }

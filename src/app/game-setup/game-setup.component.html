@@ -20,11 +20,12 @@
             <p>
               <mat-form-field>
                 <mat-label>{{ls.s['numOfWerewolf']}}</mat-label>
-                <button mat-icon-button (click)="minusWerewolf()">
+                <button mat-icon-button (click)="minusWerewolf()" (click)="sumPlayer()">
                   <mat-icon matPreffix>remove_circle_outline</mat-icon>
                 </button>
-                <input matInput placeholder="{{ls.s['numOfWerewolf']}}" class="mat-input" [(ngModel)]="numWerewolf" (change)="sumPlayer()">
-                <button mat-icon-button (click)="addWerewolf()">
+                <input matInput placeholder="{{ls.s['numOfWerewolf']}}" class="mat-input" [(ngModel)]="numWerewolf" (change)="sumPlayer()"
+                  (change)="checkWerewolfInput()" type="number">
+                <button mat-icon-button (click)="addWerewolf()" (click)="sumPlayer()">
                   <mat-icon matSuffix>add_circle_outline</mat-icon>
                 </button>
               </mat-form-field>
@@ -35,11 +36,12 @@
             <p>
               <mat-form-field>
                 <mat-label>{{ls.s['numOfVillager']}}</mat-label>
-                <button mat-icon-button (click)="minusVillager()">
+                <button mat-icon-button (click)="minusVillager()" (click)="sumPlayer()">
                   <mat-icon matPreffix>remove_circle_outline</mat-icon>
                 </button>
-                <input matInput placeholder="{{ls.s['numOfVillager']}}" class="mat-input" [(ngModel)]="numVillager" (change)="sumPlayer()">
-                <button mat-icon-button (click)="addVillager()">
+                <input matInput placeholder="{{ls.s['numOfVillager']}}" class="mat-input" [(ngModel)]="numVillager" (change)="sumPlayer()"
+                  (change)="checkVillagerInput()" type="number">
+                <button mat-icon-button (click)="addVillager()" (click)="sumPlayer()">
                   <mat-icon matSuffix>add_circle_outline</mat-icon>
                 </button>
               </mat-form-field>
