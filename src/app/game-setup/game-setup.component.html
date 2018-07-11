@@ -23,8 +23,17 @@
                 <button mat-icon-button (click)="minusWerewolf()" (click)="sumPlayer()">
                   <mat-icon matPreffix>remove_circle_outline</mat-icon>
                 </button>
+
                 <input matInput placeholder="{{ls.s['numOfWerewolf']}}" class="mat-input" [(ngModel)]="numWerewolf" (change)="sumPlayer()"
-                  (change)="checkWerewolfInput()" type="number">
+                  type="number" [formControl]="numberInputControl" [errorStateMatcher]="matcher">
+                <mat-error *ngIf="numberInputControl.hasError('numWerewolf') && !numberInputControl.hasError('required')">
+                  Please enter a valid number of werewolf
+                </mat-error>
+                <mat-error *ngIf="numberInputControl.hasError('required')">
+                  Werewolf number is
+                  <strong>required</strong>
+                </mat-error>
+
                 <button mat-icon-button (click)="addWerewolf()" (click)="sumPlayer()">
                   <mat-icon matSuffix>add_circle_outline</mat-icon>
                 </button>
@@ -39,8 +48,18 @@
                 <button mat-icon-button (click)="minusVillager()" (click)="sumPlayer()">
                   <mat-icon matPreffix>remove_circle_outline</mat-icon>
                 </button>
+                <!-- <input matInput placeholder="{{ls.s['numOfWerewolf']}}" class="mat-input" [(ngModel)]="numWerewolf" (change)="sumPlayer()"
+                  type="number" [formControl]="numberInputControl" [errorStateMatcher]="matcher"> -->
+
                 <input matInput placeholder="{{ls.s['numOfVillager']}}" class="mat-input" [(ngModel)]="numVillager" (change)="sumPlayer()"
-                  (change)="checkVillagerInput()" type="number">
+                  type="number" [formControl]="villagerInputControl" [errorStateMatcher]="matcher">
+                <mat-error *ngIf="villagerInputControl.hasError('numVillager') && !villagerInputControl.hasError('required')">
+                  Please enter a valid number of villager
+                </mat-error>
+                <mat-error *ngIf="villagerInputControl.hasError('required')">
+                  Villager number is
+                  <strong>required</strong>
+                </mat-error>
                 <button mat-icon-button (click)="addVillager()" (click)="sumPlayer()">
                   <mat-icon matSuffix>add_circle_outline</mat-icon>
                 </button>
@@ -79,6 +98,6 @@
     {{ls.s['totalPlayer']}} {{numPlayer}}
   </mat-card-footer>
   <mat-card-actions>
-    <button color="primary" (click)="finishConfig()" mat-raised-button>{{ls.s['finishConfig']}}</button>
+    <button color="primary" (click)="finishConfig()" mat-raised-button [disabled]="finishBtnDisable">{{ls.s['finishConfig']}}</button>
   </mat-card-actions>
 </mat-card>
