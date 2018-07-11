@@ -26,7 +26,9 @@
     "@angular/pwa": "^0.6.8",
     "@angular/router": "6.0.7",
     "@angular/service-worker": "6.0.7",
+    "angular-ui-carousel": "^0.1.10",
     "core-js": "^2.4.1",
+    "mdbootstrap": "^4.5.6",
     "rxjs": "^6.2.1",
     "zone.js": "^0.8.26"
   },

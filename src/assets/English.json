@@ -9,9 +9,8 @@
   "startGame": "Start Game",
   "help": "Help",
   "setupSubtitle": "Configure the roles in this game",
-  "numOfWerewolf": "Number of werewolves",
-  "numOfVillager": "Number of villagers",
-  "villager": "Villager",
+  "numOfWerewolf": "The number of werewolves",
+  "numOfVillager": "The number of villagers",
   "seer": "Seer",
   "witch": "Witch",
   "advancedRoles": "Advanced Roles",
@@ -33,6 +32,6 @@
   "passToNext": "Please pass the device to",
   "nextPlayer": "the next player",
   "restartGame": "Restart",
-  "hi":"Hi",
+  "hi": "Hi",
   "passBackToMod": "Please give the device back to The Moderator"
 }

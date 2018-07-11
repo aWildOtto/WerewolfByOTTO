@@ -10,9 +10,9 @@ import { LanguageService } from '../../services/language.service';
 export class PassToNextComponent implements OnInit {
   @Output() roleReveal = new EventEmitter<string>();
 
-  passTo: string; 
-  toRoleReveal(event){
-    if (this.gs.getGameData().currentIndex < this.gs.getGameData().roles.length){
+  passTo: string;
+  toRoleReveal(event) {
+    if (this.gs.getGameData().currentIndex < this.gs.getGameData().roles.length) {
       this.roleReveal.emit("roleReveal");
     } else {
       this.roleReveal.emit("playerList");
@@ -22,17 +22,18 @@ export class PassToNextComponent implements OnInit {
     private gs: GameService,
     public ls: LanguageService
   ) {
-    if(this.gs.getGameData().players[this.gs.getGameData().currentIndex]){
-      this.passTo = this.gs.getGameData().players[this.gs.getGameData().currentIndex]; 
-    } else if (this.gs.getGameData().currentIndex < this.gs.getGameData().roles.length){
-      this.passTo = ls.s["passToNext"] +" "+ ls.s['nextPlayer'];
-    } else{
+    if (this.gs.getGameData().players[this.gs.getGameData().currentIndex]) {
+      this.passTo = this.gs.getGameData().players[this.gs.getGameData().currentIndex];
+    } else if (this.gs.getGameData().currentIndex < this.gs.getGameData().roles.length) {
+      this.passTo = ls.s["passToNext"] + " " + ls.s['nextPlayer'];
+    } else {
       this.passTo = ls.s['passBackToMod'];
     }
-    
+
   }
 
   ngOnInit() {
+    setTimeout(() => { this.toRoleReveal(event) }, 5000);
   }
 
 }
