@@ -1,6 +1,6 @@
 <mat-selection-list #players>
   <mat-list-option *ngFor="let player of playerData">
-    <h4 mat-line>{{player.role}}</h4>
+    <h4 mat-line>{{ls.s[player.role]}}</h4>
     <p mat-line>{{player.playerName}}</p>
   </mat-list-option>
 </mat-selection-list>
