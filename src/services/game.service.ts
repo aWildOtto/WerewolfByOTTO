@@ -49,6 +49,11 @@ export class GameService {
     sessionStorage.setItem('roleData', JSON.stringify(this.roleData));
   }
 
+  updatePage(page) {
+    this.gameData.currentPage = page;
+    this.saveGameData();
+  }
+
   updateGameData(
     players?: string[], 
     roles?: string[],
@@ -80,7 +85,10 @@ export class GameService {
   }
 
   addPlayer(name: string, role: string){
-    if(this.gameData.players.length < this.gameData.roles.length){
+    if(
+      this.gameData.players.length < this.gameData.roles.length
+      && this.gameData.currentIndex >= this.gameData.players.length
+    ){
       this.gameData.players.push(name);
     }
     this.gameData.currentIndex ++;
@@ -144,8 +152,4 @@ export class GameService {
     }
   }
 
-  updatePage(page){
-    this.gameData.currentPage = page;
-    this.saveGameData();
-  }
 }

@@ -16,7 +16,7 @@ export class RoleRevealComponent implements OnInit {
     public ls: LanguageService, 
     private gs: GameService
   ) {
-    if(this.gs.getGameData().currentIndex > this.gs.getGameData().roles.length){
+    if(this.gs.getGameData().currentIndex >= this.gs.getGameData().roles.length){
       this.toNext.emit("playerList");
     }
     if (this.gs.getGameData().players[this.gs.getGameData().currentIndex]) {

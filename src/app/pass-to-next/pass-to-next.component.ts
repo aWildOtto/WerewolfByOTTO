@@ -22,8 +22,11 @@ export class PassToNextComponent implements OnInit {
     private gs: GameService,
     public ls: LanguageService
   ) {
-    if (this.gs.getGameData().players[this.gs.getGameData().currentIndex]) {
-      this.passTo = this.gs.getGameData().players[this.gs.getGameData().currentIndex];
+    if (
+      this.gs.getGameData().players[this.gs.getGameData().currentIndex]
+      && this.gs.getGameData().currentIndex < this.gs.getGameData().roles.length
+    ) {
+      this.passTo = ls.s["passToNext"] + " " + this.gs.getGameData().players[this.gs.getGameData().currentIndex];
     } else if (this.gs.getGameData().currentIndex < this.gs.getGameData().roles.length) {
       this.passTo = ls.s["passToNext"] + " " + ls.s['nextPlayer'];
     } else {

@@ -74,7 +74,7 @@
     {{ls.s['totalPlayer']}} {{numPlayer}}
   </mat-card-footer>
   <mat-card-actions>
-    <button color="primary" (click)="finishConfig()" mat-raised-button [disabled]="werewolfInputControl.invalid||villagerInputControl.invalid">{{ls.s['finishConfig']}}</button>
+    <button class="action-btn" color="primary" (click)="finishConfig()" mat-raised-button [disabled]="werewolfInputControl.invalid||villagerInputControl.invalid">{{ls.s['finishConfig']}}</button>
     <mat-error *ngIf="villagerInputControl.invalid">
       {{ls.s['noVillagerError']}}
     </mat-error>
