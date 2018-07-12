@@ -33,5 +33,7 @@
   "nextPlayer": "the next player",
   "restartGame": "Restart",
   "hi": "Hi",
-  "passBackToMod": "Please give the device back to The Moderator"
+  "passBackToMod": "Please give the device back to The Moderator",
+  "noWerewolfError": "Werewolf can't be played without werewolves ಠ_ಠ",
+  "noVillagerError": "Werewolf can't be played without villagers ಠ╭╮ಠ"
 }

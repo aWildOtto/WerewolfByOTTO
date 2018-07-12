@@ -18,7 +18,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 
 export class GameSetupComponent implements OnInit {
-  numberInputControl = new FormControl('', [
+  werewolfInputControl = new FormControl('', [
     Validators.required,
     Validators.pattern("^[0-9]*$"),
     Validators.min(1)
@@ -34,46 +34,27 @@ export class GameSetupComponent implements OnInit {
   @Output() passToNext = new EventEmitter<string>();
 
   public numPlayer: number = 0;
-  private numWerewolf: number = 0;
-  private numVillager: number = 0;
   private seer: boolean = true;
   private guardian: boolean = true;
-  private finishBtnDisable: boolean = true;
-
-  verifyFinishBtn() {
-    // console.log(this.villagerInputControl.status);
-
-    // if (this.villagerInputControl.status === "INVALID" || this.numberInputControl.status === "INVALID" ||
-    if (this.numVillager < 1 || this.numWerewolf < 1) {
-      this.finishBtnDisable = true;
-    } else {
-      this.finishBtnDisable = false;
-    }
-    console.log("btn status " + this.finishBtnDisable);
-  }
 
   addWerewolf() {
-    this.numWerewolf++;
-    this.verifyFinishBtn();
+    this.werewolfInputControl.setValue(this.werewolfInputControl.value + 1);
   }
-
+  
   minusWerewolf() {
-    this.numWerewolf--;
-    this.verifyFinishBtn();
+    this.werewolfInputControl.setValue(this.werewolfInputControl.value - 1);
   }
 
   addVillager() {
-    this.numVillager++;
-    this.verifyFinishBtn();
+    this.villagerInputControl.setValue(this.villagerInputControl.value + 1);
   }
 
   minusVillager() {
-    this.numVillager--;
-    this.verifyFinishBtn();
+    this.villagerInputControl.setValue(this.villagerInputControl.value - 1 );
   }
 
   sumPlayer() {
-    this.numPlayer = this.numWerewolf + this.numVillager;
+    this.numPlayer = Number(this.villagerInputControl.value) + Number(this.werewolfInputControl.value);
     this.seer ? this.numPlayer += 1 : null;
     this.guardian ? this.numPlayer += 1 : null;
   }
@@ -84,6 +65,8 @@ export class GameSetupComponent implements OnInit {
 
   ngOnInit() {
     this.sumPlayer();
+    this.werewolfInputControl.setValue(1);
+    this.villagerInputControl.setValue(1);
   }
   //https://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array
   shuffle(a) {
@@ -96,10 +79,10 @@ export class GameSetupComponent implements OnInit {
 
   finishConfig() {
     let roleArr = [];
-    for (let i = 0; i < this.numWerewolf; i++) {
+    for (let i = 0; i < this.werewolfInputControl.value; i++) {
       roleArr.push("werewolf");
     }
-    for (let i = 0; i < this.numVillager; i++) {
+    for (let i = 0; i < this.villagerInputControl.value; i++) {
       roleArr.push("villager");
     }
     this.seer ? roleArr.push("seer") : null;
