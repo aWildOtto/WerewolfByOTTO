@@ -1,15 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { LanguageService } from '../../services/language.service';
 import { GameService } from '../../services/game.service';
-import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
-
-export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-  }
-}
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-game-setup',
@@ -34,8 +26,8 @@ export class GameSetupComponent implements OnInit {
   @Output() passToNext = new EventEmitter<string>();
 
   public numPlayer: number = 0;
-  private seer: boolean = true;
-  private guardian: boolean = true;
+  public seer: boolean = true;
+  public guardian: boolean = true;
 
   addWerewolf() {
     this.werewolfInputControl.setValue(this.werewolfInputControl.value + 1);
@@ -64,9 +56,9 @@ export class GameSetupComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.sumPlayer();
     this.werewolfInputControl.setValue(1);
     this.villagerInputControl.setValue(1);
+    this.sumPlayer();
   }
   //https://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array
   shuffle(a) {

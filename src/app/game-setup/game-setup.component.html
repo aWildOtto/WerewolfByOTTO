@@ -22,8 +22,7 @@
             </button>
             <mat-form-field>
               <mat-label>{{ls.s['numOfWerewolf']}}</mat-label>
-              <input matInput placeholder="{{ls.s['numOfWerewolf']}}" class="mat-input" (change)="sumPlayer()" type="number" [formControl]="werewolfInputControl"
-                [errorStateMatcher]="matcher">
+              <input matInput placeholder="{{ls.s['numOfWerewolf']}}" class="mat-input" (change)="sumPlayer()" type="number" [formControl]="werewolfInputControl">
 
             </mat-form-field>
             <button mat-icon-button (click)="addWerewolf()" (click)="sumPlayer()">
@@ -37,8 +36,7 @@
             </button>
             <mat-form-field>
               <mat-label>{{ls.s['numOfVillager']}}</mat-label>
-              <input matInput placeholder="{{ls.s['numOfVillager']}}" class="mat-input" (change)="sumPlayer()" type="number" [formControl]="villagerInputControl"
-                [errorStateMatcher]="matcher">
+              <input matInput placeholder="{{ls.s['numOfVillager']}}" class="mat-input" (change)="sumPlayer()" type="number" [formControl]="villagerInputControl">
             </mat-form-field>
             <button mat-icon-button (click)="addVillager()" (click)="sumPlayer()">
               <mat-icon matSuffix>add_circle_outline</mat-icon>
