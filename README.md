@@ -1,6 +1,12 @@
 # Werewolf
-A simple werewolf web game.
+A simple werewolf web game for playing werewolf offline with friends. Only one phone is required for playing. 
 
+## How it works
+1. A moderator starts a game by configuring the roles to play in the game.
+2. The mod then passes the phone to the players for them to check their roles secretly.
+3. The phone goes back to the mod and the app continues helping the mod to facilite the game
+
+## Technologies used
 - Angular 6
 - Angular material
 - Pwa support
