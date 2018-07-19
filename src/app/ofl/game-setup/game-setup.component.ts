@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
-import { LanguageService } from '../../services/language.service';
-import { GameService } from '../../services/game.service';
+import { LanguageService } from '../../../services/language.service';
+import { GameService } from '../../../services/game.service';
 import { FormControl, Validators } from '@angular/forms';
 
 @Component({

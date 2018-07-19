@@ -12,22 +12,28 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatInputModule } from '@angular/material/input';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database'
 
 
 //Our own stuff
 import { AppComponent } from './app.component';
-import { MainAreaComponent } from './main-area/main-area.component';
+import { MainAreaComponent } from './ofl/main-area/main-area.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
-import { GameSetupComponent } from './game-setup/game-setup.component';
-import { WelcomePageComponent } from './welcome-page/welcome-page.component';
-import { PlayerListComponent } from './player-list/player-list.component';
+import { GameSetupComponent } from './ofl/game-setup/game-setup.component';
+import { WelcomePageComponent } from './ofl/welcome-page/welcome-page.component';
+import { PlayerListComponent } from './ofl/player-list/player-list.component';
 import { LanguageService } from '../services/language.service';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-import { RoleRevealComponent } from './role-reveal/role-reveal.component';
-import { PassToNextComponent } from './pass-to-next/pass-to-next.component';
+import { RoleRevealComponent } from './ofl/role-reveal/role-reveal.component';
+import { PassToNextComponent } from './ofl/pass-to-next/pass-to-next.component';
 import { GameService } from '../services/game.service';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AppRoutingModule } from './app-routing/app-routing.module';
+import { WelcomeOlComponent } from './ol/welcome-ol/welcome-ol.component';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { GameUIComponent } from './ol/game-ui/game-ui.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +45,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     PlayerListComponent,
     RoleRevealComponent,
     PassToNextComponent,
+    WelcomeOlComponent,
+    NotFoundComponent,
+    GameUIComponent,
   ],
   imports: [
     FormsModule,
@@ -56,7 +65,10 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatInputModule,
     MatExpansionModule,
     MatTooltipModule,
-    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
+    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
+    AppRoutingModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule
   ],
   exports: [
     MatButtonModule,

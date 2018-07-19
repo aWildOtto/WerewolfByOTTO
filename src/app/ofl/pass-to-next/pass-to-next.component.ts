@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { GameService } from '../../services/game.service';
-import { LanguageService } from '../../services/language.service';
+import { GameService } from '../../../services/game.service';
+import { LanguageService } from '../../../services/language.service';
 
 @Component({
   selector: 'app-pass-to-next',

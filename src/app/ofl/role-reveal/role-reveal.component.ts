@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { LanguageService } from '../../services/language.service';
-import { GameService } from '../../services/game.service';
+import { LanguageService } from '../../../services/language.service';
+import { GameService } from '../../../services/game.service';
 
 @Component({
   selector: 'app-role-reveal',

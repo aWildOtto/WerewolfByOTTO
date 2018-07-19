@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { GameService } from '../../services/game.service';
-import { LanguageService } from '../../services/language.service';
+import { GameService } from '../../../services/game.service';
+import { LanguageService } from '../../../services/language.service';
 import { MatSelectionList, MatSelectionListChange } from '@angular/material';
 
 @Component({
