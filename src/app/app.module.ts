@@ -2,7 +2,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule, MatCheckboxModule, MatIconModule } from '@angular/material';
+import { MatButtonModule, MatCheckboxModule, MatIconModule, MatDialogModule } from '@angular/material';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
 import { FormsModule } from "@angular/forms";
@@ -31,9 +31,10 @@ import { PassToNextComponent } from './ofl/pass-to-next/pass-to-next.component';
 import { GameService } from '../services/game.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing/app-routing.module';
-import { WelcomeOlComponent } from './ol/welcome-ol/welcome-ol.component';
+import { WelcomeOlComponent, CreateJoinGameDialog } from './ol/welcome-ol/welcome-ol.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { GameUIComponent } from './ol/game-ui/game-ui.component';
+import { OnlineService } from '../services/online.service';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { GameUIComponent } from './ol/game-ui/game-ui.component';
     WelcomeOlComponent,
     NotFoundComponent,
     GameUIComponent,
+    CreateJoinGameDialog
   ],
   imports: [
     FormsModule,
@@ -65,6 +67,7 @@ import { GameUIComponent } from './ol/game-ui/game-ui.component';
     MatInputModule,
     MatExpansionModule,
     MatTooltipModule,
+    MatDialogModule,
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
@@ -76,7 +79,8 @@ import { GameUIComponent } from './ol/game-ui/game-ui.component';
   ],
   providers: [
     LanguageService,
-    GameService
+    GameService,
+    OnlineService
   ],
   bootstrap: [AppComponent]
 })

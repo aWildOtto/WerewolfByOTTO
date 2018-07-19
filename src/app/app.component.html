@@ -1,2 +1,6 @@
 <app-nav-bar></app-nav-bar>
 <router-outlet></router-outlet>
+<mat-button-toggle-group name="language" value="{{ls.language}}" (change)="changeLanguage($event)">
+  <mat-button-toggle value="English">{{ls.s["eng"]}}</mat-button-toggle>
+  <mat-button-toggle value="Chinese">{{ls.s["chn"]}}</mat-button-toggle>
+</mat-button-toggle-group>

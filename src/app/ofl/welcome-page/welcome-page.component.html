@@ -1,12 +1,12 @@
 <mat-card>
   <mat-card-title>
-    {{languageService.s["welcomeToGame"]}}
+    {{ls.s["welcomeToGame"]}}
   </mat-card-title>
   <mat-card-subtitle>
-    {{languageService.s["addToHomeScreen"]}}
+    {{ls.s["addToHomeScreen"]}}
   </mat-card-subtitle>
   <mat-card-actions>
-    <button mat-raised-button color="primary" (click)="start()">{{languageService.s["startGame"]}}</button>
-    <button mat-button (click)="showHelp()">{{languageService.s["help"]}}</button>
+    <button mat-raised-button color="primary" (click)="start()">{{ls.s["startGame"]}}</button>
+    <button mat-button (click)="showHelp()">{{ls.s["help"]}}</button>
   </mat-card-actions>
 </mat-card>

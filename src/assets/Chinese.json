@@ -36,5 +36,7 @@
   "hi": "你好",
   "passBackToMod": "请将手机交给法官",
   "noWerewolfError": "狼人杀怎么能没有狼人ಠ_ಠ",
-  "noVillagerError": "没有普通村民狼人们hin不开心ಠ╭╮ಠ"
+  "noVillagerError": "没有普通村民狼人们hin不开心ಠ╭╮ಠ",
+  "createGame": "创建游戏",
+  "joinGame": "加入游戏"
 }

@@ -23,10 +23,7 @@ export class MainAreaComponent implements OnInit {
     this.showPage = event;
     this.gs.updatePage(event);
   }
-  changeLanguage(event) {
-    this.ls.language = event.value;
-    this.ls.loadLanguage();
-  }
+
   constructor(
     public ls: LanguageService,
     public gs: GameService
