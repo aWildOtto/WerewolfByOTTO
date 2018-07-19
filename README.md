@@ -2,14 +2,22 @@
 This is a simple werewolf web game for playing werewolf offline with friends. One phone is required for playing. 
 
 ## How it works
+### Offline version
 1. Start a game by configuring the roles to play in the game.
 2. Pass the phone to the players for them to check their roles secretly.
-3. The phone goes back to the game moderator and the app continues helping the mod to facilite the game
+3. The phone goes back to the game moderator and the app continues helping the mod to facilitate the game
+### Online version(envisioned)
+1. Create a game by typing your name and press start. This generates a game code and brings the creator to a game lobby.
+2. Share the game code to other players so they can join the game via the code.
+3. configure the game by setting the roles to play
+4. The game creator starts the game. All players check their roles secretly on their own phone(no need to pass one phone around).
+5. The game moderator(random or always the game creator) can see everyone's role and the app can help facilitate the game.
 
 ## Technologies used
 - Angular 6
 - Angular material
-- Pwa support
+- Pwa
+- Firebase realtime database
 
 ## Development server
 
