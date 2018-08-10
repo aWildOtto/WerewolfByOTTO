@@ -38,5 +38,7 @@
   "noWerewolfError": "Werewolf can't be played without werewolves ಠ_ಠ",
   "noVillagerError": "Werewolf can't be played without villagers ಠ╭╮ಠ",
   "createGame": "Create a new Game",
-  "joinGame": "Join a game"
+  "joinGame": "Join a game",
+  "goToOffLine": "Offline version",
+  "goToOnline": "Online version"
 }
