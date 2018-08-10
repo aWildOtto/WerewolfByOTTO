@@ -1,0 +1,20 @@
+<div>
+    <h2 style="text-align: center"> {{ls.s["welcomeToGame"]}}</h2>
+    <hr>
+    <br/>
+    <div style="display: flex;
+    justify-content: center;">
+        <mat-form-field appearance="outline">
+            <mat-label>{{ls.s['enterUserName']}}</mat-label>
+            <input matInput required>
+            <!-- <mat-error *ngIf="invalid room number">{{getErrorMessage()}}</mat-error> -->
+        </mat-form-field>
+    </div>
+    <br/>
+    <div style="display: flex;
+    justify-content: center;">
+        <button mat-stroked-button color="primary" (click)="onCancelClick()">{{ls.s['cancel']}}</button>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button mat-stroked-button color="primary">{{ls.s['next']}}</button>
+    </div>
+</div>
