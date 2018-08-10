@@ -6,7 +6,7 @@
     justify-content: center;">
         <mat-form-field appearance="outline">
             <mat-label>{{ls.s['enterUserName']}}</mat-label>
-            <input matInput required>
+            <input [(ngModel)]="data" matInput required>
             <!-- <mat-error *ngIf="invalid room number">{{getErrorMessage()}}</mat-error> -->
         </mat-form-field>
     </div>
@@ -15,6 +15,6 @@
     justify-content: center;">
         <button mat-stroked-button color="primary" (click)="onCancelClick()">{{ls.s['cancel']}}</button>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <button mat-stroked-button color="primary">{{ls.s['next']}}</button>
+        <button mat-stroked-button color="primary" (click)="onConfirmClick()">{{ls.s['next']}}</button>
     </div>
 </div>

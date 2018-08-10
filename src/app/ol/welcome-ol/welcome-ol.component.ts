@@ -1,8 +1,9 @@
 import { Component, OnInit, Inject, Output, EventEmitter } from "@angular/core";
 import { OnlineService } from "../../../services/online.service";
 import { LanguageService } from "../../../services/language.service";
-import { MatDialogRef, MatDialog } from "@angular/material";
+import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from "@angular/material";
 import { FormControl, Validators } from "@angular/forms";
+import { Router } from "../../../../node_modules/@angular/router";
 
 @Component({
   selector: "app-welcome-ol",
@@ -24,7 +25,8 @@ export class WelcomeOlComponent implements OnInit {
   constructor(
     private os: OnlineService,
     public ls: LanguageService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private router: Router
   ) {}
 
   public roomCode: string = "";
@@ -43,12 +45,17 @@ export class WelcomeOlComponent implements OnInit {
 
   openCreateDialog() {
     const createDialogRef = this.dialog.open(CreateGameDialog, {
-      width: "300px"
+      width: "300px",
+      data: ""
     });
 
-    // createDialogRef.afterClosed().subscribe(result => {
-    //   console.log("The creation dialog was closed");
-    // });
+    createDialogRef.afterClosed().subscribe(result => {
+      //this.os.createGame(result).subscribe(result =>{
+      this.router.navigate(["qwjlkfejlkdsafjlk"]);
+      //});
+
+      console.log(result);
+    });
   }
   create() {}
 
@@ -87,10 +94,14 @@ export class JoinGameDialog {
 export class CreateGameDialog {
   constructor(
     public ls: LanguageService,
-    public dialogRef: MatDialogRef<CreateGameDialog>
+    public dialogRef: MatDialogRef<CreateGameDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: string
   ) {}
 
   onCancelClick(): void {
     this.dialogRef.close();
+  }
+  onConfirmClick(): void {
+    this.dialogRef.close(this.data);
   }
 }
