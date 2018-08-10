@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GameUIComponent } from './game-ui.component';
+import { GameLobbyComponent } from './game-lobby.component';
 
-describe('GameUIComponent', () => {
-  let component: GameUIComponent;
-  let fixture: ComponentFixture<GameUIComponent>;
+describe('GameLobbyComponent', () => {
+  let component: GameLobbyComponent;
+  let fixture: ComponentFixture<GameLobbyComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GameUIComponent ]
+      declarations: [ GameLobbyComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GameUIComponent);
+    fixture = TestBed.createComponent(GameLobbyComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

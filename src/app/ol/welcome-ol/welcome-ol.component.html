@@ -6,8 +6,8 @@
     {{ls.s["addToHomeScreen"]}}
   </mat-card-subtitle>
   <mat-card-actions>
-    <button mat-raised-button color="primary" (click)="openDialog()">{{ls.s["createGame"]}}</button>
-    <button mat-raised-button color="primary" (click)="openDialog()">{{ls.s["joinGame"]}}</button>
+    <button mat-raised-button color="primary" (click)="openCreateDialog()">{{ls.s["createGame"]}}</button>
+    <button mat-raised-button color="primary" (click)="openJoinDialog()">{{ls.s["joinGame"]}}</button>
   </mat-card-actions>
 </mat-card>
 <button mat-button [routerLink]="['offline']" class="modeChangeBtn">{{ls.s["goToOffLine"]}}</button>

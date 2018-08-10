@@ -39,6 +39,13 @@
   "noVillagerError": "没有普通村民狼人们hin不开心ಠ╭╮ಠ",
   "createGame": "创建游戏",
   "joinGame": "加入游戏",
+  "roomNumber": "游戏房间号:",
+  "userName": "玩家昵称",
+  "next": "下一步",
+  "cancel": "取消",
+  "enterUserName": "请输入玩家昵称",
+  "noRoomCodeError": "快输入游戏房间号别一不小心走错房间啦",
+  "noUserNameError": "输入自己的用户名，别变得如此菜",
   "goToOffLine": "离线版本",
-  "goToOnline": "主版本"
+  "goToOnline": "返回主版本"
 }
