@@ -47,9 +47,9 @@ export class WelcomeOlComponent implements OnInit {
         if (result.isJoin) {
           this.router.navigate([result.roomCode]);
         } else {
-          // this.os.createGame(result).subscribe(result =>{
-          this.router.navigate(['createdGame']);
-          // });
+          this.os.createGame(result.username).then(createResult => {
+            this.router.navigate([createResult]);
+          });
         }
       }
     });
