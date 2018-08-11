@@ -11,17 +11,9 @@ import { Router } from "../../../../node_modules/@angular/router";
   styleUrls: ["./welcome-ol.component.scss"]
 })
 export class WelcomeOlComponent implements OnInit {
-  roomCodeInputControl = new FormControl("", [
-    Validators.required,
-    Validators.minLength(6),
-    Validators.maxLength(6)
-  ]);
 
-  userNameInputControl = new FormControl("", [
-    Validators.required,
-    Validators.minLength(1)
-  ]);
-
+  ngOnInit() {
+  }
   constructor(
     private os: OnlineService,
     public ls: LanguageService,
@@ -37,7 +29,7 @@ export class WelcomeOlComponent implements OnInit {
       isJoin = false;
       dialogTitle = this.ls.s['createGame'];
     }
-    const createDialogRef = this.dialog.open(EnterGameDialog, {
+    const dialogRef = this.dialog.open(EnterGameDialog, {
       width: "70%",
       data: {
         isJoin,
@@ -47,7 +39,7 @@ export class WelcomeOlComponent implements OnInit {
       }
     });
 
-    createDialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(result => {
       if(result){
         console.log(result);
         if(result.isJoin){
@@ -60,13 +52,7 @@ export class WelcomeOlComponent implements OnInit {
       }
     });
   }
-  create() {}
 
-  join() {}
-
-  ngOnInit() {
-    this.roomCodeInputControl.setValue("");
-  }
 }
 
 
@@ -76,6 +62,18 @@ export class WelcomeOlComponent implements OnInit {
   styleUrls: ["./dialog-style.scss"]
 })
 export class EnterGameDialog {
+  roomCodeInputControl = new FormControl("", [
+    Validators.required,
+    Validators.minLength(6),
+    Validators.maxLength(6)
+  ]);
+
+  userNameInputControl = new FormControl("", [
+    Validators.required,
+    Validators.minLength(1)
+  ]);
+  ngOnInit(){
+  }
   constructor(
     public ls: LanguageService,
     public dialogRef: MatDialogRef<EnterGameDialog>,
