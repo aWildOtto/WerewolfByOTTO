@@ -37,8 +37,7 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { AppRoutingModule } from "./app-routing/app-routing.module";
 import {
   WelcomeOlComponent,
-  JoinGameDialog,
-  CreateGameDialog
+  EnterGameDialog
 } from "./ol/welcome-ol/welcome-ol.component";
 import { NotFoundComponent } from "./not-found/not-found.component";
 import { OnlineService } from "../services/online.service";
@@ -82,15 +81,14 @@ import { GameLobbyComponent } from "./ol/game-lobby/game-lobby.component";
     PassToNextComponent,
     WelcomeOlComponent,
     NotFoundComponent,
-    JoinGameDialog,
-    CreateGameDialog,
+    EnterGameDialog,
     MainAreaOlComponent,
     GameLobbyComponent
   ],
 
   exports: [MatButtonModule, MatCheckboxModule],
   providers: [LanguageService, GameService, OnlineService],
-  entryComponents: [JoinGameDialog, CreateGameDialog],
+  entryComponents: [EnterGameDialog],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

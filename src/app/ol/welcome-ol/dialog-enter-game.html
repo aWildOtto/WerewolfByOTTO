@@ -1,0 +1,24 @@
+<div>
+  <h2 mat-dialog-title> {{data.dialogTitle}}</h2>
+  <form>
+    <div class="dialogInput">
+      <mat-form-field floatLabel="auto" appearance="outline">
+        <mat-label>{{ls.s['enterUserName']}}</mat-label>
+        <input name="username" [(ngModel)]="data.username" matInput required>
+        <!-- <mat-error *ngIf="invalid room number">{{getErrorMessage()}}</mat-error> -->
+      </mat-form-field>
+      <div *ngIf="data.isJoin">
+        <mat-form-field floatLabel="auto" appearance="outline">
+          <mat-label>{{ls.s['enterRoomCode']}}</mat-label>
+          <input name="roomNumber" [(ngModel)]="data.roomCode"matInput required>
+          <!-- <mat-error *ngIf="invalid room number">{{getErrorMessage()}}</mat-error> -->
+        </mat-form-field>
+      </div>
+    </div>
+  </form>
+  <mat-dialog-actions>
+    <button mat-stroked-button color="primary" (click)="onCancelClick()">{{ls.s['cancel']}}</button>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <button mat-stroked-button color="primary" (click)="onConfirmClick()">{{ls.s['next']}}</button>
+  </mat-dialog-actions>
+</div>

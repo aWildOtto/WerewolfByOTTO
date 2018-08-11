@@ -5,8 +5,7 @@
   "werewolf": "Werewolf",
   "welcomeToGame": "Welecome to Werewolf",
   "gameSetup": "Game setup",
-  "addToHomeScreen":
-    "Feel free to add this site to your home screen so you can play offline",
+  "addToHomeScreen": "Feel free to add this site to your home screen so you can play offline",
   "startGame": "Start Game",
   "help": "Help",
   "setupSubtitle": "Configure the roles in this game",
@@ -40,13 +39,14 @@
   "noVillagerError": "Werewolf can't be played without villagers ಠ╭╮ಠ",
   "createGame": "Create a new Game",
   "joinGame": "Join a game",
-  "roomNumber": "Room Code",
-  "userName": "player's name",
+  "roomCode": "Room Code",
+  "username": "Your In-Game Name",
   "next": "Next",
   "cancel": "Cancel",
-  "enterUserName": "Please Enter your User Name",
+  "enterUserName": "Please Enter your Username",
   "noRoomCodeError": "Werewolf cannot continue without a room number ಠ╭╮ಠ",
   "noUserNameError": "Inditified yourself before entering the game ಠ_ಠ",
   "goToOffLine": "Offline version",
-  "goToOnline": "Online version"
+  "goToOnline": "Online version",
+  "enterRoomCode": "Please enter Room Code"
 }

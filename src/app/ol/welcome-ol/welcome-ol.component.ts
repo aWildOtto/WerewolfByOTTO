@@ -29,32 +29,35 @@ export class WelcomeOlComponent implements OnInit {
     private router: Router
   ) {}
 
-  public roomCode: string = "";
-  public userName: string = "";
-
-  openJoinDialog() {
-    const joinDialogRef = this.dialog.open(JoinGameDialog, {
-      width: "300px"
-    });
-
-    // joinDialogRef.afterClosed().subscribe(result => {
-    //   console.log("The dialog was closed");
-    //   // this.animal = result;
-    // });
-  }
-
-  openCreateDialog() {
-    const createDialogRef = this.dialog.open(CreateGameDialog, {
-      width: "300px",
-      data: ""
+  openDialog(event) {
+    let isJoin:boolean = true;
+    let dialogTitle: string = this.ls.s['joinGame'];
+    let roomCode: string = "";
+    if(event.target.id === "createGame" || event.path[1].id === "createGame"){
+      isJoin = false;
+      dialogTitle = this.ls.s['createGame'];
+    }
+    const createDialogRef = this.dialog.open(EnterGameDialog, {
+      width: "70%",
+      data: {
+        isJoin,
+        dialogTitle,
+        username: '',
+        roomCode
+      }
     });
 
     createDialogRef.afterClosed().subscribe(result => {
-      //this.os.createGame(result).subscribe(result =>{
-      this.router.navigate(["qwjlkfejlkdsafjlk"]);
-      //});
-
-      console.log(result);
+      if(result){
+        console.log(result);
+        if(result.isJoin){
+          this.router.navigate([result.roomCode]);
+        } else {
+          //this.os.createGame(result).subscribe(result =>{
+            this.router.navigate(['createdGame']);
+          //});
+        }
+      }
     });
   }
   create() {}
@@ -66,36 +69,17 @@ export class WelcomeOlComponent implements OnInit {
   }
 }
 
-@Component({
-  selector: "dialog-join-game",
-  templateUrl: "dialog-join-game.html"
-})
-export class JoinGameDialog {
-  constructor(
-    public ls: LanguageService,
-    public dialogRef: MatDialogRef<JoinGameDialog> // @Inject(MAT_DIALOG_DATA) public data:
-  ) {}
-
-  @Output() gameLobby = new EventEmitter<string>();
-
-  onCancelClick(): void {
-    this.dialogRef.close();
-  }
-
-  enterGameLobby() {
-    this.gameLobby.emit("gameLobby");
-  }
-}
 
 @Component({
-  selector: "dialog-create-game",
-  templateUrl: "dialog-create-game.html"
+  selector: "dialog-enter-game",
+  templateUrl: "dialog-enter-game.html",
+  styleUrls: ["./dialog-style.scss"]
 })
-export class CreateGameDialog {
+export class EnterGameDialog {
   constructor(
     public ls: LanguageService,
-    public dialogRef: MatDialogRef<CreateGameDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: string
+    public dialogRef: MatDialogRef<EnterGameDialog>,
+    @Inject(MAT_DIALOG_DATA) public data
   ) {}
 
   onCancelClick(): void {
