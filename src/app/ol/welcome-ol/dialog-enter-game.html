@@ -10,8 +10,8 @@
       <div *ngIf="data.isJoin">
         <mat-form-field floatLabel="auto" appearance="outline">
           <mat-label>{{ls.s['enterRoomCode']}}</mat-label>
-          <input name="roomNumber" [(ngModel)]="data.roomCode"matInput required>
-          <!-- <mat-error *ngIf="invalid room number">{{getErrorMessage()}}</mat-error> -->
+          <input name="roomNumber" [(ngModel)]="data.roomCode" matInput required>
+
         </mat-form-field>
       </div>
     </div>
@@ -19,6 +19,6 @@
   <mat-dialog-actions>
     <button mat-stroked-button color="primary" (click)="onCancelClick()">{{ls.s['cancel']}}</button>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <button mat-stroked-button color="primary" (click)="onConfirmClick()">{{ls.s['next']}}</button>
+    <button mat-stroked-button color="primary" [disabled]="data.username === ''|| data.roomCode === ''" (click)="onConfirmClick()">{{ls.s['next']}}</button>
   </mat-dialog-actions>
 </div>
