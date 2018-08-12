@@ -1,10 +1,23 @@
 <mat-card>
     <mat-card-title>{{gameCode}}</mat-card-title>
+    <button mat-icon-button>
+        <mat-icon>person_add</mat-icon>
+    </button>
+
 </mat-card>
 <mat-card>
     <div *ngIf="gameData">
         <mat-list>
-            <mat-list-item *ngFor="let player of players">{{player}}</mat-list-item>
+            <mat-list-item *ngFor="let player of players">
+                {{player}}
+                <mat-icon style="float: right">highlight_off</mat-icon>
+            </mat-list-item>
+
         </mat-list>
     </div>
+
+</mat-card>
+<mat-card>
+    <button style="width: 47%; margin-right: 6%" mat-raised-button color='primary' (click)="clickConfig()">config</button>
+    <button style="width: 47%" mat-raised-button color='primary' [disabled]='true'>start</button>
 </mat-card>

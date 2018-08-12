@@ -31,14 +31,14 @@ export class WelcomeOlComponent implements OnInit {
       // so we make this not empty and it doesn't disable the button
     }
     const dialogRef = this.dialog.open(EnterGameDialog, {
-      width: "70%",
+      width: "60%",
       data: {
         isJoin,
         dialogTitle,
         username: "",
         roomCode,
         usernameInvalid: true,
-        roomCodeInvalid: true
+        roomCodeInvalid: false
       }
     });
 
@@ -95,17 +95,37 @@ export class EnterGameDialog {
         }
       });
     }
+    if (!this.data.isJoin) {
+      if (this.data.username.trim().length === 0) {
+        this.data.usernameInvalid = true;
+      } else {
+        this.data.usernameInvalid = false;
+      }
+    }
   }
 
   getErrorMessageUsername(): any {
-    if (!this.data.isJoin && this.data.username.trim().length === 0)
-      return this.ls.s["createUserNameError"];
-    if (this.data.isJoin && !this.data.roomCodeInvalid)
-      return this.ls.s["noUserNameError"];
+    if (!this.data.isJoin) {
+      if (this.data.usernameInvalid) {
+        return this.ls.s["createUserNameError"];
+      }
+    }
+    if (this.data.isJoin) {
+      if (this.data.username === "" || this.data.roomCode === "") {
+        return "";
+      } else {
+        return this.ls.s["noUserNameError"];
+      }
+    }
   }
 
   getErrorMessageRoomCode(): any {
-    if (this.data.isJoin && this.gameCode !== this.data.username)
-      return this.ls.s["noRoomCodeError"];
+    if (this.data.isJoin) {
+      if (this.data.roomCode === "") {
+        return "";
+      } else {
+        return this.ls.s["noRoomCodeError"];
+      }
+    }
   }
 }
