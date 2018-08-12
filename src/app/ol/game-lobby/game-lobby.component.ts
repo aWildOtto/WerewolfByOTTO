@@ -25,7 +25,7 @@ export class GameLobbyComponent implements OnInit {
   ngOnInit() {
     this.gameCode = this.activeRoute.snapshot.params['id'];
     this.gameData = this.os.getGameData(this.gameCode);
-    this.os.getGameData(this.gameCode).valueChanges().subscribe(data => {
+    this.gameData.valueChanges().subscribe(data => {
       if (data) {
         this.players = data.players;
       }
