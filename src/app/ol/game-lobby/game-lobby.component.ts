@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { OnlineService } from '../../../services/online.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GameData } from '../../../model/gameData';
+import { AngularFireObject } from 'angularfire2/database';
 
 @Component({
   selector: 'app-game-lobby',
@@ -11,7 +12,8 @@ import { GameData } from '../../../model/gameData';
 export class GameLobbyComponent implements OnInit {
 
   public gameCode: string;
-  public gameData: GameData;
+  public gameData: AngularFireObject<GameData>;
+  public players: string[];
   constructor(
     private os: OnlineService,
     private activeRoute: ActivatedRoute,
@@ -22,11 +24,10 @@ export class GameLobbyComponent implements OnInit {
 
   ngOnInit() {
     this.gameCode = this.activeRoute.snapshot.params['id'];
-    this.os.getGameData(this.gameCode).then(data => {
+    this.gameData = this.os.getGameData(this.gameCode);
+    this.os.getGameData(this.gameCode).valueChanges().subscribe(data => {
       if (data) {
-        this.gameData = data;
-      } else {
-        this.router.navigate(['404']);
+        this.players = data.players;
       }
     });
   }

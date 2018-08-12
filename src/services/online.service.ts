@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
 import { Observable } from 'rxjs';
 import { GameData } from '../model/gameData';
 
@@ -14,15 +14,9 @@ export class OnlineService {
     console.log('hi otto');
   }
 
-  getGameData(gameCode: string): Promise<GameData> {
-    return new Promise((resolve, reject) => {
-      this.db.database.ref('gameData/' + gameCode).once('value', data => {
-        console.log(data.val());
-        resolve(data.val());
-      }).catch(error => {
-        reject(error);
-      });
-    });
+  getGameData(gameCode: string): AngularFireObject<GameData> {
+    const path = `gameData/${gameCode}`;
+    return this.db.object('gameData/' + gameCode);
   }
 
   genGameCode(gameNum: number): string {
