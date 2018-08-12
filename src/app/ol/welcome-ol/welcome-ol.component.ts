@@ -20,12 +20,16 @@ export class WelcomeOlComponent implements OnInit {
     public dialog: MatDialog,
     private router: Router
   ) { }
-
-  openDialog(event) {
-    let isJoin = true;
+  openCreateDialog(event) {
+    this.openDialog(false);
+  }
+  openJoinDialog(event) {
+    this.openDialog(true);
+  }
+  openDialog(isJoin: boolean) {
     let dialogTitle: string = this.ls.s['joinGame'];
     let roomCode = '';
-    if (event.target.id === 'createGame' || event.path[1].id === 'createGame') {
+    if (!isJoin) {
       isJoin = false;
       dialogTitle = this.ls.s['createGame'];
       roomCode = 'I\'m not empty'; // this value wouldn't be used when creating a game.

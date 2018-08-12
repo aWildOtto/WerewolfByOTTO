@@ -14,11 +14,13 @@ export class OnlineService {
     console.log('hi otto');
   }
 
-  getGameData(gameCode: string): Promise<any> {
+  getGameData(gameCode: string): Promise<GameData> {
     return new Promise((resolve, reject) => {
       this.db.database.ref('gameData/' + gameCode).once('value', data => {
         console.log(data.val());
         resolve(data.val());
+      }).catch(error => {
+        reject(error);
       });
     });
   }
