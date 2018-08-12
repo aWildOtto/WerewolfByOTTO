@@ -1,3 +1,11 @@
 <mat-card>
     <mat-card-title>{{gameCode}}</mat-card-title>
 </mat-card>
+<mat-card>
+    <div *ngIf="gameData">
+
+        <mat-list>
+            <mat-list-item *ngFor="let player of gameData.players">{{player}}</mat-list-item>
+        </mat-list>
+    </div>
+</mat-card>
