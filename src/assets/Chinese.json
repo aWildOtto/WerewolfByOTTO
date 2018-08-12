@@ -48,5 +48,6 @@
   "noUserNameError": "输入自己的用户名，别变得如此菜",
   "goToOffLine": "离线版本",
   "goToOnline": "返回主版本",
-  "enterRoomCode": "请输入游戏码"
+  "enterRoomCode": "请输入游戏码",
+  "404msg": "误入狼人巢穴"
 }
