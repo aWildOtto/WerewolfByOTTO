@@ -15,7 +15,6 @@ export class OnlineService {
   }
 
   getGameData(gameCode: string): AngularFireObject<GameData> {
-    const path = `gameData/${gameCode}`;
     return this.db.object('gameData/' + gameCode);
   }
 
