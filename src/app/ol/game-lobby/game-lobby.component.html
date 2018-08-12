@@ -18,6 +18,20 @@
 
 </mat-card>
 <mat-card>
-    <button style="width: 47%; margin-right: 6%" mat-raised-button color='primary' (click)="clickConfig()">config</button>
-    <button style="width: 47%" mat-raised-button color='primary' [disabled]='true'>start</button>
+    <button
+        class="game-lobby-action-btn config-btn"
+        mat-raised-button
+        color="primary"
+        (click)="clickConfig()"
+    >
+        config
+    </button>
+    <button
+        class="game-lobby-action-btn"
+        mat-raised-button
+        color="primary"
+        [disabled]="true"
+    >
+        start
+    </button>
 </mat-card>

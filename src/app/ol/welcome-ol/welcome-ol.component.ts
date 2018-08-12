@@ -1,50 +1,55 @@
-import { Component, OnInit, Inject, Output, EventEmitter } from "@angular/core";
-import { OnlineService } from "../../../services/online.service";
-import { LanguageService } from "../../../services/language.service";
-import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from "@angular/material";
-import { Router } from "../../../../node_modules/@angular/router";
-import { GameData } from "../../../model/gameData";
-import { AngularFireObject } from "angularfire2/database";
+import { Component, OnInit, Inject, Output, EventEmitter } from '@angular/core';
+import { OnlineService } from '../../../services/online.service';
+import { LanguageService } from '../../../services/language.service';
+import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material';
+import { Router } from '../../../../node_modules/@angular/router';
+import { GameData } from '../../../model/gameData';
+import { AngularFireObject } from 'angularfire2/database';
+import { Subscription } from 'rxjs';
 
 @Component({
-  selector: "app-welcome-ol",
-  templateUrl: "./welcome-ol.component.html",
-  styleUrls: ["./welcome-ol.component.scss"]
+  selector: 'app-welcome-ol',
+  templateUrl: './welcome-ol.component.html',
+  styleUrls: ['./welcome-ol.component.scss']
 })
 export class WelcomeOlComponent implements OnInit {
-  ngOnInit() {}
+  ngOnInit() { }
   constructor(
     private os: OnlineService,
     public ls: LanguageService,
     public dialog: MatDialog,
     private router: Router
-  ) {}
+  ) { }
 
-  openDialog(event) {
-    let isJoin = true;
-    let dialogTitle: string = this.ls.s["joinGame"];
-    let roomCode = "";
-    if (event.target.id === "createGame" || event.path[1].id === "createGame") {
-      isJoin = false;
-      dialogTitle = this.ls.s["createGame"];
-      roomCode = "I'm not empty"; // this value wouldn't be used when creating a game.
+  openJoinDialog(event) {
+    this.openDialog(true);
+  }
+  openCreateDialog(event) {
+    this.openDialog(false);
+  }
+
+  openDialog(isJoin: boolean) {
+    let dialogTitle: string = this.ls.s['joinGame'];
+    let roomCode = '';
+    if (!isJoin) {
+      dialogTitle = this.ls.s['createGame'];
+      roomCode = 'I\'m not empty'; // this value wouldn't be used when creating a game.
       // so we make this not empty and it doesn't disable the button
     }
     const dialogRef = this.dialog.open(EnterGameDialog, {
-      width: "60%",
+      width: '60%',
       data: {
         isJoin,
         dialogTitle,
-        username: "",
-        roomCode,
-        usernameInvalid: true,
-        roomCodeInvalid: false
+        username: '',
+        roomCode
       }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         if (result.isJoin) {
+          this.os.createUserProfile(result.username);
           this.router.navigate([result.roomCode]);
         } else {
           this.os.createGame(result.username).then(createResult => {
@@ -57,75 +62,43 @@ export class WelcomeOlComponent implements OnInit {
 }
 
 @Component({
-  selector: "dialog-enter-game",
-  templateUrl: "dialog-enter-game.html",
-  styleUrls: ["./dialog-style.scss"]
+  selector: 'dialog-enter-game',
+  templateUrl: 'dialog-enter-game.html',
+  styleUrls: ['./dialog-style.scss']
 })
 export class EnterGameDialog {
-  public gameCode: string;
-  public gameData: AngularFireObject<GameData>;
-  public players: string[];
+  private gameData: AngularFireObject<GameData>;
+  public gameCodeInvalid: boolean;
+  private gameDataObservable: Subscription;
 
   constructor(
     public ls: LanguageService,
     public dialogRef: MatDialogRef<EnterGameDialog>,
     private os: OnlineService,
     @Inject(MAT_DIALOG_DATA) public data
-  ) {}
-
-  onCancelClick(): void {
-    this.dialogRef.close();
+  ) {
+    this.dialogRef.beforeClose().subscribe(event => {
+      if (this.gameDataObservable) {
+        this.gameDataObservable.unsubscribe();
+      }
+    });
   }
+
+
   onConfirmClick(): void {
     this.dialogRef.close(this.data);
   }
 
   onChange(): void {
-    if (this.data.isJoin && this.data.roomCode !== "") {
+    if (this.data.roomCode !== '') {
       this.gameData = this.os.getGameData(this.data.roomCode);
-      this.gameData.valueChanges().subscribe(data => {
+      this.gameDataObservable = this.gameData.valueChanges().subscribe(data => {
         if (data) {
-          this.data.roomCodeInvalid = false;
-          this.players = data.players;
-          this.data.usernameInvalid = !this.players.includes(
-            this.data.username
-          );
+          this.gameCodeInvalid = false;
         } else {
-          this.data.roomCodeInvalid = true;
+          this.gameCodeInvalid = true;
         }
       });
-    }
-    if (!this.data.isJoin) {
-      if (this.data.username.trim().length === 0) {
-        this.data.usernameInvalid = true;
-      } else {
-        this.data.usernameInvalid = false;
-      }
-    }
-  }
-
-  getErrorMessageUsername(): any {
-    if (!this.data.isJoin) {
-      if (this.data.usernameInvalid) {
-        return this.ls.s["createUserNameError"];
-      }
-    }
-    if (this.data.isJoin) {
-      if (this.data.username === "" || this.data.roomCode === "") {
-        return "";
-      } else {
-        return this.ls.s["noUserNameError"];
-      }
-    }
-  }
-
-  getErrorMessageRoomCode(): any {
-    if (this.data.isJoin) {
-      if (this.data.roomCode === "") {
-        return "";
-      } else {
-        return this.ls.s["noRoomCodeError"];
-      }
     }
   }
 }

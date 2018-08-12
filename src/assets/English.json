@@ -5,8 +5,7 @@
   "werewolf": "Werewolf",
   "welcomeToGame": "Welecome to Werewolf",
   "gameSetup": "Game setup",
-  "addToHomeScreen":
-    "Feel free to add this site to your home screen so you can play offline",
+  "addToHomeScreen": "Feel free to add this site to your home screen so you can play offline",
   "startGame": "Start Game",
   "help": "Help",
   "setupSubtitle": "Configure the roles in this game",
@@ -51,5 +50,5 @@
   "goToOnline": "Online version",
   "enterRoomCode": "Please enter Room Code",
   "404msg": "You've wandered into a werewolf's evil lair",
-  "createUserNameError": "Give yourself a meaningful usernameヽ(́◕◞౪◟◕‵)ﾉ"
+  "roomNotExist": "This room doesn't exist"
 }

@@ -1,29 +1,54 @@
 <div>
-  <h2 mat-dialog-title style="font-weight: 600; text-align: center">
-    {{data.dialogTitle}}</h2>
-  <div class="dialogInput">
+    <h2
+        mat-dialog-title
+        class="dialog-title"
+    >
+        {{data.dialogTitle}}
+    </h2>
+    <mat-dialog-content class="dialogInput">
 
-    <div *ngIf="data.isJoin">
-      <mat-form-field floatLabel="auto" appearance="outline">
-        <mat-label>{{ls.s['enterRoomCode']}}</mat-label>
-        <input name="roomNumber" [(ngModel)]="data.roomCode" matInput (ngModelChange)="onChange($event)" required>
-      </mat-form-field>
-    </div>
-    <mat-form-field floatLabel="auto" appearance="outline">
-      <mat-label>{{ls.s['enterUserName']}}</mat-label>
-      <input name="username" [(ngModel)]="data.username" matInput (ngModelChange)="onChange($event)" required>
-    </mat-form-field>
+        <div *ngIf="data.isJoin">
+            <mat-form-field
+                floatLabel="auto"
+                appearance="outline"
+            >
+                <mat-label>{{ls.s['enterRoomCode']}}</mat-label>
+                <input
+                    name="roomNumber"
+                    [(ngModel)]="data.roomCode"
+                    matInput
+                    (ngModelChange)="onChange($event)"
+                    required
+                    (keydown.space)="$event.preventDefault();"
+                >
+            </mat-form-field>
+        </div>
+        <mat-form-field
+            floatLabel="auto"
+            appearance="outline"
+        >
+            <mat-label>{{ls.s['enterUserName']}}</mat-label>
+            <input
+                name="username"
+                [(ngModel)]="data.username"
+                matInput
+                required
+                (keydown.space)="$event.preventDefault();"
+            >
+        </mat-form-field>
 
-  </div>
-  <div style="align-content: center">
+        <div class="room-error">
+            <mat-error *ngIf="gameCodeInvalid">{{ls.s['roomNotExist']}}</mat-error>
+        </div>
+    </mat-dialog-content>
     <mat-dialog-actions>
-      <button mat-stroked-button color="primary" (click)="onCancelClick()">{{ls.s['cancel']}}</button>
-      <button style="margin-left: 10%" mat-stroked-button color="primary" [disabled]=" data.usernameInvalid || data.roomCodeInvalid"
-        (click)="onConfirmClick()">{{ls.s['next']}}</button>
+        <button
+            mat-stroked-button
+            color="primary"
+            [disabled]="gameCodeInvalid || data.username.trim() === ''"
+            (click)="onConfirmClick()"
+        >
+            {{ls.s['next']}}
+        </button>
     </mat-dialog-actions>
-  </div>
-  <div style="margin-left: 20%; margin-right: 20%; margin-top: 20px; align-content: center">
-    <mat-error *ngIf="data.roomCodeInvalid">{{getErrorMessageRoomCode()}}</mat-error>
-    <mat-error *ngIf="data.usernameInvalid">{{getErrorMessageUsername()}}</mat-error>
-  </div>
 </div>
