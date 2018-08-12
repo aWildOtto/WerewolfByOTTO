@@ -2,28 +2,14 @@
     <mat-card-title>{{ls.s["welcomeToGame"]}}</mat-card-title>
     <mat-card-subtitle>{{ls.s["addToHomeScreen"]}}</mat-card-subtitle>
     <mat-card-actions>
-        <button
-            mat-raised-button
-            id="createGame"
-            color="primary"
-            (click)="openCreateDialog($event)"
-        >
+        <button mat-raised-button id="createGame" color="primary" (click)="openDialog($event)">
             {{ls.s["createGame"]}}
         </button>
-        <button
-            mat-raised-button
-            id="joinGame"
-            color="primary"
-            (click)="openJoinDialog($event)"
-        >
+        <button mat-raised-button id="joinGame" color="primary" (click)="openDialog($event)">
             {{ls.s["joinGame"]}}
         </button>
     </mat-card-actions>
 </mat-card>
-<button
-    mat-button
-    [routerLink]="['offline']"
-    class="modeChangeBtn"
->
+<button mat-button [routerLink]="['offline']" class="modeChangeBtn">
     {{ls.s["goToOffLine"]}}
 </button>
