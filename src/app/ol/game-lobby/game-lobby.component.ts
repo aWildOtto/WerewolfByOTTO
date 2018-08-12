@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { OnlineService } from '../../../services/online.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-game-lobby',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GameLobbyComponent implements OnInit {
 
-  constructor() { }
+  public gameCode: string;
+  constructor(
+    private os: OnlineService,
+    private activeRoute: ActivatedRoute
+  ) {
+
+  }
 
   ngOnInit() {
+    this.gameCode = this.activeRoute.snapshot.params['id'];
   }
 
 }

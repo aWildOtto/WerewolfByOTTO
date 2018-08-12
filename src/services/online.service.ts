@@ -29,7 +29,7 @@ export class OnlineService {
     return {
       creator,
       roles: [],
-      players: [],
+      players: [creator],
       currentIndex: 0,
       currentPage: 'gameLobby',
       currentNight: 0

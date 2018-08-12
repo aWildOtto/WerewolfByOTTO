@@ -1,11 +1,11 @@
-import { Component, OnInit } from "@angular/core";
-import { LanguageService } from "../../../services/language.service";
-import { GameService } from "../../../services/game.service";
+import { Component, OnInit } from '@angular/core';
+import { LanguageService } from '../../../services/language.service';
+import { GameService } from '../../../services/game.service';
 
 @Component({
-  selector: "app-main-area-ol",
-  templateUrl: "./main-area-ol.component.html",
-  styleUrls: ["./main-area-ol.component.scss"]
+  selector: 'app-main-area-ol',
+  templateUrl: './main-area-ol.component.html',
+  styleUrls: ['./main-area-ol.component.scss']
 })
 export class MainAreaOlComponent implements OnInit {
   showPage: string;
@@ -15,11 +15,9 @@ export class MainAreaOlComponent implements OnInit {
   // gameLobby
   switchPage(event) {
     this.showPage = event;
-    this.gs.updatePage(event);
   }
-  constructor(public ls: LanguageService, public gs: GameService) {
-    this.showPage = this.gs.getGameData().currentPage;
+  constructor(public ls: LanguageService) {
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 }

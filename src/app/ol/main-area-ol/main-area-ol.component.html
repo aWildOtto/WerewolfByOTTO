@@ -1,9 +1,8 @@
-<div class="content-area" [ngSwitch]="showPage">
-  <ng-template ngSwitchDefault="welcome">
-    <app-welcome-ol (startGameOl)="switchPage($event)"></app-welcome-ol>
-  </ng-template>
-
-  <ng-template ngSwitchDefault="gameLobby">
-    <app-game-lobby (enterLobby)="switchPage($event)"></app-game-lobby>
-  </ng-template>
+<div
+    class="content-area"
+    [ngSwitch]="showPage"
+>
+    <ng-template ngSwitchDefault="gameLobby">
+        <app-game-lobby (enterLobby)="switchPage($event)"></app-game-lobby>
+    </ng-template>
 </div>
