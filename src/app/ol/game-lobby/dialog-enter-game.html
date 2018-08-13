@@ -1,0 +1,33 @@
+<div>
+    <h2
+        mat-dialog-title
+        class="dialog-title"
+    >
+        {{ls.s['enterNameToJoinGame']}}
+    </h2>
+    <mat-dialog-content class="dialogInput">
+        <mat-form-field
+            floatLabel="auto"
+            appearance="outline"
+        >
+            <mat-label>{{ls.s['enterUserName']}}</mat-label>
+            <input
+                name="username"
+                [(ngModel)]="data"
+                matInput
+                required
+                (keydown.space)="$event.preventDefault();"
+            >
+        </mat-form-field>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+        <button
+            mat-stroked-button
+            color="primary"
+            [disabled]="data.trim() === ''"
+            (click)="onConfirmClick()"
+        >
+            {{ls.s['next']}}
+        </button>
+    </mat-dialog-actions>
+</div>

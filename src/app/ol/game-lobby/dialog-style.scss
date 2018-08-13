@@ -1,0 +1,19 @@
+@import '../../global';
+.dialogInput {
+  display: block;
+  justify-content: center;
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+mat-dialog-actions {
+  display: flex;
+  justify-content: center;
+}
+
+.dialog-title {
+  font-weight: 600; 
+  text-align: center;
+}

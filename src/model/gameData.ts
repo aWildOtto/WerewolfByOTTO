@@ -5,5 +5,5 @@ export interface GameData {
     currentIndex?: number; // index in roles and players array that is being revealed 
     currentPage: string;
     currentNight: number;
-    creator?: string;
+    creator?: {};
 }

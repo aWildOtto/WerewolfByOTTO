@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-game-config-ol',
@@ -6,10 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./game-config-ol.component.scss']
 })
 export class GameConfigOlComponent implements OnInit {
-
+  @Output() switchPage = new EventEmitter<string>();
   constructor() { }
 
   ngOnInit() {
   }
-
+  backToLobby(event) {
+    this.switchPage.emit('gameLobby');
+  }
 }

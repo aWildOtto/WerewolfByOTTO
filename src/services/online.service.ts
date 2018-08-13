@@ -2,18 +2,27 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
 import { Observable } from 'rxjs';
 import { GameData } from '../model/gameData';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { auth } from 'firebase';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class OnlineService {
-  constructor(private db: AngularFireDatabase) {
-    console.log('hi otto');
+  constructor(
+    private db: AngularFireDatabase,
+    private afAuth: AngularFireAuth
+  ) {
+  }
+
+  checkUserProfile(): boolean {
+    return !!localStorage.getItem('uid');
   }
   checkGameExistance(gameCode: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
       this.db.database.ref('gameData/' + gameCode).once('value', data => {
-        if (data) {
+        if (data.val()) {
           resolve(true);
         } else {
           resolve(false);
@@ -23,22 +32,27 @@ export class OnlineService {
       });
     });
   }
+  playerExit(gameCode: string) {
+    this.db.database.ref('gameData/' + gameCode + '/players/' + this.getUserID()).remove();
+  }
 
   joinGame(gameCode: string): any {
-    let newPlayerID;
-    if (localStorage.getItem('userID')) {
-      newPlayerID = localStorage.getItem('userID');
-    } else {
-      newPlayerID = this.db.database.ref('gameData/' + gameCode + '/players').push().key;
-      localStorage.setItem('userID', newPlayerID);
-    }
     const updates = {};
-    updates['gameData/' + gameCode + '/players/' + newPlayerID] = localStorage.getItem('username');
+    updates['gameData/' + gameCode + '/players/' + this.getUserID()] = localStorage.getItem('username');
     return this.db.database.ref().update(updates);
   }
 
-  createUserProfile(username: string) {
+  createUserProfile(username: string): Promise<string> {
     localStorage.setItem('username', username);
+    return new Promise((resolve, reject) => {
+      this.afAuth.auth.signInAnonymously().then(data => {
+        console.log(data.user.uid);
+        localStorage.setItem('uid', data.user.uid);
+        resolve(data.user.uid);
+      }).catch(err => {
+        reject(err);
+      });
+    });
   }
 
   genGameCode(gameNum: number): string {
@@ -52,9 +66,11 @@ export class OnlineService {
     return gameCode;
   }
 
-  newGameData(creator): GameData {
+  newGameData(username, uid): GameData {
     return {
-      creator,
+      creator: {
+        [uid]: username
+      },
       roles: [],
       playersObj: {},
       currentPage: 'gameLobby',
@@ -63,25 +79,27 @@ export class OnlineService {
   }
 
   createGame(username): Promise<any> {
-    localStorage.setItem('username', username);
+    const createProfilePromise = this.createUserProfile(username);
     return new Promise((resolve, reject) => {
-      this.db.database
-        .ref('gameNum')
-        .once('value', data => {
-          console.log(data.val());
-          const newGameCode = this.genGameCode(data.val());
-          this.db
-            .object('gameData/' + newGameCode)
-            .set(this.newGameData(username))
-            .then(result => {
-              this.db
-                .object('gameNum')
-                .set(data.val() + 1) // increment gameNum
-                .then(res => {
-                  resolve(newGameCode);
-                });
-            });
-        })
+      createProfilePromise.then(uid => {
+        this.db.database
+          .ref('gameNum')
+          .once('value', data => {// find gameNum for appending to the end of the gameCode
+            console.log(data.val());
+            const newGameCode = this.genGameCode(data.val());
+            this.db
+              .object('gameData/' + newGameCode)
+              .set(this.newGameData(uid, username))// create new gameData entry with creator data
+              .then(result => {
+                this.db
+                  .object('gameNum')
+                  .set(data.val() + 1) // increment gameNum
+                  .then(res => {
+                    resolve(newGameCode);
+                  });
+              });
+          });
+      })
         .catch(error => {
           reject(error);
         });
@@ -89,29 +107,10 @@ export class OnlineService {
   }
 
   getGameData(gameCode: string): AngularFireObject<GameData> {
-    // const path = `gameData/${gameCode}`;
     return this.db.object('gameData/' + gameCode);
   }
 
-  // getGameRoom(roomcode): Promise<any> {
-  //   return new Promise((resolve, reject) => {
-  //     let gameDataRef = this.db.database.ref("gameData");
-  //     gameDataRef.on(
-  //       "value",
-  //       function(snapshot) {
-  //         snapshot.forEach(function(childrenSnapshot) {
-  //           var childData = childrenSnapshot;
-  //           console.log(childData.key);
-  //           if (childData.key === roomcode) {
-  //             return resolve(roomcode);
-  //           }
-  //         });
-  //         console.log("no match");
-  //       },
-  //       function(error) {
-  //         console.log(error);
-  //       }
-  //     );
-  //   });
-  // }
+  getUserID(): string {
+    return localStorage.getItem('uid');
+  }
 }
