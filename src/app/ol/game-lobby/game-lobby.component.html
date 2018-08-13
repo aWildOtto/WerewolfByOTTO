@@ -24,7 +24,7 @@
         color="primary"
         (click)="clickConfig()"
     >
-        config
+        {{ls.s["gameSetup"]}}
     </button>
     <button
         class="game-lobby-action-btn"
@@ -32,6 +32,6 @@
         color="primary"
         [disabled]="true"
     >
-        start
+        {{ls.s["startGame"]}}
     </button>
 </mat-card>

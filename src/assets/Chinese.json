@@ -50,5 +50,6 @@
   "goToOnline": "返回主版本",
   "enterRoomCode": "请输入游戏码",
   "404msg": "误入狼人巢穴",
-  "roomNotExist": "游戏码不存在"
+  "roomNotExist": "游戏码不存在",
+  "enterNameToJoinGame": "请输入昵称以方便其他玩家辨认"
 }

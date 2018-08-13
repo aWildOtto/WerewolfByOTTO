@@ -86,8 +86,8 @@ export class GameLobbyComponent implements OnInit {
 }
 
 @Component({
-  selector: 'dialog-enter-game',
-  templateUrl: 'dialog-enter-game.html',
+  selector: 'dialog-input-name',
+  templateUrl: 'dialog-input-name.html',
   styleUrls: ['./dialog-style.scss']
 })
 export class NameInputDialog {
