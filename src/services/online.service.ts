@@ -10,6 +10,32 @@ export class OnlineService {
   constructor(private db: AngularFireDatabase) {
     console.log('hi otto');
   }
+  checkGameExistance(gameCode: string): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      this.db.database.ref('gameData/' + gameCode).once('value', data => {
+        if (data) {
+          resolve(true);
+        } else {
+          resolve(false);
+        }
+      }).catch(error => {
+        reject(error);
+      });
+    });
+  }
+
+  joinGame(gameCode: string): any {
+    let newPlayerID;
+    if (localStorage.getItem('userID')) {
+      newPlayerID = localStorage.getItem('userID');
+    } else {
+      newPlayerID = this.db.database.ref('gameData/' + gameCode + '/players').push().key;
+      localStorage.setItem('userID', newPlayerID);
+    }
+    const updates = {};
+    updates['gameData/' + gameCode + '/players/' + newPlayerID] = localStorage.getItem('username');
+    return this.db.database.ref().update(updates);
+  }
 
   createUserProfile(username: string) {
     localStorage.setItem('username', username);
@@ -30,7 +56,7 @@ export class OnlineService {
     return {
       creator,
       roles: [],
-      players: [],
+      playersObj: {},
       currentPage: 'gameLobby',
       currentNight: 0
     };

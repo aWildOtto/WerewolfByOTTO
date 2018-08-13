@@ -8,7 +8,7 @@ import { GameService } from '../../services/game.service';
   styleUrls: ['./nav-bar.component.scss']
 })
 export class NavBarComponent implements OnInit {
-  devMode:boolean = false;
+  devMode = false;
 
   refresh() {
     window.location.reload();
@@ -16,13 +16,13 @@ export class NavBarComponent implements OnInit {
   constructor(
     public ls: LanguageService,
     private gs: GameService
-  ) { 
-    if(isDevMode()){
+  ) {
+    if (isDevMode()) {
       this.devMode = true;
     }
   }
 
-  showEverything(){
+  showEverything() {
     console.log(this.gs.getGameData());
     console.log(this.gs.getRoleData());
   }

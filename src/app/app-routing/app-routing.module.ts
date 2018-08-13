@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: 'offline', component: MainAreaComponent },
   { path: '404', component: NotFoundComponent },
   { path: ':id', component: MainAreaOlComponent },
-  { path: '**', redirectTo: '/404' }
+  { path: '**', component: NotFoundComponent }
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

@@ -12,27 +12,27 @@ import { FormControl, Validators } from '@angular/forms';
 export class GameSetupComponent implements OnInit {
   werewolfInputControl = new FormControl('', [
     Validators.required,
-    Validators.pattern("^[0-9]*$"),
+    Validators.pattern('^[0-9]*$'),
     Validators.min(1)
   ]);
 
   villagerInputControl = new FormControl('', [
     Validators.required,
-    Validators.pattern("^[0-9]*$"),
+    Validators.pattern('^[0-9]*$'),
     Validators.min(1)
   ]);
 
 
   @Output() passToNext = new EventEmitter<string>();
 
-  public numPlayer: number = 0;
-  public seer: boolean = true;
-  public guardian: boolean = true;
+  public numPlayer = 0;
+  public seer = true;
+  public guardian = true;
 
   addWerewolf() {
     this.werewolfInputControl.setValue(this.werewolfInputControl.value + 1);
   }
-  
+
   minusWerewolf() {
     this.werewolfInputControl.setValue(this.werewolfInputControl.value - 1);
   }
@@ -42,7 +42,7 @@ export class GameSetupComponent implements OnInit {
   }
 
   minusVillager() {
-    this.villagerInputControl.setValue(this.villagerInputControl.value - 1 );
+    this.villagerInputControl.setValue(this.villagerInputControl.value - 1);
   }
 
   sumPlayer() {
@@ -60,7 +60,7 @@ export class GameSetupComponent implements OnInit {
     this.villagerInputControl.setValue(1);
     this.sumPlayer();
   }
-  //https://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array
+  // https://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array
   shuffle(a) {
     for (let i = a.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -72,13 +72,13 @@ export class GameSetupComponent implements OnInit {
   finishConfig() {
     let roleArr = [];
     for (let i = 0; i < this.werewolfInputControl.value; i++) {
-      roleArr.push("werewolf");
+      roleArr.push('werewolf');
     }
     for (let i = 0; i < this.villagerInputControl.value; i++) {
-      roleArr.push("villager");
+      roleArr.push('villager');
     }
-    this.seer ? roleArr.push("seer") : null;
-    this.guardian ? roleArr.push("guardian") : null;
+    this.seer ? roleArr.push('seer') : null;
+    this.guardian ? roleArr.push('guardian') : null;
     roleArr = this.shuffle(roleArr);
     this.gs.updateGameData(
       null, roleArr, null, null, null

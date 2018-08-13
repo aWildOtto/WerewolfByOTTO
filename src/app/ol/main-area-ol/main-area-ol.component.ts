@@ -13,6 +13,7 @@ export class MainAreaOlComponent implements OnInit {
   // Possible Pages:
   // mainAreaOl
   // gameLobby
+  // notFound
   switchPage(event) {
     this.showPage = event;
   }

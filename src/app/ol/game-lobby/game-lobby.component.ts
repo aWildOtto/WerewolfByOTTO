@@ -13,6 +13,8 @@ export class GameLobbyComponent implements OnInit {
   public gameCode: string;
   public gameData: AngularFireObject<GameData>;
   public players: string[];
+  @Output() switchPage = new EventEmitter<string>();
+
   constructor(
     private os: OnlineService,
     private activeRoute: ActivatedRoute,
@@ -26,11 +28,28 @@ export class GameLobbyComponent implements OnInit {
     this.gameData = this.os.getGameData(this.gameCode.toLowerCase());
     this.gameData.valueChanges().subscribe(data => {
       if (data) {
-        this.players = data.players;
+        this.players = this.convertObjToArr(data.players);
       } else {
-        this.router.navigate(['404']);
+        this.switchPage.emit('notFound');
       }
     });
+    this.os.checkGameExistance(this.gameCode).then(exists => {
+      if (exists) {
+        this.os.joinGame(this.gameCode).then(result => {
+          console.log(result);
+        });
+      }
+    });
+  }
+
+  convertObjToArr(evilResponseProps: {}): string[] {
+    const goodResponse = [];
+    for (const prop in evilResponseProps) {
+      if (prop) {
+        goodResponse.push(evilResponseProps[prop]);
+      }
+    }
+    return goodResponse;
   }
 
   clickConfig() {

@@ -9,4 +9,8 @@
     <ng-template ngSwitchCase="gameConfig">
         <app-game-config-ol (switchPage)="switchPage($event)"></app-game-config-ol>
     </ng-template>
+
+    <ng-template ngSwitchCase="notFound">
+        <app-not-found (switchPage)="switchPage($event)"></app-not-found>
+    </ng-template>
 </div>
