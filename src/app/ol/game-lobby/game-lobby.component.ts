@@ -1,6 +1,6 @@
-import { Component, OnInit, Output, EventEmitter, HostListener, Inject } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Inject } from '@angular/core';
 import { OnlineService } from '../../../services/online.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { GameData } from '../../../model/gameData';
 import { AngularFireObject } from 'angularfire2/database';
 import { LanguageService } from '../../../services/language.service';
@@ -22,7 +22,6 @@ export class GameLobbyComponent implements OnInit {
     public ls: LanguageService,
     private os: OnlineService,
     private activeRoute: ActivatedRoute,
-    private router: Router,
     public dialog: MatDialog,
   ) {
   }
@@ -77,11 +76,6 @@ export class GameLobbyComponent implements OnInit {
 
   clickConfig() {
     this.switchPage.emit('gameConfig');
-  }
-
-  @HostListener('window:beforeunload')
-  exitGame() {
-    this.os.playerExit(this.gameCode);
   }
 }
 

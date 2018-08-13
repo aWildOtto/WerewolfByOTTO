@@ -66,7 +66,7 @@ export class OnlineService {
     return gameCode;
   }
 
-  newGameData(username, uid): GameData {
+  newGameData(uid, username): GameData {
     return {
       creator: {
         [uid]: username

@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { LanguageService } from '../../../services/language.service';
 import { GameService } from '../../../services/game.service';
+import { OnlineService } from '../../../services/online.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-main-area-ol',
@@ -8,7 +10,8 @@ import { GameService } from '../../../services/game.service';
   styleUrls: ['./main-area-ol.component.scss']
 })
 export class MainAreaOlComponent implements OnInit {
-  showPage: string;
+  public showPage: string;
+  public gameCode: string;
 
   // Possible Pages:
   // mainAreaOl
@@ -17,8 +20,22 @@ export class MainAreaOlComponent implements OnInit {
   switchPage(event) {
     this.showPage = event;
   }
-  constructor(public ls: LanguageService) {
+  constructor(
+    public ls: LanguageService,
+    private os: OnlineService,
+    private activeRoute: ActivatedRoute,
+  ) {
+    this.gameCode = this.activeRoute.snapshot.params['id'];
   }
 
   ngOnInit() { }
+
+  OnDestroy() {
+    this.os.playerExit(this.gameCode);
+  }
+
+  @HostListener('window:beforeunload')
+  exitGame() {
+    this.os.playerExit(this.gameCode);
+  }
 }
