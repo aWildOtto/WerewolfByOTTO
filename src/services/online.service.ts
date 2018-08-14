@@ -10,18 +10,26 @@ import { auth } from 'firebase';
   providedIn: 'root'
 })
 export class OnlineService {
+  private authState = null;
+
   constructor(
     private db: AngularFireDatabase,
     private afAuth: AngularFireAuth
   ) {
+    this.afAuth.authState.subscribe(authObj => {
+      this.authState = authObj;
+    });
   }
 
   checkUserProfile(): boolean {
-    return !!localStorage.getItem('uid');
+    return !!this.authState;
+  }
+  getGameData(gameCode: string): AngularFireObject<GameData> {
+    return this.db.object('gameData/' + gameCode.toLowerCase());
   }
   checkGameExistance(gameCode: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      this.db.database.ref('gameData/' + gameCode).once('value', data => {
+      this.db.database.ref('gameData/' + gameCode.toLowerCase()).once('value', data => {
         if (data.val()) {
           resolve(true);
         } else {
@@ -33,12 +41,12 @@ export class OnlineService {
     });
   }
   playerExit(gameCode: string) {
-    this.db.database.ref('gameData/' + gameCode + '/players/' + this.getUserID()).remove();
+    this.db.database.ref('gameData/' + gameCode.toLowerCase() + '/players/' + this.getUserID()).remove();
   }
 
   joinGame(gameCode: string): any {
     const updates = {};
-    updates['gameData/' + gameCode + '/players/' + this.getUserID()] = localStorage.getItem('username');
+    updates['gameData/' + gameCode.toLowerCase() + '/players/' + this.getUserID()] = localStorage.getItem('username');
     return this.db.database.ref().update(updates);
   }
 
@@ -104,10 +112,6 @@ export class OnlineService {
           reject(error);
         });
     });
-  }
-
-  getGameData(gameCode: string): AngularFireObject<GameData> {
-    return this.db.object('gameData/' + gameCode);
   }
 
   getUserID(): string {

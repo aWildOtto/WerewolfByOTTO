@@ -3,7 +3,12 @@
     [ngSwitch]="showPage"
 >
     <ng-template ngSwitchDefault="gameLobby">
-        <app-game-lobby (switchPage)="switchPage($event)"></app-game-lobby>
+        <app-game-lobby
+            [gameCode]="gameCode"
+            [gameData]="gameData"
+            [players]="players"
+            (switchPage)="switchPage($event)"
+        ></app-game-lobby>
     </ng-template>
 
     <ng-template ngSwitchCase="gameConfig">

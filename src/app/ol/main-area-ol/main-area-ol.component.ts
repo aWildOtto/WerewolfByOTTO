@@ -1,8 +1,11 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, Inject } from '@angular/core';
 import { LanguageService } from '../../../services/language.service';
-import { GameService } from '../../../services/game.service';
 import { OnlineService } from '../../../services/online.service';
 import { ActivatedRoute } from '@angular/router';
+import { AngularFireObject } from 'angularfire2/database';
+import { GameData } from '../../../model/gameData';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-main-area-ol',
@@ -12,6 +15,8 @@ import { ActivatedRoute } from '@angular/router';
 export class MainAreaOlComponent implements OnInit {
   public showPage: string;
   public gameCode: string;
+  public gameData: AngularFireObject<GameData>;
+  public players: string[];
 
   // Possible Pages:
   // mainAreaOl
@@ -24,8 +29,48 @@ export class MainAreaOlComponent implements OnInit {
     public ls: LanguageService,
     private os: OnlineService,
     private activeRoute: ActivatedRoute,
+    public dialog: MatDialog
   ) {
-    this.gameCode = this.activeRoute.snapshot.params['id'];
+    this.gameCode = this.activeRoute.snapshot.params['id'].toUpperCase();
+    this.gameData = this.os.getGameData(this.gameCode);
+    this.os.checkGameExistance(this.gameCode).then(exists => {// check if the game exist once
+      if (exists) {
+        this.gameData.valueChanges().subscribe(data => {// subscribe to game change if it exists
+          if (data) {
+            this.players = this.convertObjToArr(data.players);
+          } else {
+            this.showPage = 'notFound';
+          }
+        });
+
+        if (!this.os.checkUserProfile()) {
+          // if the user doesn't have a local profile ask for a name to create one
+          this.openNameInputDialog().subscribe(username => {
+            this.os.createUserProfile(username).then(auth => {
+              this.os.joinGame(this.gameCode).then(result => {
+                console.log(result);
+              });
+            });
+          });
+        } else {
+          this.os.joinGame(this.gameCode).then(result => {
+            console.log(result);
+          });
+        }
+      } else {
+        this.showPage = 'notFound';
+      }
+    });
+  }
+
+  convertObjToArr(evilResponseProps: {}): string[] {
+    const goodResponse = [];
+    for (const prop in evilResponseProps) {
+      if (prop) {
+        goodResponse.push(evilResponseProps[prop]);
+      }
+    }
+    return goodResponse;
   }
 
   ngOnInit() { }
@@ -34,8 +79,35 @@ export class MainAreaOlComponent implements OnInit {
     this.os.playerExit(this.gameCode);
   }
 
+  openNameInputDialog(): Observable<string> {
+    const dialogRef = this.dialog.open(NameInputDialog, {
+      width: '70%',
+      data: '',
+      disableClose: true
+    });
+    return dialogRef.afterClosed();
+  }
+
   @HostListener('window:beforeunload')
   exitGame() {
     this.os.playerExit(this.gameCode);
+  }
+}
+
+
+@Component({
+  selector: 'dialog-input-name',
+  templateUrl: 'dialog-input-name.html',
+  styleUrls: ['./dialog-style.scss']
+})
+export class NameInputDialog {
+  constructor(
+    public ls: LanguageService,
+    public dialogRef: MatDialogRef<NameInputDialog>,
+    @Inject(MAT_DIALOG_DATA) public data
+  ) { }
+
+  onConfirmClick(): void {
+    this.dialogRef.close(this.data);
   }
 }

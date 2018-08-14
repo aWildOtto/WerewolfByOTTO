@@ -42,8 +42,8 @@ import {
 } from './ol/welcome-ol/welcome-ol.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { OnlineService } from '../services/online.service';
-import { MainAreaOlComponent } from './ol/main-area-ol/main-area-ol.component';
-import { GameLobbyComponent, NameInputDialog } from './ol/game-lobby/game-lobby.component';
+import { MainAreaOlComponent, NameInputDialog } from './ol/main-area-ol/main-area-ol.component';
+import { GameLobbyComponent } from './ol/game-lobby/game-lobby.component';
 import { GameConfigOlComponent } from './ol/game-config-ol/game-config-ol.component';
 
 @NgModule({
