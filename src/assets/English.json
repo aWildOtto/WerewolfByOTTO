@@ -46,10 +46,13 @@
   "enterUserName": "Please Enter your In-game Name",
   "noRoomCodeError": "Werewolf cannot continue without a room number ಠ╭╮ಠ",
   "noUserNameError": "Inditified yourself before entering the game ಠ_ಠ",
-  "goToOffLine": "Offline version",
-  "goToOnline": "Online version",
+  "goToOffLine": "Offline",
+  "goToOnline": "Online",
   "enterRoomCode": "Please enter Room Code",
   "404msg": "You've wandered into a werewolf's evil lair",
   "roomNotExist": "This room doesn't exist",
-  "enterNameToJoinGame": "Enter a name that your friends can recognize you with"
+  "enterNameToJoinGame": "Enter a name that your friends can recognize you with",
+  "settings": "Settings",
+  "language": "Language:",
+  "version": "Version:"
 }

@@ -24,7 +24,7 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 // Our own stuff
 import { AppComponent } from './app.component';
 import { MainAreaComponent } from './ofl/main-area/main-area.component';
-import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { NavBarComponent, SettingsDialog } from './nav-bar/nav-bar.component';
 import { GameSetupComponent } from './ofl/game-setup/game-setup.component';
 import { WelcomePageComponent } from './ofl/welcome-page/welcome-page.component';
 import { PlayerListComponent } from './ofl/player-list/player-list.component';
@@ -45,6 +45,7 @@ import { OnlineService } from '../services/online.service';
 import { MainAreaOlComponent, NameInputDialog } from './ol/main-area-ol/main-area-ol.component';
 import { GameLobbyComponent } from './ol/game-lobby/game-lobby.component';
 import { GameConfigOlComponent } from './ol/game-config-ol/game-config-ol.component';
+import { UrlService } from '../services/url.service';
 
 @NgModule({
   imports: [
@@ -85,9 +86,10 @@ import { GameConfigOlComponent } from './ol/game-config-ol/game-config-ol.compon
     NotFoundComponent,
     EnterGameDialog,
     NameInputDialog,
+    SettingsDialog,
     MainAreaOlComponent,
     GameLobbyComponent,
-    GameConfigOlComponent
+    GameConfigOlComponent,
   ],
 
   exports: [MatButtonModule, MatCheckboxModule],
@@ -95,9 +97,10 @@ import { GameConfigOlComponent } from './ol/game-config-ol/game-config-ol.compon
     LanguageService,
     GameService,
     OnlineService,
+    UrlService,
     AngularFireAuth
   ],
-  entryComponents: [EnterGameDialog, NameInputDialog],
+  entryComponents: [EnterGameDialog, NameInputDialog, SettingsDialog],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

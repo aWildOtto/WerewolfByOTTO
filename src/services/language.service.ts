@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class LanguageService {
-
+  public version = 'online';
   public language = 'English';
   public s; // string object
   constructor() {
@@ -18,6 +18,7 @@ export class LanguageService {
     this.s = require('../assets/' + this.language + '.json');
     localStorage.setItem('lang', this.language);
   }
+
   reset() {
     this.language = 'English';
     this.loadLanguage();

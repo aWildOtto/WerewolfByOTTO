@@ -1,26 +1,40 @@
-<div class="content-area" [ngSwitch]="showPage">
-  <ng-template ngSwitchDefault="welcome">
-    <app-welcome-page (startGame)="switchPage($event)"></app-welcome-page>
-  </ng-template>
+<div
+    class="content-area"
+    [ngSwitch]="showPage"
+>
+    <ng-template ngSwitchDefault="welcome">
+        <app-welcome-page (startGame)="switchPage($event)"></app-welcome-page>
+    </ng-template>
 
-  <ng-template ngSwitchCase="gameSetup">
-    <app-game-setup (passToNext)="switchPage($event)"></app-game-setup>
-  </ng-template>
+    <ng-template ngSwitchCase="gameSetup">
+        <app-game-setup (passToNext)="switchPage($event)"></app-game-setup>
+    </ng-template>
 
-  <ng-template ngSwitchCase="playerList">
-    <app-player-list></app-player-list>
-  </ng-template>
+    <ng-template ngSwitchCase="playerList">
+        <app-player-list></app-player-list>
+    </ng-template>
 
-  <ng-template ngSwitchCase="roleReveal">
-    <app-role-reveal (toNext)="switchPage($event)"></app-role-reveal>
-  </ng-template>
+    <ng-template ngSwitchCase="roleReveal">
+        <app-role-reveal (toNext)="switchPage($event)"></app-role-reveal>
+    </ng-template>
 
-  <ng-template ngSwitchCase="passToNext">
-    <app-pass-to-next (roleReveal)="switchPage($event)"></app-pass-to-next>
-  </ng-template>
+    <ng-template ngSwitchCase="passToNext">
+        <app-pass-to-next (roleReveal)="switchPage($event)"></app-pass-to-next>
+    </ng-template>
 </div>
 <div>
-  <button class="right-btn" (click)="resetGameData($event)" mat-stroked-button>{{ls.s["reset"]}}</button>
-  <button class="right-btn" (click)="restartGame($event)" mat-stroked-button>{{ls.s["restartGame"]}}</button>
+    <button
+        class="right-btn"
+        (click)="resetGameData($event)"
+        mat-stroked-button
+    >
+        {{ls.s["reset"]}}
+    </button>
+    <button
+        class="right-btn"
+        (click)="restartGame($event)"
+        mat-stroked-button
+    >
+        {{ls.s["restartGame"]}}
+    </button>
 </div>
-<button mat-button [routerLink]="['']" class="modeChangeBtn">{{ls.s["goToOnline"]}}</button>

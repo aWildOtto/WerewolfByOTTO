@@ -10,12 +10,6 @@ export class AppComponent {
   title = 'app';
   constructor(
     public ls: LanguageService
-  ){
-
-  }
-  changeLanguage(event) {
-    this.ls.language = event.value;
-    this.ls.loadLanguage();
-  }
+  ) { }
 
 }

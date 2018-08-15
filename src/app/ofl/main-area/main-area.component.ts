@@ -31,14 +31,14 @@ export class MainAreaComponent implements OnInit {
     this.showPage = this.gs.getGameData().currentPage;
   }
 
-  resetGameData(event){
+  resetGameData(event) {
     this.gs.reset();
     this.ls.reset();
     this.showPage = this.gs.getGameData().currentPage;
     console.log(this.gs.getGameData());
   }
 
-  restartGame(event){
+  restartGame(event) {
     this.gs.restart();
     this.showPage = this.gs.getGameData().currentPage;
   }

@@ -6,6 +6,7 @@ import { AngularFireObject } from 'angularfire2/database';
 import { GameData } from '../../../model/gameData';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { Observable, Subscription } from 'rxjs';
+import { UrlService } from '../../../services/url.service';
 
 @Component({
   selector: 'app-main-area-ol',
@@ -31,7 +32,8 @@ export class MainAreaOlComponent implements OnInit, OnDestroy {
     public ls: LanguageService,
     private os: OnlineService,
     private activeRoute: ActivatedRoute,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private us: UrlService
   ) {
     this.gameCode = this.activeRoute.snapshot.params['id'].toUpperCase();
     this.gameData = this.os.getGameData(this.gameCode);
@@ -79,8 +81,12 @@ export class MainAreaOlComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.os.playerExit(this.gameCode);
-    this.gameDataSubscription.unsubscribe();
-    this.dialogSubscription.unsubscribe();
+    if (this.gameDataSubscription) {
+      this.gameDataSubscription.unsubscribe();
+    }
+    if (this.dialogSubscription) {
+      this.dialogSubscription.unsubscribe();
+    }
   }
 
   openNameInputDialog(): Observable<string> {

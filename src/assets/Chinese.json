@@ -46,10 +46,13 @@
   "enterUserName": "请输入玩家昵称",
   "noRoomCodeError": "快输入游戏码别一不小心走错房间啦",
   "noUserNameError": "输入自己的用户名，别变得如此菜",
-  "goToOffLine": "离线版本",
-  "goToOnline": "返回主版本",
+  "goToOffLine": "离线版",
+  "goToOnline": "在线版",
   "enterRoomCode": "请输入游戏码",
   "404msg": "误入狼人巢穴",
   "roomNotExist": "游戏码不存在",
-  "enterNameToJoinGame": "请输入昵称以方便其他玩家辨认"
+  "enterNameToJoinGame": "请输入昵称以方便其他玩家辨认",
+  "settings": "设置",
+  "language": "语言设置:",
+  "version": "模式版:"
 }

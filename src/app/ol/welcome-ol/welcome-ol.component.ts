@@ -2,7 +2,7 @@ import { Component, OnInit, Inject, Output, EventEmitter, OnDestroy } from '@ang
 import { OnlineService } from '../../../services/online.service';
 import { LanguageService } from '../../../services/language.service';
 import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material';
-import { Router } from '../../../../node_modules/@angular/router';
+import { Router } from '@angular/router';
 import { GameData } from '../../../model/gameData';
 import { AngularFireObject } from 'angularfire2/database';
 import { Subscription } from 'rxjs';
@@ -61,7 +61,7 @@ export class WelcomeOlComponent implements OnInit, OnDestroy {
     });
   }
   ngOnDestroy() {
-    this.dialogSubscription.unsubscribe();
+    // this.dialogSubscription.unsubscribe();
   }
 }
 
