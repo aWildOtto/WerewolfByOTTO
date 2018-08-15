@@ -41,12 +41,12 @@ export class OnlineService {
     });
   }
   playerExit(gameCode: string) {
-    this.db.database.ref('gameData/' + gameCode.toLowerCase() + '/players/' + this.getUserID()).remove();
+    this.db.database.ref('gameData/' + gameCode.toLowerCase() + '/playersObj/' + this.getUserID()).remove();
   }
 
   joinGame(gameCode: string): any {
     const updates = {};
-    updates['gameData/' + gameCode.toLowerCase() + '/players/' + this.getUserID()] = localStorage.getItem('username');
+    updates['gameData/' + gameCode.toLowerCase() + '/playersObj/' + this.getUserID()] = this.getUsername();
     return this.db.database.ref().update(updates);
   }
 
@@ -63,14 +63,13 @@ export class OnlineService {
     });
   }
 
-  genGameCode(gameNum: number): string {
+  genGameCode(): string {
     let gameCode = '';
     const possible = 'abcdefghijklmnopqrstuvwxyz0123456789';
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 6; i++) {
       gameCode += possible.charAt(Math.floor(Math.random() * possible.length));
     }
-    gameCode += gameNum ? gameNum : 0;
     return gameCode;
   }
 
@@ -80,41 +79,37 @@ export class OnlineService {
         [uid]: username
       },
       roles: [],
-      playersObj: {},
+      playersObj: {
+        [uid]: username
+      },
       currentPage: 'gameLobby',
       currentNight: 0
     };
   }
 
-  createGame(username): Promise<any> {
+  createGame(username): Promise<string> {
     const createProfilePromise = this.createUserProfile(username);
     return new Promise((resolve, reject) => {
       createProfilePromise.then(uid => {
-        this.db.database
-          .ref('gameNum')
-          .once('value', data => {// find gameNum for appending to the end of the gameCode
-            console.log(data.val());
-            const newGameCode = this.genGameCode(data.val());
-            this.db
-              .object('gameData/' + newGameCode)
-              .set(this.newGameData(uid, username))// create new gameData entry with creator data
-              .then(result => {
-                this.db
-                  .object('gameNum')
-                  .set(data.val() + 1) // increment gameNum
-                  .then(res => {
-                    resolve(newGameCode);
-                  });
-              });
+        const newGameCode = this.genGameCode();
+        this.db.object('gameData/' + newGameCode)
+          .set(this.newGameData(uid, username))// create new gameData entry with creator data
+          .then((result) => {
+            console.log('create game success: ' + !result);
+            if (!result) {
+              resolve(newGameCode);
+            }
+          }).catch(error => {
+            reject(error);
           });
-      })
-        .catch(error => {
-          reject(error);
-        });
+      });
     });
   }
 
+  getUsername(): string {
+    return localStorage.getItem('username');
+  }
   getUserID(): string {
-    return localStorage.getItem('uid');
+    return this.authState.uid;
   }
 }

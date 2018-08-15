@@ -1,22 +1,24 @@
-import { Component, OnInit, HostListener, Inject } from '@angular/core';
+import { Component, OnInit, HostListener, Inject, OnDestroy } from '@angular/core';
 import { LanguageService } from '../../../services/language.service';
 import { OnlineService } from '../../../services/online.service';
 import { ActivatedRoute } from '@angular/router';
 import { AngularFireObject } from 'angularfire2/database';
 import { GameData } from '../../../model/gameData';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-main-area-ol',
   templateUrl: './main-area-ol.component.html',
   styleUrls: ['./main-area-ol.component.scss']
 })
-export class MainAreaOlComponent implements OnInit {
+export class MainAreaOlComponent implements OnInit, OnDestroy {
   public showPage: string;
   public gameCode: string;
   public gameData: AngularFireObject<GameData>;
   public players: string[];
+  private gameDataSubscription: Subscription;
+  private dialogSubscription: Subscription;
 
   // Possible Pages:
   // mainAreaOl
@@ -35,9 +37,9 @@ export class MainAreaOlComponent implements OnInit {
     this.gameData = this.os.getGameData(this.gameCode);
     this.os.checkGameExistance(this.gameCode).then(exists => {// check if the game exist once
       if (exists) {
-        this.gameData.valueChanges().subscribe(data => {// subscribe to game change if it exists
+        this.gameDataSubscription = this.gameData.valueChanges().subscribe(data => {// subscribe to game change if it exists
           if (data) {
-            this.players = this.convertObjToArr(data.players);
+            this.players = this.convertObjToArr(data.playersObj);
           } else {
             this.showPage = 'notFound';
           }
@@ -45,7 +47,7 @@ export class MainAreaOlComponent implements OnInit {
 
         if (!this.os.checkUserProfile()) {
           // if the user doesn't have a local profile ask for a name to create one
-          this.openNameInputDialog().subscribe(username => {
+          this.dialogSubscription = this.openNameInputDialog().subscribe(username => {
             this.os.createUserProfile(username).then(auth => {
               this.os.joinGame(this.gameCode).then(result => {
                 console.log(result);
@@ -75,8 +77,10 @@ export class MainAreaOlComponent implements OnInit {
 
   ngOnInit() { }
 
-  OnDestroy() {
+  ngOnDestroy() {
     this.os.playerExit(this.gameCode);
+    this.gameDataSubscription.unsubscribe();
+    this.dialogSubscription.unsubscribe();
   }
 
   openNameInputDialog(): Observable<string> {

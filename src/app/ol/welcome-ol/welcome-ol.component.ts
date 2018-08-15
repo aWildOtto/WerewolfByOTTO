@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Inject, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { OnlineService } from '../../../services/online.service';
 import { LanguageService } from '../../../services/language.service';
 import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material';
@@ -12,7 +12,8 @@ import { Subscription } from 'rxjs';
   templateUrl: './welcome-ol.component.html',
   styleUrls: ['./welcome-ol.component.scss']
 })
-export class WelcomeOlComponent implements OnInit {
+export class WelcomeOlComponent implements OnInit, OnDestroy {
+  private dialogSubscription: Subscription;
   ngOnInit() { }
   constructor(
     private os: OnlineService,
@@ -46,7 +47,7 @@ export class WelcomeOlComponent implements OnInit {
       }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    this.dialogSubscription = dialogRef.afterClosed().subscribe(result => {
       if (result) {
         if (result.isJoin) {
           this.os.createUserProfile(result.username);
@@ -58,6 +59,9 @@ export class WelcomeOlComponent implements OnInit {
         }
       }
     });
+  }
+  ngOnDestroy() {
+    this.dialogSubscription.unsubscribe();
   }
 }
 
