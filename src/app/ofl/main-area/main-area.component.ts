@@ -29,18 +29,9 @@ export class MainAreaComponent implements OnInit {
     public gs: GameService
   ) {
     this.showPage = this.gs.getGameData().currentPage;
-  }
-
-  resetGameData(event) {
-    this.gs.reset();
-    this.ls.reset();
-    this.showPage = this.gs.getGameData().currentPage;
-    console.log(this.gs.getGameData());
-  }
-
-  restartGame(event) {
-    this.gs.restart();
-    this.showPage = this.gs.getGameData().currentPage;
+    this.gs.getPageObservable().subscribe(page => {
+      this.showPage = page;
+    });
   }
 
   ngOnInit() {

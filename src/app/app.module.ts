@@ -45,7 +45,6 @@ import { OnlineService } from '../services/online.service';
 import { MainAreaOlComponent, NameInputDialog } from './ol/main-area-ol/main-area-ol.component';
 import { GameLobbyComponent } from './ol/game-lobby/game-lobby.component';
 import { GameConfigOlComponent } from './ol/game-config-ol/game-config-ol.component';
-import { UrlService } from '../services/url.service';
 
 @NgModule({
   imports: [
@@ -97,7 +96,6 @@ import { UrlService } from '../services/url.service';
     LanguageService,
     GameService,
     OnlineService,
-    UrlService,
     AngularFireAuth
   ],
   entryComponents: [EnterGameDialog, NameInputDialog, SettingsDialog],

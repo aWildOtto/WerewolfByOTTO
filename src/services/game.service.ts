@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { GameData } from '../model/gameData';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { RoleData } from '../model/roleData';
 import { Werewolf } from '../model/werewolf';
 import { Villager } from '../model/villager';
@@ -11,6 +11,7 @@ import { Villager } from '../model/villager';
 export class GameService {
   private gameData: GameData;
   private roleData: RoleData;
+  private currentPageSubject: Subject<string>;
 
   getGameData() {
     return this.gameData;
@@ -19,18 +20,21 @@ export class GameService {
     return this.roleData;
   }
   constructor() {
+    this.currentPageSubject = new Subject<string>();
     if (sessionStorage.getItem('gameData')) {
       this.gameData = JSON.parse(sessionStorage.getItem('gameData'));
+      this.currentPageSubject.next(this.gameData.currentPage);
     } else {
       this.initGameData();
     }
     if (sessionStorage.getItem('roleData')) {
       this.roleData = JSON.parse(sessionStorage.getItem('roleData'));
     }
-    // console.log(this.gameData);
   }
 
-
+  public getPageObservable(): Observable<string> {
+    return this.currentPageSubject;
+  }
   private initGameData() {
     this.gameData = {
       players: [],
@@ -39,6 +43,7 @@ export class GameService {
       currentPage: 'welcome',
       currentNight: 0
     };
+    this.currentPageSubject.next(this.gameData.currentPage);
     this.saveGameData();
   }
 
@@ -51,6 +56,7 @@ export class GameService {
 
   updatePage(page) {
     this.gameData.currentPage = page;
+    this.currentPageSubject.next(this.gameData.currentPage);
     this.saveGameData();
   }
 
@@ -69,6 +75,7 @@ export class GameService {
       currentNight: currentNight ? currentNight : this.gameData.currentNight
     };
     this.saveGameData();
+    this.currentPageSubject.next(this.gameData.currentPage);
   }
 
   reset() {
@@ -82,6 +89,7 @@ export class GameService {
     this.gameData.currentPage = 'gameSetup';
     this.gameData.roles = [];
     this.roleData = {};
+    this.currentPageSubject.next(this.gameData.currentPage);
   }
 
   addPlayer(name: string, role: string) {

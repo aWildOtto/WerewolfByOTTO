@@ -12,7 +12,7 @@
             <mat-button-toggle-group
                 style="margin-bottom: 9%; margin-left:11%; margin-top: 8%"
                 name="version"
-                value="{{ls.version}}"
+                value="{{data.version}}"
                 (change)="changeVersion($event)"
             >
                 <mat-button-toggle value="online">{{ls.s["goToOnline"]}}</mat-button-toggle>
@@ -24,33 +24,34 @@
             <mat-button-toggle-group
                 style="margin-bottom: 10%; margin-left:10%"
                 name="language"
-                value="{{ls.language}}"
+                value="{{data.language}}"
                 (change)="changeLanguage($event)"
             >
                 <mat-button-toggle value="English">{{ls.s["eng"]}}</mat-button-toggle>
                 <mat-button-toggle value="Chinese">{{ls.s["chn"]}}</mat-button-toggle>
             </mat-button-toggle-group>
         </div>
-        <div>
+
+    </mat-dialog-content>
+
+    <mat-dialog-actions>
+        <div *ngIf="data.version === 'offline'">
             <button
-                style="width: 50%"
-                class="right-btn"
+                class="setting-btn"
                 (click)="resetGameData($event)"
                 mat-stroked-button
-                disabled="isOnlineMode"
             >
                 {{ls.s["reset"]}}
             </button>
-
-            <button
-                style="width: 50%"
-                class="right-btn"
-                (click)="restartGame($event)"
-                mat-stroked-button
-            >
-                {{ls.s["restartGame"]}}
-            </button>
         </div>
-    </mat-dialog-content>
+
+        <button
+            class="setting-btn"
+            (click)="restartGame($event)"
+            mat-stroked-button
+        >
+            {{ls.s["restartGame"]}}
+        </button>
+    </mat-dialog-actions>
 
 </div>

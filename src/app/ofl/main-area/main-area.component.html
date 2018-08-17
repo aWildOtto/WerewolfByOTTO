@@ -22,19 +22,3 @@
         <app-pass-to-next (roleReveal)="switchPage($event)"></app-pass-to-next>
     </ng-template>
 </div>
-<div>
-    <button
-        class="right-btn"
-        (click)="resetGameData($event)"
-        mat-stroked-button
-    >
-        {{ls.s["reset"]}}
-    </button>
-    <button
-        class="right-btn"
-        (click)="restartGame($event)"
-        mat-stroked-button
-    >
-        {{ls.s["restartGame"]}}
-    </button>
-</div>
