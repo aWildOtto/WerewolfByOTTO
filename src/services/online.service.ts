@@ -127,7 +127,6 @@ export class OnlineService {
   getNumberOfPlayers(gameCode: string): number {
     let num = 0;
     this.db.database.ref('gameData/' + gameCode.toLowerCase() + '/playersObj/').on('value', function (snapshot) {
-      console.log(snapshot.numChildren());
       num = snapshot.numChildren();
     });
     return num;
@@ -136,7 +135,6 @@ export class OnlineService {
   getRoleNumber(gameCode: string): number {
     let count = 0;
     this.db.database.ref('gameData/' + gameCode.toLowerCase() + '/roles/').once('value', function (snapshot) {
-      console.log(snapshot.numChildren());
       count = snapshot.numChildren();
     });
     return count;

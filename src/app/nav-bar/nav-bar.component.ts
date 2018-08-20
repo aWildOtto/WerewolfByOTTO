@@ -27,7 +27,6 @@ export class NavBarComponent implements OnInit {
     }
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        console.log(event);
         if (event.url === '/offline') {
           this.version = 'offline';
         } else {

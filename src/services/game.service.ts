@@ -5,6 +5,8 @@ import { RoleData } from '../model/roleData';
 import { Werewolf } from '../model/werewolf';
 import { Villager } from '../model/villager';
 
+// this is only for offline service
+
 @Injectable({
   providedIn: 'root'
 })

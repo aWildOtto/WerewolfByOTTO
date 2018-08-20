@@ -1,6 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { LanguageService } from '../../../services/language.service';
-import { GameService } from '../../../services/game.service';
 import { FormControl, Validators } from '@angular/forms';
 import { OnlineService } from '../../../services/online.service';
 import { ActivatedRoute } from '../../../../node_modules/@angular/router';
@@ -96,7 +95,6 @@ export class GameConfigOlComponent implements OnInit {
     this.witch ? roleArr.push('witch') : null;
     this.hunter ? roleArr.push('hunter') : null;
     roleArr = this.shuffle(roleArr);
-    console.log(roleArr.length);
     this.os.createRoleArray(this.gameCode, roleArr);
     this.switchPage.emit('gameLobby');
   }
