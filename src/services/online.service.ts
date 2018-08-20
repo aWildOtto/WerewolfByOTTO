@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { GameData } from '../model/gameData';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { auth } from 'firebase';
+import { DataSnapshot } from '../../node_modules/firebase-functions/lib/providers/database';
 
 
 @Injectable({
@@ -134,10 +135,21 @@ export class OnlineService {
 
   getRoleNumber(gameCode: string): number {
     let count = 0;
-    this.db.database.ref('gameData/' + gameCode.toLowerCase() + '/roles/').once('value', function (snapshot) {
+    this.db.database.ref('gameData/' + gameCode.toLowerCase() + '/roles/').on('value', function (snapshot) {
       count = snapshot.numChildren();
     });
     return count;
+  }
+
+  getRoleArray(gameCode: string): string[] {
+    const roleArr = [];
+    this.db.database.ref('gameData/' + gameCode.toLowerCase() + '/roles/').once('value', function (snap) {
+      snap.forEach(function (item) {
+        // console.log(item.val());
+        roleArr.push(item.val());
+      });
+    });
+    return roleArr;
   }
 
 }

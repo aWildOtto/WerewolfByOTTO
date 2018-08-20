@@ -76,7 +76,7 @@
                                 name="seer"
                                 (change)="sumPlayer()"
                                 [(ngModel)]="seer"
-                                checked="true"
+                                checked="seer"
                             >
                                 {{ls.s['seer']}}
                             </mat-checkbox>
@@ -85,7 +85,7 @@
                                 name="guardian"
                                 (change)="sumPlayer()"
                                 [(ngModel)]="guardian"
-                                checked="true"
+                                checked="guardian"
                             >
                                 {{ls.s['guardian']}}
                             </mat-checkbox>
@@ -93,7 +93,7 @@
                                 class="std-margin"
                                 (change)="sumPlayer()"
                                 [(ngModel)]="moderator"
-                                checked="true"
+                                checked="moderator"
                             >
                                 {{ls.s['moderator']}}
                                 <button
@@ -120,7 +120,7 @@
                                 class="std-margin"
                                 (change)="sumPlayer()"
                                 [(ngModel)]="hunter"
-                                checked="false"
+                                checked="hunter"
                             >
                                 {{ls.s['hunter']}}
                             </mat-checkbox>
@@ -128,7 +128,7 @@
                                 class="std-margin"
                                 (change)="sumPlayer()"
                                 [(ngModel)]="witch"
-                                checked="false"
+                                checked="witch"
                             >
                                 {{ls.s['witch']}}
                             </mat-checkbox>

@@ -25,9 +25,9 @@ export class GameConfigOlComponent implements OnInit {
   @Output() switchPage = new EventEmitter<string>();
 
   public numPlayer = 0;
-  public seer = true;
-  public guardian = true;
-  public moderator = true;
+  public seer = false;
+  public guardian = false;
+  public moderator = false;
   public witch = false;
   public hunter = false;
   public numPlayerInRoom = 0;
@@ -43,9 +43,8 @@ export class GameConfigOlComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.werewolfInputControl.setValue(1);
-    this.villagerInputControl.setValue(1);
-    this.sumPlayer();
+    this.parseRoleArray();
+
   }
   // https://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array
   shuffle(a) {
@@ -97,6 +96,41 @@ export class GameConfigOlComponent implements OnInit {
     roleArr = this.shuffle(roleArr);
     this.os.createRoleArray(this.gameCode, roleArr);
     this.switchPage.emit('gameLobby');
+  }
+
+  parseRoleArray() {
+    let villagerNum = 0;
+    let werewolfNum = 0;
+    const roleArr = this.os.getRoleArray(this.gameCode);
+    if (roleArr.length === 0) {
+      this.werewolfInputControl.setValue(1);
+      this.villagerInputControl.setValue(1);
+      this.seer = true;
+      this.guardian = true;
+      this.moderator = true;
+      this.sumPlayer();
+    } else {
+      roleArr.forEach(element => {
+        if (element === 'villager') {
+          villagerNum++;
+        } else if (element === 'werewolf') {
+          werewolfNum++;
+        } else if (element === 'seer') {
+          this.seer = true;
+        } else if (element === 'guardian') {
+          this.guardian = true;
+        } else if (element === 'moderator') {
+          this.moderator = true;
+        } else if (element === 'witch') {
+          this.witch = true;
+        } else if (element === 'hunter') {
+          this.hunter = true;
+        }
+      });
+      this.werewolfInputControl.setValue(werewolfNum);
+      this.villagerInputControl.setValue(villagerNum);
+      this.sumPlayer();
+    }
   }
 
   backToLobby(event) {
