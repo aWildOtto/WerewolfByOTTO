@@ -4,7 +4,7 @@
   "werewolfGame": "狼人杀",
   "werewolf": "狼人",
   "welcomeToGame": "欢迎使用狼人杀法官助手",
-  "gameSetup": "游戏设置",
+  "gameSetup": "游戏角色设置",
   "addToHomeScreen": "把本站加到桌面即可离线杀",
   "startGame": "开一局",
   "help": "帮助",
@@ -54,5 +54,7 @@
   "enterNameToJoinGame": "请输入昵称以方便其他玩家辨认",
   "settings": "设置",
   "language": "语言设置:",
-  "version": "模式版:"
+  "version": "模式版:",
+  "moderator": "法官",
+  "numPlayers": "游戏房间人数："
 }

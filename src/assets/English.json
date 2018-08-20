@@ -4,7 +4,7 @@
   "werewolfGame": "Werewolf",
   "werewolf": "Werewolf",
   "welcomeToGame": "Welecome to Werewolf",
-  "gameSetup": "Game Setup",
+  "gameSetup": "Role Setup",
   "addToHomeScreen": "Feel free to add this site to your home screen so you can play offline",
   "startGame": "Start Game",
   "help": "Help",
@@ -54,5 +54,7 @@
   "enterNameToJoinGame": "Enter a name that your friends can recognize you with",
   "settings": "Settings",
   "language": "Language:",
-  "version": "Version:"
+  "version": "Version:",
+  "moderator": "Moderator",
+  "numPlayers": "Number of players in the room:"
 }

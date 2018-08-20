@@ -84,19 +84,24 @@ export class SettingsDialog {
     this.ls.version = event.value;
     if (event.value === 'online') {
       this.router.navigate(['']);
+      this.data.version = 'online';
     } else {
       this.router.navigate(['offline']);
+      this.data.version = 'offline';
     }
+
   }
 
 
   resetGameData(event) {
     this.gs.reset();
     this.ls.reset();
+    this.dialogRef.close();
   }
 
   restartGame(event) {
     this.gs.restart();
+    this.dialogRef.close();
   }
 
 }

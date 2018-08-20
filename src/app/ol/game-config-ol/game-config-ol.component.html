@@ -1,3 +1,159 @@
+<mat-card class="setup-card">
+    <!-- Setup Title -->
+    <mat-card-title>{{ls.s["gameSetup"]}}</mat-card-title>
+    <mat-card-subtitle>
+        {{ls.s['numPlayers']}} {{numPlayerInRoom}}
+    </mat-card-subtitle>
+    <!-- <mat-card-subtitle>{{ls.s["setupSubtitle"]}}</mat-card-subtitle> -->
+    <!-- Setup Title ends -->
+    <mat-card-content>
+        <mat-accordion multi="true">
+            <mat-expansion-panel expanded="true">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>{{ls.s['basicRoles']}}</mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-list>
+                    <mat-list-item>
+                        <button
+                            mat-icon-button
+                            (click)="minusWerewolf()"
+                            (click)="sumPlayer()"
+                        >
+                            <mat-icon matPreffix>remove_circle_outline</mat-icon>
+                        </button>
+                        <mat-form-field>
+                            <mat-label>{{ls.s['numOfWerewolf']}}</mat-label>
+                            <input
+                                matInput
+                                placeholder="{{ls.s['numOfWerewolf']}}"
+                                class="mat-input"
+                                (change)="sumPlayer()"
+                                type="number"
+                                [formControl]="werewolfInputControl"
+                            >
+
+                        </mat-form-field>
+                        <button
+                            mat-icon-button
+                            (click)="addWerewolf()"
+                            (click)="sumPlayer()"
+                        >
+                            <mat-icon matSuffix>add_circle_outline</mat-icon>
+                        </button>
+                    </mat-list-item>
+
+                    <mat-list-item class="space">
+                        <button
+                            mat-icon-button
+                            (click)="minusVillager()"
+                            (click)="sumPlayer()"
+                        >
+                            <mat-icon matPreffix>remove_circle_outline</mat-icon>
+                        </button>
+                        <mat-form-field>
+                            <mat-label>{{ls.s['numOfVillager']}}</mat-label>
+                            <input
+                                matInput
+                                placeholder="{{ls.s['numOfVillager']}}"
+                                class="mat-input"
+                                (change)="sumPlayer()"
+                                type="number"
+                                [formControl]="villagerInputControl"
+                            >
+                        </mat-form-field>
+                        <button
+                            mat-icon-button
+                            (click)="addVillager()"
+                            (click)="sumPlayer()"
+                        >
+                            <mat-icon matSuffix>add_circle_outline</mat-icon>
+                        </button>
+                    </mat-list-item>
+                    <mat-list-item>
+                        <section class="input-section">
+                            <mat-checkbox
+                                class="std-margin"
+                                name="seer"
+                                (change)="sumPlayer()"
+                                [(ngModel)]="seer"
+                                checked="true"
+                            >
+                                {{ls.s['seer']}}
+                            </mat-checkbox>
+                            <mat-checkbox
+                                class="std-margin"
+                                name="guardian"
+                                (change)="sumPlayer()"
+                                [(ngModel)]="guardian"
+                                checked="true"
+                            >
+                                {{ls.s['guardian']}}
+                            </mat-checkbox>
+                            <mat-checkbox
+                                class="std-margin"
+                                (change)="sumPlayer()"
+                                [(ngModel)]="moderator"
+                                checked="true"
+                            >
+                                {{ls.s['moderator']}}
+                                <button
+                                    mat-icon-button
+                                    matTooltip="if checked means the judge will be randomly picked, otherwise will be the creator"
+                                >
+                                    <mat-icon>help_outline</mat-icon>
+                                </button>
+                            </mat-checkbox>
+
+                        </section>
+                    </mat-list-item>
+                </mat-list>
+            </mat-expansion-panel>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>{{ls.s['advancedRoles']}}</mat-panel-title>
+                    <mat-panel-description>{{ls.s['comingSoon']}}</mat-panel-description>
+                </mat-expansion-panel-header>
+                <mat-list>
+                    <mat-list-item>
+                        <section class="input-section">
+                            <mat-checkbox
+                                class="std-margin"
+                                (change)="sumPlayer()"
+                                [(ngModel)]="hunter"
+                                checked="false"
+                            >
+                                {{ls.s['hunter']}}
+                            </mat-checkbox>
+                            <mat-checkbox
+                                class="std-margin"
+                                (change)="sumPlayer()"
+                                [(ngModel)]="witch"
+                                checked="false"
+                            >
+                                {{ls.s['witch']}}
+                            </mat-checkbox>
+                        </section>
+                    </mat-list-item>
+                </mat-list>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </mat-card-content>
+    <mat-card-footer>{{ls.s['totalPlayer']}} {{numPlayer}}</mat-card-footer>
+    <mat-card-actions>
+        <button
+            class="action-btn"
+            color="primary"
+            (click)="finishConfig()"
+            mat-raised-button
+            [disabled]="werewolfInputControl.invalid||villagerInputControl.invalid"
+        >
+            {{ls.s['finishConfig']}}
+        </button>
+        <mat-error *ngIf="villagerInputControl.invalid">{{ls.s['noVillagerError']}}</mat-error>
+        <mat-error *ngIf="werewolfInputControl.invalid">{{ls.s['noWerewolfError']}}</mat-error>
+    </mat-card-actions>
+</mat-card>
+
 <button
     mat-raised-button
     color="primary"

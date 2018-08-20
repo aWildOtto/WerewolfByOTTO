@@ -24,9 +24,11 @@ export class OnlineService {
   checkUserProfile(): boolean {
     return !!this.authState;
   }
+
   getGameData(gameCode: string): AngularFireObject<GameData> {
     return this.db.object('gameData/' + gameCode.toLowerCase());
   }
+
   checkGameExistance(gameCode: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
       this.db.database.ref('gameData/' + gameCode.toLowerCase()).once('value', data => {
@@ -40,6 +42,7 @@ export class OnlineService {
       });
     });
   }
+
   playerExit(gameCode: string) {
     this.db.database.ref('gameData/' + gameCode.toLowerCase() + '/playersObj/' + this.getUserID()).remove();
   }
@@ -109,7 +112,34 @@ export class OnlineService {
   getUsername(): string {
     return localStorage.getItem('username');
   }
+
   getUserID(): string {
     return this.authState.uid;
   }
+
+  createRoleArray(gameCode: string, roles: string[]): any {
+    const updates = {};
+    updates['gameData/' + gameCode.toLowerCase() + '/roles/'] = roles;
+    return this.db.database.ref().update(updates);
+
+  }
+
+  getNumberOfPlayers(gameCode: string): number {
+    let num = 0;
+    this.db.database.ref('gameData/' + gameCode.toLowerCase() + '/playersObj/').on('value', function (snapshot) {
+      console.log(snapshot.numChildren());
+      num = snapshot.numChildren();
+    });
+    return num;
+  }
+
+  getRoleNumber(gameCode: string): number {
+    let count = 0;
+    this.db.database.ref('gameData/' + gameCode.toLowerCase() + '/roles/').once('value', function (snapshot) {
+      console.log(snapshot.numChildren());
+      count = snapshot.numChildren();
+    });
+    return count;
+  }
+
 }

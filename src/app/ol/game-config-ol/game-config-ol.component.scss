@@ -1,0 +1,33 @@
+@import "../../global.scss";
+
+mat-list-item {
+  margin-top: 10px;
+}
+
+.input-section {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 60px;
+}
+
+.mat-input{
+  width: 100%;
+  height: 40px;
+  align-content: center;
+  border-bottom-color: white;
+}
+
+.mat-input-container.app-input-no-underline .mat-input-underline {
+  display: none;
+}
+
+.space{
+  margin-top: 50px
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  display: none;
+}
+

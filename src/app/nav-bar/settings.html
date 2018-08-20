@@ -1,16 +1,16 @@
 <div class="settingContainer">
     <h2
+        class="settingTitle"
         mat-dialog-title
-        style="font: 600; text-align: center; margin-bottom: 2%"
     >
         {{ls.s["settings"]}}
     </h2>
     <mat-divider></mat-divider>
     <mat-dialog-content>
         <div>
-            <label>{{ls.s["version"]}}</label>
+            <mat-label>{{ls.s["version"]}}</mat-label>
             <mat-button-toggle-group
-                style="margin-bottom: 9%; margin-left:11%; margin-top: 8%"
+                class="versionButtons"
                 name="version"
                 value="{{data.version}}"
                 (change)="changeVersion($event)"
@@ -20,9 +20,9 @@
             </mat-button-toggle-group>
         </div>
         <div>
-            <label>{{ls.s["language"]}}</label>
+            <mat-label>{{ls.s["language"]}}</mat-label>
             <mat-button-toggle-group
-                style="margin-bottom: 10%; margin-left:10%"
+                class="languageButtons"
                 name="language"
                 value="{{data.language}}"
                 (change)="changeLanguage($event)"
@@ -35,16 +35,14 @@
     </mat-dialog-content>
 
     <mat-dialog-actions>
-        <div *ngIf="data.version === 'offline'">
-            <button
-                class="setting-btn"
-                (click)="resetGameData($event)"
-                mat-stroked-button
-            >
-                {{ls.s["reset"]}}
-            </button>
-        </div>
-
+        <button
+            *ngIf="data.version === 'offline'"
+            class="setting-btn"
+            (click)="resetGameData($event)"
+            mat-stroked-button
+        >
+            {{ls.s["reset"]}}
+        </button>
         <button
             class="setting-btn"
             (click)="restartGame($event)"

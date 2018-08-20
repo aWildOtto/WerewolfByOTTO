@@ -1,8 +1,26 @@
+@import "../global.scss";
+
 .setting-btn{
-    width: 50%;
+    width: 45%;
     margin: auto;
 }
 mat-dialog-actions {
     margin: auto;
     width: 80%;
+}
+.settingTitle{
+    font: 600; 
+    text-align: center;
+    margin-bottom: 2%;
+}
+
+.versionButtons{
+    margin-bottom: 9%;
+    margin-left:11%;
+    margin-top: 8%
+}
+
+.languageButtons{
+    margin-bottom: 10%;
+    margin-left:10% 
 }
