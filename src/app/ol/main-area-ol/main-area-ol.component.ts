@@ -16,7 +16,8 @@ export class MainAreaOlComponent implements OnInit, OnDestroy {
   public showPage: string;
   public gameCode: string;
   public gameData: AngularFireObject<GameData>;
-  public players: string[];
+  public players: string[] = [];
+  public roles: string[] = [];
   private gameDataSubscription: Subscription;
   private dialogSubscription: Subscription;
 
@@ -39,7 +40,12 @@ export class MainAreaOlComponent implements OnInit, OnDestroy {
       if (exists) {
         this.gameDataSubscription = this.gameData.valueChanges().subscribe(data => {// subscribe to game change if it exists
           if (data) {
-            this.players = this.convertObjToArr(data.playersObj);
+            if (data.playersObj) {
+              this.players = this.convertObjToArr(data.playersObj);
+            }
+            if (data.roles) {
+              this.roles = data.roles;
+            }
           } else {
             this.showPage = 'notFound';
           }

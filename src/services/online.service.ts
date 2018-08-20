@@ -3,9 +3,6 @@ import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
 import { Observable } from 'rxjs';
 import { GameData } from '../model/gameData';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { auth } from 'firebase';
-import { DataSnapshot } from '../../node_modules/firebase-functions/lib/providers/database';
-
 
 @Injectable({
   providedIn: 'root'
@@ -123,33 +120,6 @@ export class OnlineService {
     updates['gameData/' + gameCode.toLowerCase() + '/roles/'] = roles;
     return this.db.database.ref().update(updates);
 
-  }
-
-  getNumberOfPlayers(gameCode: string): number {
-    let num = 0;
-    this.db.database.ref('gameData/' + gameCode.toLowerCase() + '/playersObj/').on('value', function (snapshot) {
-      num = snapshot.numChildren();
-    });
-    return num;
-  }
-
-  getRoleNumber(gameCode: string): number {
-    let count = 0;
-    this.db.database.ref('gameData/' + gameCode.toLowerCase() + '/roles/').on('value', function (snapshot) {
-      count = snapshot.numChildren();
-    });
-    return count;
-  }
-
-  getRoleArray(gameCode: string): string[] {
-    const roleArr = [];
-    this.db.database.ref('gameData/' + gameCode.toLowerCase() + '/roles/').once('value', function (snap) {
-      snap.forEach(function (item) {
-        // console.log(item.val());
-        roleArr.push(item.val());
-      });
-    });
-    return roleArr;
   }
 
 }

@@ -2,8 +2,9 @@
     <!-- Setup Title -->
     <mat-card-title>{{ls.s["gameSetup"]}}</mat-card-title>
     <mat-card-subtitle>
-        {{ls.s['numPlayers']}} {{numPlayerInRoom}}
+        {{ls.s['numPlayers']}} {{players.length}}
     </mat-card-subtitle>
+    <mat-card-subtitle>{{ls.s['totalPlayer']}} {{numPlayer}}</mat-card-subtitle>
     <!-- <mat-card-subtitle>{{ls.s["setupSubtitle"]}}</mat-card-subtitle> -->
     <!-- Setup Title ends -->
     <mat-card-content>
@@ -138,8 +139,9 @@
             </mat-expansion-panel>
         </mat-accordion>
     </mat-card-content>
-    <mat-card-footer>{{ls.s['totalPlayer']}} {{numPlayer}}</mat-card-footer>
     <mat-card-actions>
+        <mat-error *ngIf="villagerInputControl.invalid">{{ls.s['noVillagerError']}}</mat-error>
+        <mat-error *ngIf="werewolfInputControl.invalid">{{ls.s['noWerewolfError']}}</mat-error>
         <button
             class="action-btn"
             color="primary"
@@ -149,15 +151,13 @@
         >
             {{ls.s['finishConfig']}}
         </button>
-        <mat-error *ngIf="villagerInputControl.invalid">{{ls.s['noVillagerError']}}</mat-error>
-        <mat-error *ngIf="werewolfInputControl.invalid">{{ls.s['noWerewolfError']}}</mat-error>
+        <button
+            mat-stroked-button
+            color="primary"
+            class="action-btn back-btn"
+            (click)="backToLobby($event)"
+        >
+            Back
+        </button>
     </mat-card-actions>
 </mat-card>
-
-<button
-    mat-raised-button
-    color="primary"
-    (click)="backToLobby($event)"
->
-    Back
-</button>

@@ -61,7 +61,9 @@ export class WelcomeOlComponent implements OnInit, OnDestroy {
     });
   }
   ngOnDestroy() {
-    // this.dialogSubscription.unsubscribe();
+    if (this.dialogSubscription) {
+      this.dialogSubscription.unsubscribe();
+    }
   }
 }
 

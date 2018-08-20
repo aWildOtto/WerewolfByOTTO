@@ -15,26 +15,17 @@ export class GameLobbyComponent implements OnInit {
   @Input() gameCode: string;
   @Input() gameData: AngularFireObject<GameData>;
   @Input() players: string[];
+  @Input() roles: string[];
   @Output() switchPage = new EventEmitter<string>();
-
-
-  public playerNumMatched = false;
-  private roleNum = 0;
 
   constructor(
     public ls: LanguageService,
     private os: OnlineService,
-    private activeRoute: ActivatedRoute,
   ) {
 
   }
 
   ngOnInit() {
-    this.roleNum = this.os.getRoleNumber(this.gameCode);
-    if (this.players) {
-      this.playerNumMatched = (this.players.length === this.roleNum);
-    }
-
   }
 
   clickConfig() {

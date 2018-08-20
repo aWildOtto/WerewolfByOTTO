@@ -21,7 +21,9 @@ export class GameConfigOlComponent implements OnInit {
     Validators.pattern('^[0-9]*$'),
     Validators.min(1)
   ]);
-
+  @Input() players: string[];
+  @Input() roles: string[];
+  @Input() gameCode: string;
   @Output() switchPage = new EventEmitter<string>();
 
   public numPlayer = 0;
@@ -30,21 +32,15 @@ export class GameConfigOlComponent implements OnInit {
   public moderator = false;
   public witch = false;
   public hunter = false;
-  public numPlayerInRoom = 0;
-  private gameCode: string;
 
   constructor(
     public ls: LanguageService,
     private os: OnlineService,
-    private activeRoute: ActivatedRoute
   ) {
-    this.gameCode = this.activeRoute.snapshot.params['id'].toUpperCase();
-    this.numPlayerInRoom = this.os.getNumberOfPlayers(this.gameCode);
   }
 
   ngOnInit() {
     this.parseRoleArray();
-
   }
   // https://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array
   shuffle(a) {
@@ -81,28 +77,30 @@ export class GameConfigOlComponent implements OnInit {
   }
 
   finishConfig() {
-    let roleArr = [];
+    this.roles = [];
     for (let i = 0; i < this.werewolfInputControl.value; i++) {
-      roleArr.push('werewolf');
+      this.roles.push('werewolf');
     }
     for (let i = 0; i < this.villagerInputControl.value; i++) {
-      roleArr.push('villager');
+      this.roles.push('villager');
     }
-    this.seer ? roleArr.push('seer') : null;
-    this.guardian ? roleArr.push('guardian') : null;
-    this.moderator ? roleArr.push('moderator') : null;
-    this.witch ? roleArr.push('witch') : null;
-    this.hunter ? roleArr.push('hunter') : null;
-    roleArr = this.shuffle(roleArr);
-    this.os.createRoleArray(this.gameCode, roleArr);
-    this.switchPage.emit('gameLobby');
+    this.seer ? this.roles.push('seer') : null;
+    this.guardian ? this.roles.push('guardian') : null;
+    this.moderator ? this.roles.push('moderator') : null;
+    this.witch ? this.roles.push('witch') : null;
+    this.hunter ? this.roles.push('hunter') : null;
+    this.roles = this.shuffle(this.roles);
+    this.os.createRoleArray(this.gameCode, this.roles).then(result => {
+      if (!result) {
+        this.switchPage.emit('gameLobby');
+      }
+    });
   }
 
   parseRoleArray() {
     let villagerNum = 0;
     let werewolfNum = 0;
-    const roleArr = this.os.getRoleArray(this.gameCode);
-    if (roleArr.length === 0) {
+    if (this.roles.length === 0) {
       this.werewolfInputControl.setValue(1);
       this.villagerInputControl.setValue(1);
       this.seer = true;
@@ -110,7 +108,7 @@ export class GameConfigOlComponent implements OnInit {
       this.moderator = true;
       this.sumPlayer();
     } else {
-      roleArr.forEach(element => {
+      this.roles.forEach(element => {
         if (element === 'villager') {
           villagerNum++;
         } else if (element === 'werewolf') {
