@@ -97,13 +97,8 @@ export class EnterGameDialog {
 
   onChange(): void {
     if (this.data.roomCode !== '') {
-      this.gameData = this.os.getGameData(this.data.roomCode);
-      this.gameDataObservable = this.gameData.valueChanges().subscribe(data => {
-        if (data) {
-          this.gameCodeInvalid = false;
-        } else {
-          this.gameCodeInvalid = true;
-        }
+      this.os.checkGameExistance(this.data.roomCode).then(exists => {
+        this.gameCodeInvalid = !exists;
       });
     }
   }

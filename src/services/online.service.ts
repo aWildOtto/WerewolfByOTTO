@@ -23,12 +23,13 @@ export class OnlineService {
     return !!this.authState;
   }
 
-  getGameData(gameCode: string): AngularFireObject<GameData> {
-    return this.db.object('gameData/' + gameCode.toLowerCase());
+  getData(dataStr: string, gameCode: string): AngularFireObject<any> {
+    const dbPath = dataStr ? dataStr + '/' : '';
+    return this.db.object(dbPath + gameCode.toLowerCase());
   }
 
-  checkGameExistance(gameCode: string): Promise<boolean> {
-    return new Promise((resolve, reject) => {
+  async checkGameExistance(gameCode: string): Promise<boolean> {
+    return new Promise<boolean>((resolve, reject) => {
       this.db.database.ref('gameData/' + gameCode.toLowerCase()).once('value', data => {
         if (data.val()) {
           resolve(true);
@@ -40,14 +41,19 @@ export class OnlineService {
       });
     });
   }
+  async checkGameExistance1(gameCode: string) {
+
+
+    return await this.db.database.ref('gameData/' + gameCode.toLowerCase()).once('value');
+  }
 
   playerExit(gameCode: string) {
-    this.db.database.ref('gameData/' + gameCode.toLowerCase() + '/playersObj/' + this.getUserID()).remove();
+    this.db.database.ref('players/' + gameCode.toLowerCase() + '/' + this.getUserID()).remove();
   }
 
   joinGame(gameCode: string): any {
     const updates = {};
-    updates['gameData/' + gameCode.toLowerCase() + '/playersObj/' + this.getUserID()] = this.getUsername();
+    updates['players/' + gameCode.toLowerCase() + '/' + this.getUserID()] = this.getUsername();
     return this.db.database.ref().update(updates);
   }
 
@@ -74,34 +80,32 @@ export class OnlineService {
     return gameCode;
   }
 
-  newGameData(uid, username): GameData {
-    return {
-      creator: {
-        [uid]: username
-      },
-      roles: [],
-      playersObj: {
-        [uid]: username
-      },
-      currentPage: 'gameLobby',
-      currentNight: 0
-    };
-  }
-
   createGame(username): Promise<string> {
     const createProfilePromise = this.createUserProfile(username);
     return new Promise((resolve, reject) => {
       createProfilePromise.then(uid => {
         const newGameCode = this.genGameCode();
-        this.db.object('gameData/' + newGameCode)
-          .set(this.newGameData(uid, username))// create new gameData entry with creator data
+        Promise.all([
+          // public general info
+          this.db.object('gameData/' + newGameCode)
+            .set({
+              currentNight: 0,
+              creator: {
+                [uid]: username
+              }
+            }),
+          // playes array s
+          this.db.object('players/' + newGameCode)
+            .set({
+              [uid]: username
+            })
+        ])
+          // create new gameData entry with creator data
           .then((result) => {
-            console.log('create game success: ' + !result);
-            if (!result) {
+            console.log('create game success: ' + !result[0] && !result[1]);
+            if (!result[0] && !result[1]) {
               resolve(newGameCode);
             }
-          }).catch(error => {
-            reject(error);
           });
       });
     });
@@ -115,11 +119,9 @@ export class OnlineService {
     return this.authState.uid;
   }
 
-  createRoleArray(gameCode: string, roles: string[]): any {
-    const updates = {};
-    updates['gameData/' + gameCode.toLowerCase() + '/roles/'] = roles;
-    return this.db.database.ref().update(updates);
-
+  createRoleArray(gameCode: string, roles: string[]): Promise<any> {
+    return this.db.object('roles/' + gameCode.toLowerCase())
+      .set(roles);
   }
 
 }

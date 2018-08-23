@@ -16,9 +16,14 @@ export class MainAreaOlComponent implements OnInit, OnDestroy {
   public showPage: string;
   public gameCode: string;
   public gameData: AngularFireObject<GameData>;
+  public creator: Object;
+  public playersData: AngularFireObject<Object>;
+  public rolesData: AngularFireObject<string[]>;
   public players: string[] = [];
   public roles: string[] = [];
   private gameDataSubscription: Subscription;
+  private playersSubscription: Subscription;
+  private rolesSubscription: Subscription;
   private dialogSubscription: Subscription;
 
   // Possible Pages:
@@ -35,19 +40,26 @@ export class MainAreaOlComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
   ) {
     this.gameCode = this.activeRoute.snapshot.params['id'].toUpperCase();
-    this.gameData = this.os.getGameData(this.gameCode);
     this.os.checkGameExistance(this.gameCode).then(exists => {// check if the game exist once
       if (exists) {
+        this.gameData = this.os.getData('gameData', this.gameCode);
+        this.playersData = this.os.getData('players', this.gameCode);
+        this.rolesData = this.os.getData('roles', this.gameCode);
         this.gameDataSubscription = this.gameData.valueChanges().subscribe(data => {// subscribe to game change if it exists
           if (data) {
-            if (data.playersObj) {
-              this.players = this.convertObjToArr(data.playersObj);
-            }
-            if (data.roles) {
-              this.roles = data.roles;
-            }
+            this.creator = data.creator;
           } else {
             this.showPage = 'notFound';
+          }
+        });
+        this.playersSubscription = this.playersData.valueChanges().subscribe(playersObj => {
+          if (playersObj) {
+            this.players = this.convertObjToArr(playersObj);
+          }
+        });
+        this.rolesSubscription = this.rolesData.valueChanges().subscribe(rolesArr => {
+          if (rolesArr) {
+            this.roles = rolesArr;
           }
         });
 
@@ -61,8 +73,8 @@ export class MainAreaOlComponent implements OnInit, OnDestroy {
             });
           });
         } else {
-          this.os.joinGame(this.gameCode).then(result => {
-            console.log(result);
+          this.os.joinGame(this.gameCode).catch(error => {
+            console.log(error);
           });
         }
       } else {
@@ -90,6 +102,12 @@ export class MainAreaOlComponent implements OnInit, OnDestroy {
     }
     if (this.dialogSubscription) {
       this.dialogSubscription.unsubscribe();
+    }
+    if (this.playersSubscription) {
+      this.playersSubscription.unsubscribe();
+    }
+    if (this.rolesSubscription) {
+      this.rolesSubscription.unsubscribe();
     }
   }
 
