@@ -41,11 +41,6 @@ export class OnlineService {
       });
     });
   }
-  async checkGameExistance1(gameCode: string) {
-
-
-    return await this.db.database.ref('gameData/' + gameCode.toLowerCase()).once('value');
-  }
 
   playerExit(gameCode: string) {
     this.db.database.ref('players/' + gameCode.toLowerCase() + '/' + this.getUserID()).remove();

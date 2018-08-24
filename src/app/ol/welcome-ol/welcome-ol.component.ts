@@ -50,8 +50,9 @@ export class WelcomeOlComponent implements OnInit, OnDestroy {
     this.dialogSubscription = dialogRef.afterClosed().subscribe(result => {
       if (result) {
         if (result.isJoin) {
-          this.os.createUserProfile(result.username);
-          this.router.navigate([result.roomCode]);
+          this.os.createUserProfile(result.username).then(ret => {
+            this.router.navigate([result.roomCode]);
+          });
         } else {
           this.os.createGame(result.username).then(createResult => {
             this.router.navigate([createResult]);
