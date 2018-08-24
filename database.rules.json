@@ -1,6 +1,20 @@
 {
   "rules": {
-    ".read": "true",
-    ".write": "true"
+    "gameData": {
+      ".read": "true",
+      ".write": "true"
+    },
+    "players": {
+      "$gameCode": {
+        ".read": "data.child(auth.uid).exists()",
+        ".write": "(!data.exists()||!newData.exists())&&auth.uid!=null"
+      }
+    },
+    "roles": {
+      "$gameCode": {
+        ".read": "root.child('players').child($gameCode).child(auth.uid).exists()||root.child('gameData').child($gameCode).child('creator').child(auth.uid).exists()",
+        ".write": "(!data.exists()||!newData.exists())&&root.child('gameData').child($gameCode).child('creator').child(auth.uid).exists()"
+      }
+    }
   }
 }
