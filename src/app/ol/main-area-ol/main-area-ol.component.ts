@@ -40,42 +40,48 @@ export class MainAreaOlComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
   ) {
     this.gameCode = this.activeRoute.snapshot.params['id'].toUpperCase();
+
+    const setupDataSubscriptions = () => {
+      this.gameData = this.os.getData('gameData', this.gameCode);
+      this.playersData = this.os.getData('players', this.gameCode);
+      this.rolesData = this.os.getData('roles', this.gameCode);
+      this.gameDataSubscription = this.gameData.valueChanges().subscribe(data => {// subscribe to game change if it exists
+        if (data) {
+          this.creator = data.creator;
+        } else {
+          this.showPage = 'notFound';
+        }
+      });
+      this.playersSubscription = this.playersData.valueChanges().subscribe(playersObj => {
+        if (playersObj) {
+          this.players = this.convertObjToArr(playersObj);
+        }
+      });
+      this.rolesSubscription = this.rolesData.valueChanges().subscribe(rolesArr => {
+        if (rolesArr) {
+          this.roles = rolesArr;
+        }
+      });
+    };
     this.os.checkGameExistance(this.gameCode).then(exists => {// check if the game exist once
       if (exists) {
-        this.gameData = this.os.getData('gameData', this.gameCode);
-        this.playersData = this.os.getData('players', this.gameCode);
-        this.rolesData = this.os.getData('roles', this.gameCode);
-        this.gameDataSubscription = this.gameData.valueChanges().subscribe(data => {// subscribe to game change if it exists
-          if (data) {
-            this.creator = data.creator;
-          } else {
-            this.showPage = 'notFound';
-          }
-        });
-        this.playersSubscription = this.playersData.valueChanges().subscribe(playersObj => {
-          if (playersObj) {
-            this.players = this.convertObjToArr(playersObj);
-          }
-        });
-        this.rolesSubscription = this.rolesData.valueChanges().subscribe(rolesArr => {
-          if (rolesArr) {
-            this.roles = rolesArr;
-          }
-        });
-
         if (!this.os.checkUserProfile()) {
           // if the user doesn't have a local profile ask for a name to create one
           this.dialogSubscription = this.openNameInputDialog().subscribe(username => {
             this.os.createUserProfile(username).then(auth => {
               this.os.joinGame(this.gameCode).then(result => {
-                console.log(result);
+                setupDataSubscriptions();
               });
             });
           });
         } else {
-          this.os.joinGame(this.gameCode).catch(error => {
-            console.log(error);
-          });
+          this.os.joinGame(this.gameCode)
+            .then(result => {
+              setupDataSubscriptions();
+            })
+            .catch(error => {
+              console.log(error);
+            });
         }
       } else {
         this.showPage = 'notFound';
