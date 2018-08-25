@@ -1,5 +1,20 @@
 {
   "rules": {
+    "gameStatus": {
+      "$gameCode": {
+        ".read": "root.child('players').child($gameCode).child(auth.uid).exists()||root.child('gameData').child($gameCode).child('creator').child(auth.uid).exists()",
+        ".write": "root.child('gameData').child($gameCode).child('creator').child(auth.uid).exists()"
+      }
+    },
+    "roleData": {
+      "$gameCode": {
+        ".read": "root.child('gameData').child($gameCode).child('creator').child(auth.uid).exists()",
+        "$playerID": {
+          ".read": "auth.uid == $playerID ",
+          ".write": "root.child('gameData').child($gameCode).child('creator').child(auth.uid).exists()"
+        }
+      }
+    },
     "gameData": {
       ".read": "true",
       ".write": "true"
@@ -7,13 +22,13 @@
     "players": {
       "$gameCode": {
         ".read": "data.child(auth.uid).exists()",
-        ".write": "(!data.exists()||!newData.exists())&&auth.uid!=null"
+        ".write": "auth.uid!=null"
       }
     },
     "roles": {
       "$gameCode": {
         ".read": "root.child('players').child($gameCode).child(auth.uid).exists()||root.child('gameData').child($gameCode).child('creator').child(auth.uid).exists()",
-        ".write": "(!data.exists()||!newData.exists())&&root.child('gameData').child($gameCode).child('creator').child(auth.uid).exists()"
+        ".write": "root.child('gameData').child($gameCode).child('creator').child(auth.uid).exists()"
       }
     }
   }
