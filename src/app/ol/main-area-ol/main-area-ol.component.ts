@@ -90,6 +90,8 @@ export class MainAreaOlComponent implements OnInit, OnDestroy {
             this.os.createUserProfile(username).then(auth => {
               this.os.joinGame(this.gameCode).then(result => {
                 setupDataSubscriptions();
+              }).catch(err => {
+                console.log(err);
               });
             });
           });
