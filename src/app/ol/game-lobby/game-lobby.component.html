@@ -29,6 +29,7 @@
     <button
         class="game-lobby-action-btn"
         mat-raised-button
+        (click)="startGame()"
         color="primary"
         [disabled]="this.players.length !== this.roles.length"
     >

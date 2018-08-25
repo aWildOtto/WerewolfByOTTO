@@ -60,10 +60,9 @@ export class OnlineService {
   createUserProfile(username: string): Promise<string> {
     localStorage.setItem('username', username);
     return new Promise((resolve, reject) => {
-      this.afAuth.auth.signInAnonymously().then(data => {
-        console.log(data.user.uid);
-        localStorage.setItem('uid', data.user.uid);
-        resolve(data.user.uid);
+      this.afAuth.auth.signInAnonymously().then(auth => {
+        localStorage.setItem('uid', auth.user.uid);
+        resolve(auth.user.uid);
       }).catch(err => {
         reject(err);
       });
@@ -98,12 +97,15 @@ export class OnlineService {
           this.db.object('players/' + newGameCode)
             .set({
               [uid]: username
-            })
+            }),
+          this.db.object('gameStatus/' + newGameCode)
+            .set('preparing')
         ])
           // create new gameData entry with creator data
           .then((result) => {
-            console.log('create game success: ' + !result[0] && !result[1]);
-            if (!result[0] && !result[1]) {
+            const resultBool = !result[0] && !result[1] && !result[2];
+            console.log('create game success: ' + resultBool);
+            if (resultBool) {
               resolve(newGameCode);
             }
           });
@@ -120,8 +122,14 @@ export class OnlineService {
   }
 
   createRoleArray(gameCode: string, roles: string[]): Promise<any> {
-    return this.db.object('roles/' + gameCode.toLowerCase())
-      .set(roles);
+    return this.db.object('roles/' + gameCode.toLowerCase()).set(roles);
   }
 
+  changeGameStatus(gameCode: string, status: string): Promise<any> {
+    return this.db.object('gameStatus/' + gameCode.toLowerCase()).set(status);
+  }
+
+  createRoleData(gameCode: string) {
+
+  }
 }

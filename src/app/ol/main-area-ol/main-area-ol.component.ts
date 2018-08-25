@@ -13,23 +13,28 @@ import { Observable, Subscription } from 'rxjs';
   styleUrls: ['./main-area-ol.component.scss']
 })
 export class MainAreaOlComponent implements OnInit, OnDestroy {
+
   public showPage: string;
   public gameCode: string;
   public gameData: AngularFireObject<GameData>;
   public creator: Object = {};
   public playersData: AngularFireObject<Object>;
   public rolesData: AngularFireObject<string[]>;
+  public gameStatusData: AngularFireObject<string>;
   public players: string[] = [];
   public roles: string[] = [];
   private gameDataSubscription: Subscription;
   private playersSubscription: Subscription;
   private rolesSubscription: Subscription;
+  private gameStatusSubscription: Subscription;
   private dialogSubscription: Subscription;
 
   // Possible Pages:
   // mainAreaOl
   // gameLobby
   // notFound
+  // roleReveal
+  // mod-page
   switchPage(event) {
     this.showPage = event;
   }
@@ -45,6 +50,7 @@ export class MainAreaOlComponent implements OnInit, OnDestroy {
       this.gameData = this.os.getData('gameData', this.gameCode);
       this.playersData = this.os.getData('players', this.gameCode);
       this.rolesData = this.os.getData('roles', this.gameCode);
+      this.gameStatusData = this.os.getData('gameStatus', this.gameCode);
       this.gameDataSubscription = this.gameData.valueChanges().subscribe(data => {// subscribe to game change if it exists
         if (data) {
           this.creator = {
@@ -63,6 +69,16 @@ export class MainAreaOlComponent implements OnInit, OnDestroy {
       this.rolesSubscription = this.rolesData.valueChanges().subscribe(rolesArr => {
         if (rolesArr) {
           this.roles = rolesArr;
+        }
+      });
+      this.gameStatusSubscription = this.gameStatusData.valueChanges().subscribe(gameStatus => {
+        if (gameStatus) {
+          if (gameStatus === 'started') {
+            this.showPage = 'roleReveal';
+          }
+          if (gameStatus === 'preparing') {
+            this.showPage = 'gameLobby';
+          }
         }
       });
     };
@@ -120,6 +136,9 @@ export class MainAreaOlComponent implements OnInit, OnDestroy {
     }
     if (this.rolesSubscription) {
       this.rolesSubscription.unsubscribe();
+    }
+    if (this.gameStatusSubscription) {
+      this.gameStatusSubscription.unsubscribe();
     }
   }
 

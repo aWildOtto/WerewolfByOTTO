@@ -26,4 +26,11 @@
     <ng-template ngSwitchCase="notFound">
         <app-not-found (switchPage)="switchPage($event)"></app-not-found>
     </ng-template>
+
+    <ng-template ngSwitchCase="roleReveal">
+        <app-role-reveal-ol (switchPage)="switchPage($event)"></app-role-reveal-ol>
+    </ng-template>
+    <ng-template ngSwitchCase="modPage">
+        <app-mod-page (switchPage)="switchPage($event)"></app-mod-page>
+    </ng-template>
 </div>

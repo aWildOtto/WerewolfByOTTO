@@ -45,6 +45,8 @@ import { OnlineService } from '../services/online.service';
 import { MainAreaOlComponent, NameInputDialog } from './ol/main-area-ol/main-area-ol.component';
 import { GameLobbyComponent } from './ol/game-lobby/game-lobby.component';
 import { GameConfigOlComponent } from './ol/game-config-ol/game-config-ol.component';
+import { RoleRevealOlComponent } from './ol/role-reveal-ol/role-reveal-ol.component';
+import { ModPageComponent } from './ol/mod-page/mod-page.component';
 
 @NgModule({
   imports: [
@@ -89,6 +91,8 @@ import { GameConfigOlComponent } from './ol/game-config-ol/game-config-ol.compon
     MainAreaOlComponent,
     GameLobbyComponent,
     GameConfigOlComponent,
+    RoleRevealOlComponent,
+    ModPageComponent,
   ],
 
   exports: [MatButtonModule, MatCheckboxModule],

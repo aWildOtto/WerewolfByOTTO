@@ -1,9 +1,10 @@
-import { Component, OnInit, Output, EventEmitter, Input, OnChanges, OnDestroy } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
 import { OnlineService } from '../../../services/online.service';
 import { GameData } from '../../../model/gameData';
 import { AngularFireObject } from 'angularfire2/database';
 import { LanguageService } from '../../../services/language.service';
 import { ActivatedRoute } from '../../../../node_modules/@angular/router';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -27,22 +28,23 @@ export class GameLobbyComponent implements OnInit, OnChanges, OnDestroy {
   ) {
   }
 
-  ngOnChanges() {
-    this.os.getAuthObj().toPromise().then(auth => {
-      if (auth) {
-        this.currentUserId = auth.uid;
-        if (this.currentUserId === this.creator.id) {
-          this.disableActions = true;
-        } else {
-          this.disableActions = false;
+  ngOnChanges(change: SimpleChanges) {
+    if (change.creator) {
+      this.os.getAuthObj().subscribe(auth => {
+        if (auth) {
+          this.currentUserId = auth.uid;
+          if (this.currentUserId === this.creator.id) {
+            this.disableActions = true;
+          } else {
+            this.disableActions = false;
+          }
         }
-      }
-    });
+      });
+    }
 
   }
 
   ngOnDestroy() {
-
   }
 
   ngOnInit() {
@@ -50,8 +52,11 @@ export class GameLobbyComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   clickConfig() {
-    console.log(this.gameData);
-    console.log(this.creator);
     this.switchPage.emit('gameConfig');
+  }
+
+  startGame() {
+    this.os.createRoleData(this.gameCode);
+    this.os.changeGameStatus(this.gameCode, 'started');
   }
 }
