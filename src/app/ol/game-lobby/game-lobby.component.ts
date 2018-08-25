@@ -5,6 +5,7 @@ import { AngularFireObject } from 'angularfire2/database';
 import { LanguageService } from '../../../services/language.service';
 import { ActivatedRoute } from '../../../../node_modules/@angular/router';
 import { Subscription } from 'rxjs';
+import { User } from '../../../model/User';
 
 
 @Component({
@@ -15,7 +16,7 @@ import { Subscription } from 'rxjs';
 export class GameLobbyComponent implements OnInit, OnChanges, OnDestroy {
   @Input() gameCode: string;
   @Input() gameData: AngularFireObject<GameData>;
-  @Input() players: string[];
+  @Input() players: User[];
   @Input() roles: string[];
   @Input() creator;
   @Output() switchPage = new EventEmitter<string>();
@@ -56,7 +57,7 @@ export class GameLobbyComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   startGame() {
-    this.os.createRoleData(this.gameCode);
+    this.os.createRoleData(this.gameCode, this.roles, this.players);
     this.os.changeGameStatus(this.gameCode, 'started');
   }
 }

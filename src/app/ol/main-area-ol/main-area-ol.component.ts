@@ -6,6 +6,7 @@ import { AngularFireObject } from 'angularfire2/database';
 import { GameData } from '../../../model/gameData';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { Observable, Subscription } from 'rxjs';
+import { User } from '../../../model/User';
 
 @Component({
   selector: 'app-main-area-ol',
@@ -21,8 +22,9 @@ export class MainAreaOlComponent implements OnInit, OnDestroy {
   public playersData: AngularFireObject<Object>;
   public rolesData: AngularFireObject<string[]>;
   public gameStatusData: AngularFireObject<string>;
-  public players: string[] = [];
+  public players: User[] = [];
   public roles: string[] = [];
+  public currentRoleData = {};
   private gameDataSubscription: Subscription;
   private playersSubscription: Subscription;
   private rolesSubscription: Subscription;
@@ -34,7 +36,7 @@ export class MainAreaOlComponent implements OnInit, OnDestroy {
   // gameLobby
   // notFound
   // roleReveal
-  // mod-page
+  // modPage
   switchPage(event) {
     this.showPage = event;
   }
@@ -44,7 +46,7 @@ export class MainAreaOlComponent implements OnInit, OnDestroy {
     private activeRoute: ActivatedRoute,
     public dialog: MatDialog,
   ) {
-    this.gameCode = this.activeRoute.snapshot.params['id'].toUpperCase();
+    this.gameCode = this.activeRoute.snapshot.params['id'];
 
     const setupDataSubscriptions = () => {
       this.gameData = this.os.getData('gameData', this.gameCode);
@@ -63,7 +65,7 @@ export class MainAreaOlComponent implements OnInit, OnDestroy {
       });
       this.playersSubscription = this.playersData.valueChanges().subscribe(playersObj => {
         if (playersObj) {
-          this.players = this.convertObjToArr(playersObj);
+          this.players = this.convertPlayerObjtoUser(playersObj);
         }
       });
       this.rolesSubscription = this.rolesData.valueChanges().subscribe(rolesArr => {
@@ -74,7 +76,16 @@ export class MainAreaOlComponent implements OnInit, OnDestroy {
       this.gameStatusSubscription = this.gameStatusData.valueChanges().subscribe(gameStatus => {
         if (gameStatus) {
           if (gameStatus === 'started') {
-            this.showPage = 'roleReveal';
+            this.os.getCurrentRole(this.gameCode).then(data => {
+              if (data.val()) {
+                this.currentRoleData = data.val();
+                if (this.currentRoleData['role'] !== 'moderator') {
+                  this.showPage = 'roleReveal';
+                } else {
+                  this.showPage = 'modPage';
+                }
+              }
+            });
           }
           if (gameStatus === 'preparing') {
             this.showPage = 'gameLobby';
@@ -110,8 +121,8 @@ export class MainAreaOlComponent implements OnInit, OnDestroy {
     });
   }
 
-  convertObjToArr(evilResponseProps: {}): string[] {
-    const goodResponse = [];
+  convertPlayerObjtoUser(evilResponseProps: {}): User[] {
+    const goodResponse: User[] = [];
     for (const prop in evilResponseProps) {
       if (prop) {
         goodResponse.push({

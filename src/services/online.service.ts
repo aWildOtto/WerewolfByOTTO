@@ -4,6 +4,10 @@ import { Observable } from 'rxjs';
 import { GameData } from '../model/gameData';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { FirebaseAuth } from '../../node_modules/angularfire2';
+import { RoleData } from '../model/roleData';
+import { Werewolf } from '../model/werewolf';
+import { User } from '../model/User';
+import { Villager } from '../model/villager';
 
 @Injectable({
   providedIn: 'root'
@@ -129,7 +133,22 @@ export class OnlineService {
     return this.db.object('gameStatus/' + gameCode.toLowerCase()).set(status);
   }
 
-  createRoleData(gameCode: string) {
+  createRoleData(gameCode: string, roleArr: string[], playerArr: User[]) {
+    let i = 0;
+    gameCode = gameCode.toLowerCase();
+    roleArr.forEach(role => {
+      let roleData = {};
+      roleData = {
+        name: playerArr[i].name,
+        id: playerArr[i].id,
+        role,
+      };
+      this.db.object(`roleData/${gameCode}/${playerArr[i].id}`).set(roleData);
+      i++;
+    });
+  }
 
+  getCurrentRole(gameCode: string) {
+    return this.db.database.ref(`roleData/${gameCode}/${this.getUserID()}`).once('value');
   }
 }

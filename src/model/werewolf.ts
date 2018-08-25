@@ -1,5 +1,6 @@
 export interface Werewolf {
-    name: string,
-    killedBy?: string,
-    Killed: string[]
+    name: string;
+    killedBy?: string;
+    uid?: string;
+    Killed: string[];
 }

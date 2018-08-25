@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { LanguageService } from '../../../services/language.service';
 
 @Component({
   selector: 'app-role-reveal-ol',
@@ -6,8 +7,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./role-reveal-ol.component.scss']
 })
 export class RoleRevealOlComponent implements OnInit {
-
-  constructor() { }
+  @Input() currentRoleData;
+  constructor(
+    public ls: LanguageService
+  ) { }
 
   ngOnInit() {
   }

@@ -1,4 +1,5 @@
 export interface Villager {
-    name: string,
-    killedBy?: string
+    name: string;
+    uid?: string;
+    killedBy?: string;
 }
