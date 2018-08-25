@@ -8,13 +8,16 @@
 <mat-card>
     <div *ngIf="gameData">
         <mat-list>
-            <mat-list-item *ngFor="let player of players">{{player}}</mat-list-item>
+            <mat-list-item *ngFor="let player of players">
+                <mat-icon *ngIf="creator.id === player.id">person_pin</mat-icon>
+                <mat-label>{{player.name}}</mat-label>
+            </mat-list-item>
 
         </mat-list>
     </div>
 
 </mat-card>
-<mat-card>
+<mat-card *ngIf="disableActions">
     <button
         class="game-lobby-action-btn config-btn"
         mat-stroked-button

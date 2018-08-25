@@ -16,7 +16,7 @@ export class MainAreaOlComponent implements OnInit, OnDestroy {
   public showPage: string;
   public gameCode: string;
   public gameData: AngularFireObject<GameData>;
-  public creator: Object;
+  public creator: Object = {};
   public playersData: AngularFireObject<Object>;
   public rolesData: AngularFireObject<string[]>;
   public players: string[] = [];
@@ -47,7 +47,10 @@ export class MainAreaOlComponent implements OnInit, OnDestroy {
       this.rolesData = this.os.getData('roles', this.gameCode);
       this.gameDataSubscription = this.gameData.valueChanges().subscribe(data => {// subscribe to game change if it exists
         if (data) {
-          this.creator = data.creator;
+          this.creator = {
+            name: Object.values(data.creator)[0],
+            id: Object.keys(data.creator)[0]
+          };
         } else {
           this.showPage = 'notFound';
         }
@@ -93,7 +96,10 @@ export class MainAreaOlComponent implements OnInit, OnDestroy {
     const goodResponse = [];
     for (const prop in evilResponseProps) {
       if (prop) {
-        goodResponse.push(evilResponseProps[prop]);
+        goodResponse.push({
+          name: evilResponseProps[prop],
+          id: prop
+        });
       }
     }
     return goodResponse;

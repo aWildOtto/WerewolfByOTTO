@@ -38,11 +38,11 @@ export class WelcomeOlComponent implements OnInit, OnDestroy {
       // so we make this not empty and it doesn't disable the button
     }
     const dialogRef = this.dialog.open(EnterGameDialog, {
-      width: '60%',
+      width: '70%',
       data: {
         isJoin,
         dialogTitle,
-        username: '',
+        username: this.os.getUsername(),
         roomCode
       }
     });

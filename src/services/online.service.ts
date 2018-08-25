@@ -3,6 +3,7 @@ import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
 import { Observable } from 'rxjs';
 import { GameData } from '../model/gameData';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { FirebaseAuth } from '../../node_modules/angularfire2';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,10 @@ export class OnlineService {
     this.afAuth.authState.subscribe(authObj => {
       this.authState = authObj;
     });
+  }
+
+  getAuthObj(): Observable<firebase.User> {
+    return this.afAuth.authState;
   }
 
   checkUserProfile(): boolean {
@@ -111,7 +116,7 @@ export class OnlineService {
   }
 
   getUserID(): string {
-    return this.authState.uid;
+    return localStorage['uid'] || this.authState.uid;
   }
 
   createRoleArray(gameCode: string, roles: string[]): Promise<any> {

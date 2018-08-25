@@ -24,6 +24,7 @@ export class GameConfigOlComponent implements OnInit {
   @Input() players: string[];
   @Input() roles: string[];
   @Input() gameCode: string;
+  @Input() creator: Object;
   @Output() switchPage = new EventEmitter<string>();
 
   public numPlayer = 0;
