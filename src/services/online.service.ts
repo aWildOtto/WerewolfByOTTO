@@ -142,16 +142,16 @@ export class OnlineService {
       gameCode = gameCode.toLowerCase();
       const newPlayerArr = playerArr.slice();
       if (!roleArr.includes('moderator')) {// if roleArr doesn't have moderator->not random mod
-        const mod = newPlayerArr.filter((player, ind) => {
+        const mod = newPlayerArr.find((player, ind) => {
           return player.id === creator.id;
         });
-        const index = newPlayerArr.indexOf(mod[0]);
+        const index = newPlayerArr.indexOf(mod);
         if (index > -1) {
           newPlayerArr.splice(index, 1);
         }
-        this.db.object(`roleData/${gameCode}/${mod[0].id}`).set({// set game creator to mod
-          name: mod[0].name,
-          id: mod[0].id,
+        this.db.object(`roleData/${gameCode}/${mod.id}`).set({// set game creator to mod
+          name: mod.name,
+          id: mod.id,
           role: 'moderator'
         });
       }

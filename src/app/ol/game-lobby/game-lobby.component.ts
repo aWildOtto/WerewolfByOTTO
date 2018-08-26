@@ -45,15 +45,19 @@ export class GameLobbyComponent implements OnInit, OnChanges, OnDestroy {
       });
     }
     if ((change.roles && change.roles.currentValue.length) || (change.players && change.players.currentValue.length)) {
-      if (!this.roles.includes('moderator')) {
-        if (this.roles.length === this.players.length - 1) {
-          this.disableStart = false;
-        }
-      } else {
-        if (this.roles.length === this.players.length) {
-          this.disableStart = false;
+      if (this.roles.length) {
+        if (!this.roles.includes('moderator')) {
+          if (this.roles.length === this.players.length - 1) {
+            this.disableStart = false;
+          } else {
+            this.disableStart = true;
+          }
         } else {
-          this.disableStart = true;
+          if (this.roles.length === this.players.length) {
+            this.disableStart = false;
+          } else {
+            this.disableStart = true;
+          }
         }
       }
     }
