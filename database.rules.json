@@ -3,13 +3,13 @@
     "gameStatus": {
       "$gameCode": {
         ".read": "root.child('players').child($gameCode).child(auth.uid).exists()||root.child('gameData').child($gameCode).child('creator').child(auth.uid).exists()",
-        ".write": "root.child('gameData').child($gameCode).child('creator').child(auth.uid).exists()"
+        ".write": "root.child('roleData').child($gameCode).child(auth.uid).child('role').val() === 'moderator' || root.child('gameData').child($gameCode).child('creator').child(auth.uid).exists()"
       }
     },
     "roleData": {
       "$gameCode": {
-        ".read": "root.child('gameData').child($gameCode).child('creator').child(auth.uid).exists()",
-        ".write": "root.child('gameData').child($gameCode).child('creator').child(auth.uid).exists()",
+        ".read": "data.child(auth.uid).child('role').val() === 'moderator'",
+        ".write": "data.child(auth.uid).child('role').val() === 'moderator' || root.child('gameData').child($gameCode).child('creator').child(auth.uid).exists()",
         "$playerID": {
           ".read": "auth.uid == $playerID ",
           ".write": "root.child('gameData').child($gameCode).child('creator').child(auth.uid).exists()"

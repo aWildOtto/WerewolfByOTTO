@@ -136,6 +136,14 @@ export class OnlineService {
     return this.db.object('gameStatus/' + gameCode.toLowerCase()).set(status);
   }
 
+  // https://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array
+  shuffle(a): string[] {
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
   createRoleData(gameCode: string, roleArr: string[], playerArr: User[], creator: User) {
     return new Promise((resolve, reject) => {
       let i = 0;
@@ -155,6 +163,7 @@ export class OnlineService {
           role: 'moderator'
         });
       }
+      roleArr = this.shuffle(roleArr);
       roleArr.forEach(role => {
         let roleData = {};
         roleData = {
