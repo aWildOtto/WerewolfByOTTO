@@ -12,10 +12,6 @@ import { OnlineService } from '../../../services/online.service';
   styleUrls: ['./mod-page.component.scss']
 })
 export class ModPageComponent implements OnInit, OnDestroy {
-  // TODO: input gameCode, 
-  // get all of roleData/gameCode
-  // display the roleData
-  // - (role) (name)
 
   public roleData: AngularFireObject<Object>;
   private roleDataSubscription: Subscription;
