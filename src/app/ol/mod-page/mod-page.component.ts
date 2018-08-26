@@ -6,6 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./mod-page.component.scss']
 })
 export class ModPageComponent implements OnInit {
+  // TODO: input gameCode, 
+  // get all of roleData/gameCode
+  // display the roleData
+  // - (role) (name)
 
   constructor() { }
 
