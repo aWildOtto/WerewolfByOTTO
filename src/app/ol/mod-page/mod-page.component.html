@@ -1,3 +1,9 @@
-<p>
-  mod-page works!
-</p>
+<mat-card>
+    <mat-list>
+        <mat-list-item *ngFor="let roleData of roleDataArr">
+            <mat-label>
+                {{ls.s[roleData.role]}} : {{roleData.name}}
+            </mat-label>
+        </mat-list-item>
+    </mat-list>
+</mat-card>

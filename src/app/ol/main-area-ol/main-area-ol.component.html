@@ -34,6 +34,10 @@
         ></app-role-reveal-ol>
     </ng-template>
     <ng-template ngSwitchCase="modPage">
-        <app-mod-page (switchPage)="switchPage($event)"></app-mod-page>
+        <app-mod-page
+            [gameCode]="gameCode"
+            [roleDataArr]="roleDataArr"
+            (switchPage)="switchPage($event)"
+        ></app-mod-page>
     </ng-template>
 </div>

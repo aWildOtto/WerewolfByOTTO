@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Role } from '../../../model/role';
+import { LanguageService } from '../../../services/language.service';
 
 @Component({
   selector: 'app-mod-page',
@@ -11,7 +13,10 @@ export class ModPageComponent implements OnInit {
   // display the roleData
   // - (role) (name)
 
-  constructor() { }
+  @Input() gameCode: string;
+  @Input() roleDataArr: Role[];
+
+  constructor(public ls: LanguageService) { }
 
   ngOnInit() {
   }

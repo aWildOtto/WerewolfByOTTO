@@ -7,6 +7,7 @@ import { GameData } from '../../../model/gameData';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { Observable, Subscription } from 'rxjs';
 import { User } from '../../../model/User';
+import { Role } from '../../../model/role';
 
 @Component({
   selector: 'app-main-area-ol',
@@ -20,16 +21,19 @@ export class MainAreaOlComponent implements OnInit, OnDestroy {
   public gameData: AngularFireObject<GameData>;
   public creator: User = {};
   public playersData: AngularFireObject<Object>;
-  public rolesData: AngularFireObject<string[]>;
+  public rolesData: AngularFireObject<string[]>; // purely contain roles withour player
   public gameStatusData: AngularFireObject<string>;
+  public roleData: AngularFireObject<Object>; // match players with thier roles
   public players: User[] = [];
   public roles: string[] = [];
+  public roleDataArr: Role[] = [];
   public currentRoleData = {};
   private gameDataSubscription: Subscription;
   private playersSubscription: Subscription;
   private rolesSubscription: Subscription;
   private gameStatusSubscription: Subscription;
   private dialogSubscription: Subscription;
+  private roleDataSubscription: Subscription;
 
   // Possible Pages:
   // mainAreaOl
@@ -53,6 +57,7 @@ export class MainAreaOlComponent implements OnInit, OnDestroy {
       this.playersData = this.os.getData('players', this.gameCode);
       this.rolesData = this.os.getData('roles', this.gameCode);
       this.gameStatusData = this.os.getData('gameStatus', this.gameCode);
+      this.roleData = this.os.getData('roleData', this.gameCode);
       this.gameDataSubscription = this.gameData.valueChanges().subscribe(data => {// subscribe to game change if it exists
         if (data) {
           this.creator = {
@@ -71,6 +76,11 @@ export class MainAreaOlComponent implements OnInit, OnDestroy {
       this.rolesSubscription = this.rolesData.valueChanges().subscribe(rolesArr => {
         if (rolesArr) {
           this.roles = rolesArr;
+        }
+      });
+      this.roleDataSubscription = this.roleData.valueChanges().subscribe(roleDataObj => {
+        if (roleDataObj) {
+          this.roleDataArr = this.convertRoleDateToArr(roleDataObj);
         }
       });
       this.gameStatusSubscription = this.gameStatusData.valueChanges().subscribe(gameStatus => {
@@ -134,6 +144,20 @@ export class MainAreaOlComponent implements OnInit, OnDestroy {
     return goodResponse;
   }
 
+  convertRoleDateToArr(evilResponseProps: {}): Role[] {
+    const goodResponse: Role[] = [];
+    for (const prop in evilResponseProps) {
+      if (prop) {
+        goodResponse.push({
+          id: evilResponseProps[prop].id,
+          name: evilResponseProps[prop].name,
+          role: evilResponseProps[prop].role
+        });
+      }
+    }
+    return goodResponse;
+  }
+
   ngOnInit() { }
 
   ngOnDestroy() {
@@ -152,6 +176,9 @@ export class MainAreaOlComponent implements OnInit, OnDestroy {
     }
     if (this.gameStatusSubscription) {
       this.gameStatusSubscription.unsubscribe();
+    }
+    if (this.roleDataSubscription) {
+      this.roleDataSubscription.unsubscribe();
     }
   }
 
