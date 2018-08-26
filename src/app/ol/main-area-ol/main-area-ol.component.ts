@@ -18,7 +18,7 @@ export class MainAreaOlComponent implements OnInit, OnDestroy {
   public showPage: string;
   public gameCode: string;
   public gameData: AngularFireObject<GameData>;
-  public creator: Object = {};
+  public creator: User = {};
   public playersData: AngularFireObject<Object>;
   public rolesData: AngularFireObject<string[]>;
   public gameStatusData: AngularFireObject<string>;
@@ -56,7 +56,7 @@ export class MainAreaOlComponent implements OnInit, OnDestroy {
       this.gameDataSubscription = this.gameData.valueChanges().subscribe(data => {// subscribe to game change if it exists
         if (data) {
           this.creator = {
-            name: Object.values(data.creator)[0],
+            name: Object.values(data.creator)[0].toString(),
             id: Object.keys(data.creator)[0]
           };
         } else {

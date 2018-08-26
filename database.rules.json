@@ -9,6 +9,7 @@
     "roleData": {
       "$gameCode": {
         ".read": "root.child('gameData').child($gameCode).child('creator').child(auth.uid).exists()",
+        ".write": "root.child('gameData').child($gameCode).child('creator').child(auth.uid).exists()",
         "$playerID": {
           ".read": "auth.uid == $playerID ",
           ".write": "root.child('gameData').child($gameCode).child('creator').child(auth.uid).exists()"

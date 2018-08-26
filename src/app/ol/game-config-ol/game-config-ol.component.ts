@@ -72,7 +72,7 @@ export class GameConfigOlComponent implements OnInit {
     this.numPlayer = Number(this.villagerInputControl.value) + Number(this.werewolfInputControl.value);
     this.seer ? this.numPlayer += 1 : null;
     this.guardian ? this.numPlayer += 1 : null;
-    this.moderator ? this.numPlayer += 1 : null;
+    this.numPlayer += 1; // this.moderator 
     this.hunter ? this.numPlayer += 1 : null;
     this.witch ? this.numPlayer += 1 : null;
   }

@@ -56,5 +56,6 @@
   "language": "语言设置:",
   "version": "模式版:",
   "moderator": "法官",
+  "randomModerator": "随机法官",
   "numPlayers": "游戏房间人数："
 }

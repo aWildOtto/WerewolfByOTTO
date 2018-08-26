@@ -56,5 +56,6 @@
   "language": "Language:",
   "version": "Version:",
   "moderator": "Moderator",
+  "randomModerator": "Random Moderator",
   "numPlayers": "Number of players in the room:"
 }

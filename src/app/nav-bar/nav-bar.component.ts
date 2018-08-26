@@ -3,6 +3,7 @@ import { LanguageService } from '../../services/language.service';
 import { GameService } from '../../services/game.service';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { OnlineService } from '../../services/online.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -12,6 +13,7 @@ import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 export class NavBarComponent implements OnInit {
   devMode = false;
   public version = 'online';
+  private url = '';
 
   refresh() {
     window.location.reload();
@@ -27,6 +29,7 @@ export class NavBarComponent implements OnInit {
     }
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
+        this.url = event.url;
         if (event.url === '/offline') {
           this.version = 'offline';
         } else {
@@ -49,7 +52,8 @@ export class NavBarComponent implements OnInit {
       width: '70%',
       data: {
         version: this.version,
-        language: this.ls.language
+        language: this.ls.language,
+        gameCode: this.url
       }
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -67,8 +71,9 @@ export class NavBarComponent implements OnInit {
 export class SettingsDialog {
 
   constructor(
-    public ls: LanguageService,
     public dialogRef: MatDialogRef<SettingsDialog>,
+    public ls: LanguageService,
+    private os: OnlineService,
     private router: Router,
     private gs: GameService,
     @Inject(MAT_DIALOG_DATA) public data
@@ -99,7 +104,11 @@ export class SettingsDialog {
   }
 
   restartGame(event) {
-    this.gs.restart();
+    if (this.data.version === 'offline') {
+      this.gs.restart();
+    } else {
+      this.os.restart(this.data.gameCode);
+    }
     this.dialogRef.close();
   }
 

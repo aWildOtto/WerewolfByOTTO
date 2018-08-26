@@ -32,7 +32,6 @@
                                 type="number"
                                 [formControl]="werewolfInputControl"
                             >
-
                         </mat-form-field>
                         <button
                             mat-icon-button
@@ -71,6 +70,16 @@
                         </button>
                     </mat-list-item>
                     <mat-list-item>
+                        <mat-checkbox
+                            class="std-margin"
+                            (change)="sumPlayer()"
+                            [(ngModel)]="moderator"
+                            checked="moderator"
+                        >
+                            {{ls.s['randomModerator']}}
+                        </mat-checkbox>
+                    </mat-list-item>
+                    <mat-list-item>
                         <section class="input-section">
                             <mat-checkbox
                                 class="std-margin"
@@ -90,21 +99,6 @@
                             >
                                 {{ls.s['guardian']}}
                             </mat-checkbox>
-                            <mat-checkbox
-                                class="std-margin"
-                                (change)="sumPlayer()"
-                                [(ngModel)]="moderator"
-                                checked="moderator"
-                            >
-                                {{ls.s['moderator']}}
-                                <button
-                                    mat-icon-button
-                                    matTooltip="if checked means the judge will be randomly picked, otherwise will be the creator"
-                                >
-                                    <mat-icon>help_outline</mat-icon>
-                                </button>
-                            </mat-checkbox>
-
                         </section>
                     </mat-list-item>
                 </mat-list>

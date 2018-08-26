@@ -24,6 +24,14 @@ export class OnlineService {
     });
   }
 
+  restart(gameCode: string) {
+    this.db.object(`gameStatus${gameCode.toLowerCase()}`).set('preparing').then(result => {
+      if (!result) {
+        this.db.object(`roleData${gameCode.toLowerCase()}`).remove();
+      }
+    });
+  }
+
   getAuthObj(): Observable<firebase.User> {
     return this.afAuth.authState;
   }
@@ -97,11 +105,6 @@ export class OnlineService {
                 [uid]: username
               }
             }),
-          // playes array s
-          this.db.object('players/' + newGameCode)
-            .set({
-              [uid]: username
-            }),
           this.db.object('gameStatus/' + newGameCode)
             .set('preparing')
         ])
@@ -133,18 +136,36 @@ export class OnlineService {
     return this.db.object('gameStatus/' + gameCode.toLowerCase()).set(status);
   }
 
-  createRoleData(gameCode: string, roleArr: string[], playerArr: User[]) {
-    let i = 0;
-    gameCode = gameCode.toLowerCase();
-    roleArr.forEach(role => {
-      let roleData = {};
-      roleData = {
-        name: playerArr[i].name,
-        id: playerArr[i].id,
-        role,
-      };
-      this.db.object(`roleData/${gameCode}/${playerArr[i].id}`).set(roleData);
-      i++;
+  createRoleData(gameCode: string, roleArr: string[], playerArr: User[], creator: User) {
+    return new Promise((resolve, reject) => {
+      let i = 0;
+      gameCode = gameCode.toLowerCase();
+      const newPlayerArr = playerArr.slice();
+      if (!roleArr.includes('moderator')) {// if roleArr doesn't have moderator->not random mod
+        const mod = newPlayerArr.filter((player, ind) => {
+          return player.id === creator.id;
+        });
+        const index = newPlayerArr.indexOf(mod[0]);
+        if (index > -1) {
+          newPlayerArr.splice(index, 1);
+        }
+        this.db.object(`roleData/${gameCode}/${mod[0].id}`).set({// set game creator to mod
+          name: mod[0].name,
+          id: mod[0].id,
+          role: 'moderator'
+        });
+      }
+      roleArr.forEach(role => {
+        let roleData = {};
+        roleData = {
+          name: newPlayerArr[i].name,
+          id: newPlayerArr[i].id,
+          role,
+        };
+        this.db.object(`roleData/${gameCode}/${newPlayerArr[i].id}`).set(roleData);
+        i++;
+      });
+      resolve(true);
     });
   }
 

@@ -31,7 +31,7 @@
         mat-raised-button
         (click)="startGame()"
         color="primary"
-        [disabled]="this.players.length !== this.roles.length"
+        [disabled]="disableStart"
     >
         {{ls.s["startGame"]}}
     </button>

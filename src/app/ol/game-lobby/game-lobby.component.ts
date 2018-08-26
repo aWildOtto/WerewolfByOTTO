@@ -18,10 +18,12 @@ export class GameLobbyComponent implements OnInit, OnChanges, OnDestroy {
   @Input() gameData: AngularFireObject<GameData>;
   @Input() players: User[];
   @Input() roles: string[];
-  @Input() creator;
+  @Input() creator: User;
   @Output() switchPage = new EventEmitter<string>();
   public currentUserId = '';
   public disableActions = false;
+  public disableStart = true;
+
 
   constructor(
     public ls: LanguageService,
@@ -42,7 +44,19 @@ export class GameLobbyComponent implements OnInit, OnChanges, OnDestroy {
         }
       });
     }
-
+    if ((change.roles && change.roles.currentValue.length) || (change.players && change.players.currentValue.length)) {
+      if (!this.roles.includes('moderator')) {
+        if (this.roles.length === this.players.length - 1) {
+          this.disableStart = false;
+        }
+      } else {
+        if (this.roles.length === this.players.length) {
+          this.disableStart = false;
+        } else {
+          this.disableStart = true;
+        }
+      }
+    }
   }
 
   ngOnDestroy() {
@@ -57,7 +71,8 @@ export class GameLobbyComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   startGame() {
-    this.os.createRoleData(this.gameCode, this.roles, this.players);
-    this.os.changeGameStatus(this.gameCode, 'started');
+    this.os.createRoleData(this.gameCode, this.roles, this.players, this.creator).then(res => {
+      this.os.changeGameStatus(this.gameCode, 'started');
+    });
   }
 }
