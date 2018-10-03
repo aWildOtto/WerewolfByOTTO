@@ -1,5 +1,8 @@
 # Werewolf
-This is a simple werewolf web game for playing werewolf offline with friends. 
+- To save us money for buying a deck of werewolf cards.
+- To make game moderators' lives easier and more fun.
+- To make werewolf games more intractive.
+This is a simple werewolf web app for playing werewolf offline with friends. 
 Note this is NOT an online game. The app is designed with the expectation that Players play werewolf face to face.
 
 ## How it works
