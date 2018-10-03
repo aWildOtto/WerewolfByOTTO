@@ -5,7 +5,7 @@ Note this is NOT an online game. The app is designed with the expectation that P
 ## Goals
 - To save us money for buying a deck of werewolf cards.
 - To make game moderators' lives easier and more fun.
-- To make werewolf games more intractive.
+- To make werewolf games more interactive.
 
 ## How it works
 ### Offline version
