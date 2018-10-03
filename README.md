@@ -1,5 +1,6 @@
 # Werewolf
-This is a simple werewolf web game for playing werewolf offline with friends. One phone is required for playing. 
+This is a simple werewolf web game for playing werewolf offline with friends. 
+Note this is NOT an online game. The app is designed with the expectation that Players play werewolf face to face.
 
 ## How it works
 ### Offline version
