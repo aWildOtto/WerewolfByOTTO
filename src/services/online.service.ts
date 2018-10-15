@@ -121,7 +121,7 @@ export class OnlineService {
   }
 
   getUsername(): string {
-    return localStorage.getItem('username');
+    return localStorage.getItem('username') || '';
   }
 
   getUserID(): string {
