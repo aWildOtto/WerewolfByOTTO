@@ -16,7 +16,7 @@ Note this is NOT an online game. The app is expected the players to interact fac
 3. The phone goes back to the game moderator and the app continues helping the moderator to facilitate the game.
 ### Online version
 1. The game creator should type the name and press start to generates a game code and enter the game lobby.
-2. Share with other players so they can join this game via the code.
+2. Share the game code with other players so they can join this game.
 3. Configure the game by setting the roles.
 4. The game creator starts the game. 
 5. All players check their roles secretly on their own phones (no need to pass one phone around).
