@@ -1,25 +1,29 @@
 # Werewolf
 This is a simple werewolf web app for playing werewolf with friends. The app provides a platform to resolve the restrictions using game cards. This game can be played anywhere with anybody. It is multi-language supported (English and Chineses) which overcomes the language barriers.
-Note this is NOT an online game. The app is expected the players interact face to face.
+
+Note this is NOT an online game. The app is expected the players to interact face to face.
 
 ## Goals
 - To save money for buying a deck of werewolf cards.
 - To make it easier for game moderators to track the status of each player and remaining skills for the special characters.
+- To save the current game state, and continue to play next time.
 - To make werewolf games more interactive.
 
 ## How it works
 ### Offline version
 1. Start a game by configuring the roles to play in the game.
-2. Pass the phone to the players for them to check their roles secretly.
+2. Pass the phone to other players to check their roles secretly.
 3. The phone goes back to the game moderator and the app continues helping the moderator to facilitate the game.
 ### Online version
 1. The game creator should type the name and press start to generates a game code and enter the game lobby.
-2. Share the game code with other players so they can join this game via the code.
-3. Configure the game by setting the roles to play.
-4. The game creator starts the game. All players check their roles secretly on their own phones (no need to pass one phone around).
+2. Share with other players so they can join this game via the code.
+3. Configure the game by setting the roles.
+4. The game creator starts the game. 
+5. All players check their roles secretly on their own phones (no need to pass one phone around).
 #### ---------------TO BE IMPLEMENTED---------------------------
-5. The game moderator(random or always the game creator) can see everyone's role and the app can help facilitate the game.
-6. More roles with specific skills. 
+5. The game moderator can be randomly selected or always is the game creator.
+6. The game moderator can see every player's role and the app can help facilitate the game. 
+7. More roles with specific skills. 
 
 ## Technologies used
 - Angular 6
