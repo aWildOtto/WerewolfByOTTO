@@ -1,5 +1,5 @@
 # Werewolf
-This is a simple werewolf web app for playing werewolf with friends. The app provides a platform to resolve the restrictions using game cards. This game can be played anywhere with anybody. It is multi-language supported (English and Chineses) which overcomes the language barriers.
+This is a simple werewolf web app for playing werewolf with friends. The app provides a platform to resolve the limitations using game cards. This game can be played anywhere with anybody using this app. It is multi-language supported (English and Chineses) which overcomes the language barriers.
 
 Note this is NOT an online game. The app is expected the players to interact face to face.
 
